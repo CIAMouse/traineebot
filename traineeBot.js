@@ -247,11 +247,44 @@ function addToListGet(){
 	                                makingListAddon = makingListAddon;
 	                                break;
 	                            }
-	                            
-	                            
-	                            
-	                            
 	                        }
+	                        
+	                        var thingToEditFinal = makingListAddon;
+	                        
+	                        
+	                        //   CHECK FOR SUBCOMMAND KEYWORD
+	                        
+	                        
+	                        if(thingToEditFinal === 'IGN'){
+	                            
+	                            
+	                            
+	                        }else{
+	                            context.sendResponse('Error: Invalid subcommand. *' + thingToEditFinal + '* is not a known subcommand. Please check for typos in your message.\n>_I am a bot. This action was performed automagically!_');
+	                        }
+	                        
+	                        if(thingToEditFinal === 'IGN'){
+	                            
+	                            
+	                            
+	                        }else{
+	                            context.sendResponse('Error: Invalid subcommand. *' + thingToEditFinal + '* is not a known subcommand. Please check for typos in your message.\n>_I am a bot. This action was performed automagically!_');
+	                        }
+	                        
+	                        
+	                        if(thingToEditFinal === 'IGN'){
+	                            
+	                            
+	                            
+	                        }else{
+	                            context.sendResponse('Error: Invalid subcommand. *' + thingToEditFinal + '* is not a known subcommand. Please check for typos in your message.\n>_I am a bot. This action was performed automagically!_');
+	                        }
+	                        
+	                        
+	                        
+	                        
+	                        
+	                        
 	                        
 	                    }else{
 	                        editTraineeSyntaxError();
