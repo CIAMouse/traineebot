@@ -250,36 +250,28 @@ function addToListGet(){
 	                        }
 	                        
 	                        var thingToEditFinal = makingListAddon;
-	                        
-	                        
-	                        //   CHECK FOR SUBCOMMAND KEYWORD
-	                        
-	                        
-	                        if(thingToEditFinal === 'IGN'){
+
+
+
+	                        if((event.message[lastKnownQuote + 1] === ' ') && (event.message[lastKnownQuote + 2] === '"')){
 	                            
+	                            makingListAddon = '';
 	                            
-	                            
-	                        }else{
-	                            context.sendResponse('Error: Invalid subcommand. *' + thingToEditFinal + '* is not a known subcommand. Please check for typos in your message.\n>_I am a bot. This action was performed automagically!_');
-	                        }
-	                        
-	                        if(thingToEditFinal === 'IGN'){
-	                            
-	                            
-	                            
-	                        }else{
-	                            context.sendResponse('Error: Invalid subcommand. *' + thingToEditFinal + '* is not a known subcommand. Please check for typos in your message.\n>_I am a bot. This action was performed automagically!_');
-	                        }
-	                        
-	                        
-	                        if(thingToEditFinal === 'IGN'){
-	                            
-	                            
+	                            for(u = lastKnownQuote + 1; u < event.message.length; u++){
+	                                
+	                                if(event.message[u] !== '"'){
+	                                    makingListAddon = makingListAddon + event.message[u];
+	                                }else{
+	                                    lastKnownQuote = u;
+	                                    makingListAddon = makingListAddon;
+	                                    break;
+	                                }
+	                                
+	                            }
 	                            
 	                        }else{
-	                            context.sendResponse('Error: Invalid subcommand. *' + thingToEditFinal + '* is not a known subcommand. Please check for typos in your message.\n>_I am a bot. This action was performed automagically!_');
+	                            editTraineeSyntaxError();
 	                        }
-	                        
 	                        
 	                        
 	                        
