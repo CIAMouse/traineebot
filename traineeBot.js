@@ -273,7 +273,7 @@ function addToListGet(){
 	                            context.simpledb.doGet(traineeToEditFinal);
 	                            
 	                        }else{
-	                            context.sendResponse(r);
+	                            editTraineeSyntaxError();
 	                        }
 	                        
 	                        
