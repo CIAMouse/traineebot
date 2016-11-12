@@ -122,7 +122,7 @@ function addToListGet(){
 	                    }
 	                    if(badNewName === false){
 	                     context.simpledb.botleveldata.trainees.push(newTrainee);
-	                     context.simpledb.doPut(newTrainee, '{"name":"' + newTrainee + '", "IGN":"", "IP":""}');
+	                     context.simpledb.doPut(newTrainee, '{"name":"' + newTrainee + '", "IGN":"", "knownIPs":[]}');
 	                     context.sendResponse('Added *' + newTrainee + '* to the trainee list!\n>_I am a bot. This action was performed automagically!_');
 	                    }
 	                    else{
@@ -425,7 +425,7 @@ function addToListGet(){
 	        if(isNewUserVariable === true){
 	            var addOldUser = event.senderobj.subdisplay;
 	            var asdfg = context.simpledb.botleveldata.oldusers;
-	            if(addOldUser !== null){
+	            if(addOldUser !== null || addOldUser !== 'null'){
 	            asdfg.push(addOldUser);
 	            }else{
 	                
@@ -465,7 +465,7 @@ function addToListGet(){
 	        var traineeToEditObj = JSON.parse(event.dbval);
 	        var currentTraineeName = traineeToEditObj.name;
 	        var currentTraineeIGN = traineeToEditObj.IGN;
-	        var currentTraineeIP = traineeToEditObj.IP
+	        var currentTraineeKnownIPs = traineeToEditObj.knownIPs
 	        context.sendResponse(traineeToEditObj.name);
 	        
 	    }
