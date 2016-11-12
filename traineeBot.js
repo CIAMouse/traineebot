@@ -213,7 +213,7 @@ function addToListGet(){
 	                    if(event.message[r] !== '"'){
 	                        makingListAddon = makingListAddon + event.message[r];
 	                    }else{
-	                        lastKnownQuote = event.message[r];
+	                        lastKnownQuote = r;
 	                        makingListAddon = makingListAddon;
 	                        break;
 	                    }
@@ -233,10 +233,26 @@ function addToListGet(){
 	                
 	                if(isKnownTrainee === true){
 	                    // Trainee is known, begin parsing of what to change, what to change it to
-	                    if(event.message[lastKnownQuote + 1] === ' ' && event.message[lastKnownQuote + 2] === '"'){
-	                        for(d = lastKnownQuote; d < event.message.length; d++){
+	                    if((event.message[lastKnownQuote + 1] === ' ') && (event.message[lastKnownQuote + 2] === '"')){
+	                        makingListAddon = '';
+	                        
+	                        for(x = lastKnownQuote + 1; x < event.message.length; x++){
+	                            
+	                            
+	                            
+	                            if(event.message[x] !== '"'){
+	                                makingListAddon = makingListAddon + event.message[x];
+	                            }else{
+	                                lastKnownQuote = x;
+	                                makingListAddon = makingListAddon;
+	                                break;
+	                            }
+	                            
+	                            
+	                            
 	                            
 	                        }
+	                        
 	                    }else{
 	                        editTraineeSyntaxError();
 	                    }
@@ -246,7 +262,7 @@ function addToListGet(){
 	                    
 	                    
 	                }else{
-	                    editTraineeSyntaxError();
+	                    context.sendResponse('Error: *' + traineeToEditFinal + '* is an unknown trainee. Please check for typos in your message, or use `[getTrainees]` to get the latest list of trainees.\n>_I am a bot. This action was performed automagically!_');
 	                }
 	                
 	                
