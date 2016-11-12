@@ -236,14 +236,14 @@ function addToListGet(){
 	                    if((event.message[lastKnownQuote + 1] === ' ') && (event.message[lastKnownQuote + 2] === '"')){
 	                        makingListAddon = '';
 	                        
-	                        for(x = lastKnownQuote + 1; x < event.message.length; x++){
+	                        for(r = lastKnownQuote; r < event.message.length; r++){
 	                            
 	                            
 	                            
-	                            if(event.message[x] !== '"'){
-	                                makingListAddon = makingListAddon + event.message[x];
+	                            if(event.message[r] !== '"'){
+	                                makingListAddon = makingListAddon + event.message[r];
 	                            }else{
-	                                lastKnownQuote = x;
+	                                lastKnownQuote = r;
 	                                makingListAddon = makingListAddon;
 	                                break;
 	                            }
@@ -257,7 +257,7 @@ function addToListGet(){
 	                            
 	                            makingListAddon = '';
 	                            
-	                            for(u = lastKnownQuote + 1; u < event.message.length; u++){
+	                            for(u = lastKnownQuote; u < event.message.length; u++){
 	                                
 	                                if(event.message[u] !== '"'){
 	                                    makingListAddon = makingListAddon + event.message[u];
@@ -269,8 +269,11 @@ function addToListGet(){
 	                                
 	                            }
 	                            
+	                            var editToAddFinal = makingListAddon;
+	                            context.simpledb.doGet(traineeToEditFinal);
+	                            
 	                        }else{
-	                            editTraineeSyntaxError();
+	                            context.sendResponse(r);
 	                        }
 	                        
 	                        
@@ -491,7 +494,12 @@ function addToListGet(){
 	        var currentTraineeName = traineeToEditObj.name;
 	        var currentTraineeIGN = traineeToEditObj.IGN;
 	        var currentTraineeKnownIPs = traineeToEditObj.knownIPs
-	        context.sendResponse(traineeToEditObj.name);
+	        
+	        if(event.message){
+	            
+	        }else{
+	            
+	        }
 	        
 	    }
 	
