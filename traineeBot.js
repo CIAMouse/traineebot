@@ -23,6 +23,7 @@ var isKnownTrainee = false;
 var traineeToEditFinal = '';
 var editToAddFinal = '';
 var thingToEditFinal = '';
+var thingToDBValueCheck = '';
 function editTraineeSyntaxError(){
     context.sendResponse('Error: Can\'t parse the command. Correct Syntax:\n`[editTrainee] "<trainee-name>" "<name/IGN/knownIPs>" "<text>"`\n>_I am a bot. This action was performed automagically!_');
 }
@@ -40,14 +41,14 @@ function editTraineeSyntaxError(){
 	            }
 	        
 	            else if(event.message.toLowerCase() === '[menu]'){
-	                context.sendResponse('_Showing menu..._\n\n*Type the command shown in red for each article.*\n\nGetting Started...`[start]`\nCommands...`[tools]`\nVideo...`[t-vid]`\nAdministration...`[admins]`\n>_I am a bot. This action was performed automagically!_');
+	                context.sendResponse('_Showing menu..._\n\n*Type the command shown in red for each article.*\n\nGetting Started...`[start]`\nMenu... `[menu]`\nCommands...`[tools]`\nVideo...`[t-vid]`\nAdministration...`[admins]`\n>_I am a bot. This action was performed automagically!_');
 	            }
 	        
-	            else if(event.message === '[t-vid]'){
+	            else if(event.message.toLowerCase() === '[t-vid]'){
 	                context.sendResponse('Please watch this entertaining video for more info! https://www.youtube.com/watch?v=Butvl6MzG50&feature=youtu.be');
 	            }
 	        
-	            else if (event.message === '[tools]'){
+	            else if (event.message.toLowerCase() === '[tools]'){
 	                context.sendResponse('_Showing mod tools..._\n\n*Please note:* Trainees do *NOT* have access to these tools; they are here for you to learn them and know how to use them for when you graduate.\n\n`/lbban` - The main moderator command. Follow `/lbban` with `<player> <time-in-minutes|skin|warn> [reason (optional)]`. For example, if I were to ban myself (elite041802) for 15 minutes for reason: hacking, I would use `/lbban elite041802 15 Hacking`.\n\n`/lbban <player> skin` - Replaces a players current skin with its Alex or Steve counterparts.\n\n`/lbban <player> warn` - Warns the player that they are using inappropriate conduct and mutes them for five minutes.\n\n`/mod fly` - Toggles invisibility and flying ability.\n\n`/separate <player1> <player2>` - Bounces the two specified players back from each other and prevents them from seeing each other\'s chat messages.\n\n`/move <player>` - Teleports you to the specified player.\n\n>_I am a bot. This action was performed automagically!_');
 	            }
 	        
@@ -98,7 +99,7 @@ function editTraineeSyntaxError(){
 	                    }
 	                    if(badNewName === false){
 	                     context.simpledb.botleveldata.trainees.push(newTrainee);
-	                     context.simpledb.doPut(newTrainee, '{"name":"' + newTrainee + '", "IGN":"", "knownIPs":[]}');
+	                     context.simpledb.doPut(newTrainee, '{"name":"' + newTrainee + '", "IGN":"Unknown", "IP":"Unknown"}');
 	                     context.sendResponse('Added *' + newTrainee + '* to the trainee list!\n>_I am a bot. This action was performed automagically!_');
 	                    }
 	                    else{
@@ -132,7 +133,7 @@ function editTraineeSyntaxError(){
 	        }
 	        
 	        else if(event.message.substring(0,11) === '[rmTrainee]'){
-	            if(event.senderobj.display === 'Dave Diaz' || event.senderobj.display === 'Kaleb Wasmuth'){
+	            
 	                
 	            
 	            
@@ -162,10 +163,7 @@ function editTraineeSyntaxError(){
 	            else{
 	                context.sendResponse('Error: Can\'t parse command. Correct syntax:\n`[rmTrainee] "<trainee-name>"`\n>_I am a bot. This action was performed automagically!_');
 	            }
-	            }
-	            else{
-	                context.sendResponse('Error: Incorrect Permissions.\n>_I am a bot. This action was performed automagically!_');
-	            }
+	            
 	        }
 	        else if(event.message === '[clearTrainees]'){
 	            if(event.senderobj.subdisplay === "kaleb418"){
@@ -180,7 +178,7 @@ function editTraineeSyntaxError(){
 	        //   <<<<<<>>>>>>  EDIT TRAINEE BLOCK <<<<<<>>>>>>
 	        
 	        else if(event.message.substring(0,13) === '[editTrainee]'){
-	            if(event.senderobj.subdisplay === 'kaleb418' || event.senderobj.subdisplay === 'ciamouse'){
+	            
 	            if(event.message[14] === '"'){
 	                var makingListAddon = '';
 	                
@@ -245,6 +243,7 @@ function editTraineeSyntaxError(){
 	                            }
 	                            
 	                            editToAddFinal = makingListAddon;
+	                            thingToDBValueCheck = 'editTrainee';
 	                            context.simpledb.doGet(traineeToEditFinal);
 	                            
 	                        }else{
@@ -262,9 +261,7 @@ function editTraineeSyntaxError(){
 	            }else{
 	                editTraineeSyntaxError();
 	            }
-	        }else{
-	            context.sendResponse('Error: Incorrect Permissions.\n>_I am a bot. This action was performed automagically!_');
-	        }
+	        
 	        }
 	        else if(event.message === '[getRawTrainees]'){
 	            if(event.senderobj.display === 'Kaleb Wasmuth'){
@@ -360,6 +357,15 @@ function editTraineeSyntaxError(){
 	            }
 	        }
 	        
+	        
+	        else if(event.message.substring(0, 16) === '[getTraineeInfo]'){
+	            context.sendResponse('Under construction...');
+	        }
+	        
+	        
+	        
+	        
+	        
 	        else if(event.message === '[getKnownUsers]'){
 	            if(event.senderobj.subdisplay === 'kaleb418'){
 	                for(r = 0; r < context.simpledb.botleveldata.oldusers.length; r++){
@@ -440,23 +446,46 @@ function editTraineeSyntaxError(){
 	
 	    function DbGetHandler(context, event) {
 	        
+	        
+	        if(thingToDBValueCheck === 'editTrainee'){
+	            
 	        var traineeToEditObj = JSON.parse(event.dbval);
 	        var currentTraineeName = traineeToEditObj.name;
 	        var currentTraineeIGN = traineeToEditObj.IGN;
-	        var currentTraineeKnownIPs = traineeToEditObj.knownIPs;
+	        var currentTraineeIP = traineeToEditObj.IP;
+	        
 	        
 	        
 	        if(thingToEditFinal === 'name'){
-	            context.sendResponse('x ' + traineeToEditFinal + ', ' + thingToEditFinal + ', ' + editToAddFinal);
+	            var oldName = currentTraineeName;
+	            context.simpledb.doPut(traineeToEditFinal, '{"name":"' + editToAddFinal + '", "IGN":"' + currentTraineeIGN + '", "IP":"' + currentTraineeIP + '"}');
+	            context.sendResponse('Successfully changed ' + traineeToEditFinal + '\'s name from *' + oldName + '* to *' + editToAddFinal +'*.\n>_I am a bot. This action was performed automagically!_');
 	        }
 	        
 	        else if(thingToEditFinal === 'IGN'){
-	            context.sendResponse('y ' + traineeToEditFinal + ', ' + thingToEditFinal + ', ' + editToAddFinal);
+	            var oldIGN = currentTraineeIGN;
+	            context.simpledb.doPut(traineeToEditFinal, '{"name":"' + currentTraineeName + '", "IGN":"' + editToAddFinal + '", "IP":"' + currentTraineeIP + '"}');
+	            context.sendResponse('Successfully changed ' + traineeToEditFinal + '\'s IGN from *' + oldIGN + '* to *' + editToAddFinal +'*.\n>_I am a bot. This action was performed automagically!_');
 	        }
 	        
-	        else if(thingToEditFinal === 'knownIPs'){
-	            context.sendResponse('z ' + traineeToEditFinal + ', ' + thingToEditFinal + ', ' + editToAddFinal);
+	        else if(thingToEditFinal === 'IP'){
+	            if((event.senderobj.subdisplay === 'kaleb418') || (event.senderobj.subdisplay === 'ciamouse')){
+	            var oldIP = currentTraineeIP;
+	            context.simpledb.doPut(traineeToEditFinal, '{"name":"' + currentTraineeName + '", "IGN":"' + currentTraineeIGN + '", "IP":"' + editToAddFinal + '"}');
+	            context.sendResponse('Successfully changed ' + traineeToEditFinal + '\'s IP from *' + oldIP + '* to *' + editToAddFinal +'*.\n>_I am a bot. This action was performed automagically!_');
+	            }else{
+	                context.sendResponse('Error: Incorrect Permissions.\n>_I am a bot. This action was performed automatically!_');
+	            }
 	        }else{
+	            context.sendResponse('Why am I here');
+	        }
+	        }
+	        
+	        else if(thingToDBValueCheck === 'getTraineeInfo'){
+	            
+	        }
+	        
+	        else{
 	            
 	        }
 	    }
