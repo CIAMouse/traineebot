@@ -20,6 +20,9 @@ var hasFoundUser = false;
 var makeUserToRemove = '';
 var thingToEdit = '';
 var isKnownTrainee = false;
+var traineeToEditFinal = '';
+var editToAddFinal = '';
+var thingToEditFinal = '';
 function editTraineeSyntaxError(){
     context.sendResponse('Error: Can\'t parse the command. Correct Syntax:\n`[editTrainee] "<trainee-name>" "<name/IGN/knownIPs>" "<text>"`\n>_I am a bot. This action was performed automagically!_');
 }
@@ -37,7 +40,7 @@ function editTraineeSyntaxError(){
 	            }
 	        
 	            else if(event.message.toLowerCase() === '[menu]'){
-	                context.sendResponse('_Showing menu..._\n\n*Type the command shown in red for each article.*\n\nGetting Started...`[start]`\nCommands...`[tools]`\nVideo...`[t-vid]`\nAdministration...`[admins]`\nStaff Guidelines...`[guidelines]`\n>_I am a bot. This action was performed automagically!_');
+	                context.sendResponse('_Showing menu..._\n\n*Type the command shown in red for each article.*\n\nGetting Started...`[start]`\nCommands...`[tools]`\nVideo...`[t-vid]`\nAdministration...`[admins]`\n>_I am a bot. This action was performed automagically!_');
 	            }
 	        
 	            else if(event.message === '[t-vid]'){
@@ -53,11 +56,6 @@ function editTraineeSyntaxError(){
 	            
 	        }
 	        
-	        else if (event.message.toLowerCase() === '[guidelines]'){
-	            context.sendResponse('This page is still under development.');
-	            //context.sendResponse('');
-	            
-	        }
 	        
 	        
 	        else if(event.message.toLowerCase() === '[start-3]'){
@@ -187,17 +185,17 @@ function editTraineeSyntaxError(){
 	                var makingListAddon = '';
 	                
 	                
-	                for(r = 15; r < event.message.length; r++){
-	                    if(event.message[r] !== '"'){
-	                        makingListAddon = makingListAddon + event.message[r];
+	                for(k = 15; k < event.message.length; k++){
+	                    if(event.message[k] !== '"'){
+	                        makingListAddon = makingListAddon + event.message[k];
 	                    }else{
-	                        lastKnownQuote = r;
+	                        lastKnownQuote = k;
 	                        makingListAddon = makingListAddon;
 	                        break;
 	                    }
 	                }
 	                
-	                var traineeToEditFinal = makingListAddon;
+	                traineeToEditFinal = makingListAddon;
 	                
 	                 var isKnownTrainee = false;
 	                for(x = 0; x < context.simpledb.botleveldata.trainees.length; x++){
@@ -213,7 +211,6 @@ function editTraineeSyntaxError(){
 	                    // Trainee is known, begin parsing of what to change, what to change it to
 	                    if((event.message[lastKnownQuote + 1] === ' ') && (event.message[lastKnownQuote + 2] === '"')){
 	                        makingListAddon = '';
-	                        
 	                        for(r = lastKnownQuote; r < event.message.length; r++){
 	                            
 	                            
@@ -227,7 +224,7 @@ function editTraineeSyntaxError(){
 	                            }
 	                        }
 	                        
-	                        var thingToEditFinal = makingListAddon;
+	                        thingToEditFinal = makingListAddon;
 
 
 
@@ -247,7 +244,7 @@ function editTraineeSyntaxError(){
 	                                
 	                            }
 	                            
-	                            var editToAddFinal = makingListAddon;
+	                            editToAddFinal = makingListAddon;
 	                            context.simpledb.doGet(traineeToEditFinal);
 	                            
 	                        }else{
@@ -446,26 +443,23 @@ function editTraineeSyntaxError(){
 	        var traineeToEditObj = JSON.parse(event.dbval);
 	        var currentTraineeName = traineeToEditObj.name;
 	        var currentTraineeIGN = traineeToEditObj.IGN;
-	        var currentTraineeKnownIPs = traineeToEditObj.knownIPs
+	        var currentTraineeKnownIPs = traineeToEditObj.knownIPs;
 	        
-	        if(thingToEditFinal === 'IGN'){
-	            
+	        
+	        if(thingToEditFinal === 'name'){
+	            context.sendResponse('x');
 	        }
 	        
-	        else if(thingToEditFinal === 'name'){
-	            
+	        else if(thingToEditFinal === 'IGN'){
+	            context.sendResponse('y');
 	        }
-	        
 	        
 	        else if(thingToEditFinal === 'knownIPs'){
-	            
+	            context.sendResponse('z');
+	        }else{
+	            context.sendResponse(traineeToEditFinal);
 	        }
-	        
-	        else{
-	            
-	        }
-	        
-	        
+
 	    }
 	
 	    function DbPutHandler(context, event) {
