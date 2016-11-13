@@ -24,6 +24,7 @@ var traineeToEditFinal = '';
 var editToAddFinal = '';
 var thingToEditFinal = '';
 var thingToDBValueCheck = '';
+var makeList = '';
 function editTraineeSyntaxError(){
     context.sendResponse('Error: Can\'t parse the command. Correct Syntax:\n`[editTrainee] "<trainee-name>" "<name/IGN/knownIPs>" "<text>"`\n>_I am a bot. This action was performed automagically!_');
 }
@@ -153,6 +154,7 @@ function editTraineeSyntaxError(){
 	            var deletionIndex = context.simpledb.botleveldata.trainees.indexOf(newDeletionFinal);
 	            if(deletionIndex > -1){
 	                context.simpledb.botleveldata.trainees.splice(deletionIndex, 1);
+	                context.simpledb.doPut(newDeletionFinal, '{}');
 	                context.sendResponse('Successfully deleted *' + newDeletionFinal + '*.\n>_I am a bot. This action was performed automagically!_');
 	            }
 	            
@@ -165,6 +167,30 @@ function editTraineeSyntaxError(){
 	            }
 	            
 	        }
+	        
+	        
+	        else if(event.message.substring(0, 16) === '[getTraineeInfo]'){
+	            if((event.message[16] === ' ') && (event.message[17] === '"')){
+	                
+	                for(t = 0; t < event.message.length; t++){
+	                    
+	                    if(event.message[t] !== '"'){
+	                        makeList = makeList + event.message[t];
+	                    }else{
+	                        makeList = makeList;
+	                        break;
+	                    }
+	                    
+	                }
+	                thingToDBValueCheck = 'getTraineeInfo';
+	                context.simpledb.doGet(makeList);
+	                
+	            }else{
+	                context.sendResponse('Error: Can\'t parse the command. Correct Syntax:\n`[getTraineeInfo] "<trainee-name>"`\n>_I am a bot. This action was performed automagically!_');
+	            }
+	        }
+	        
+	        
 	        else if(event.message === '[clearTrainees]'){
 	            if(event.senderobj.subdisplay === "kaleb418"){
 	                context.simpledb.botleveldata.trainees = [''];
@@ -358,14 +384,6 @@ function editTraineeSyntaxError(){
 	        }
 	        
 	        
-	        else if(event.message.substring(0, 16) === '[getTraineeInfo]'){
-	            context.sendResponse('Under construction...');
-	        }
-	        
-	        
-	        
-	        
-	        
 	        else if(event.message === '[getKnownUsers]'){
 	            if(event.senderobj.subdisplay === 'kaleb418'){
 	                for(r = 0; r < context.simpledb.botleveldata.oldusers.length; r++){
@@ -477,11 +495,18 @@ function editTraineeSyntaxError(){
 	                context.sendResponse('Error: Incorrect Permissions.\n>_I am a bot. This action was performed automatically!_');
 	            }
 	        }else{
-	            context.sendResponse('Why am I here');
+	            context.sendResponse('Error: Unknown subcommand. Please specify a subcommand (name/IGN/IP).\n>_I am a bot. This action was performed automatically!_');
 	        }
 	        }
 	        
 	        else if(thingToDBValueCheck === 'getTraineeInfo'){
+	            
+	            
+	            
+	            
+	            
+	            
+	            
 	            
 	        }
 	        
