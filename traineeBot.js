@@ -25,6 +25,7 @@ var editToAddFinal = '';
 var thingToEditFinal = '';
 var thingToDBValueCheck = '';
 var makeList = '';
+var errorIsNotTrainee = true;
 function editTraineeSyntaxError(){
     context.sendResponse('Error: Can\'t parse the command. Correct Syntax:\n`[editTrainee] "<trainee-name>" "<name/IGN/knownIPs>" "<text>"`\n>_I am a bot. This action was performed automagically!_');
 }
@@ -172,7 +173,7 @@ function editTraineeSyntaxError(){
 	        else if(event.message.substring(0, 16) === '[getTraineeInfo]'){
 	            if((event.message[16] === ' ') && (event.message[17] === '"')){
 	                
-	                for(t = 0; t < event.message.length; t++){
+	                for(t = 18; t < event.message.length; t++){
 	                    
 	                    if(event.message[t] !== '"'){
 	                        makeList = makeList + event.message[t];
@@ -182,8 +183,25 @@ function editTraineeSyntaxError(){
 	                    }
 	                    
 	                }
+	                
+	                
+	                for(h = 0; h < context.simpledb.botleveldata.trainees.length; h++){
+	                    
+	                    if(makeList === context.simpledb.botleveldata.trainees[h]){
+	                        errorIsNotTrainee = false;
+	                        break;
+	                    }else{
+	                        errorIsNotTrainee = true;
+	                    }
+	                    
+	                }
+	                
+	                if(errorIsNotTrainee === false){
 	                thingToDBValueCheck = 'getTraineeInfo';
 	                context.simpledb.doGet(makeList);
+	                }else{
+	                    context.sendResponse('Error: *' + makeList + '* is an unknown trainee. Trainee names are CaSe SeNsItIvE. Try `[getTrainees]` to get the up-to-date list of trainees.\n>_I am a bot. This action was performed automagically._');
+	                }
 	                
 	            }else{
 	                context.sendResponse('Error: Can\'t parse the command. Correct Syntax:\n`[getTraineeInfo] "<trainee-name>"`\n>_I am a bot. This action was performed automagically!_');
@@ -501,10 +519,12 @@ function editTraineeSyntaxError(){
 	        
 	        else if(thingToDBValueCheck === 'getTraineeInfo'){
 	            
+	            var traineeToGetObj = JSON.parse(event.dbval);
+	            var currentTraineeName = traineeToGetObj.name;
+	            var currentTraineeIGN = traineeToGetObj.IGN;
+	            var currentTraineeIP = traineeToGetObj.IP;
 	            
-	            
-	            
-	            
+	            context.sendResponse('Success');
 	            
 	            
 	            
