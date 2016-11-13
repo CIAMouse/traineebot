@@ -211,7 +211,7 @@ function editTraineeSyntaxError(){
 	                    // Trainee is known, begin parsing of what to change, what to change it to
 	                    if((event.message[lastKnownQuote + 1] === ' ') && (event.message[lastKnownQuote + 2] === '"')){
 	                        makingListAddon = '';
-	                        for(r = lastKnownQuote; r < event.message.length; r++){
+	                        for(r = lastKnownQuote + 3; r < event.message.length; r++){
 	                            
 	                            
 	                            
@@ -232,7 +232,7 @@ function editTraineeSyntaxError(){
 	                            
 	                            makingListAddon = '';
 	                            
-	                            for(u = lastKnownQuote; u < event.message.length; u++){
+	                            for(u = lastKnownQuote + 3; u < event.message.length; u++){
 	                                
 	                                if(event.message[u] !== '"'){
 	                                    makingListAddon = makingListAddon + event.message[u];
@@ -447,19 +447,18 @@ function editTraineeSyntaxError(){
 	        
 	        
 	        if(thingToEditFinal === 'name'){
-	            context.sendResponse('x');
+	            context.sendResponse('x ' + traineeToEditFinal + ', ' + thingToEditFinal + ', ' + editToAddFinal);
 	        }
 	        
 	        else if(thingToEditFinal === 'IGN'){
-	            context.sendResponse('y');
+	            context.sendResponse('y ' + traineeToEditFinal + ', ' + thingToEditFinal + ', ' + editToAddFinal);
 	        }
 	        
 	        else if(thingToEditFinal === 'knownIPs'){
-	            context.sendResponse('z');
+	            context.sendResponse('z ' + traineeToEditFinal + ', ' + thingToEditFinal + ', ' + editToAddFinal);
 	        }else{
-	            context.sendResponse(traineeToEditFinal);
+	            
 	        }
-
 	    }
 	
 	    function DbPutHandler(context, event) {
