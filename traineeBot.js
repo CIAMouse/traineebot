@@ -27,6 +27,13 @@ var thingToDBValueCheck = '';
 var makeList = '';
 var errorIsNotTrainee = true;
 var traineeToGetInfoOf = '';
+
+//    <><><> permissionNodes <><><>
+
+
+
+
+
 function editTraineeSyntaxError(){
     context.sendResponse('Error: Can\'t parse the command. Correct Syntax:\n`[editTrainee] "<trainee-name>" "<name/IGN/knownIPs>" "<text>"`\n>_I am a bot. This action was performed automagically!_');
 }
@@ -156,7 +163,6 @@ function editTraineeSyntaxError(){
 	            var deletionIndex = context.simpledb.botleveldata.trainees.indexOf(newDeletionFinal);
 	            if(deletionIndex > -1){
 	                context.simpledb.botleveldata.trainees.splice(deletionIndex, 1);
-	                context.simpledb.doPut(newDeletionFinal, '{}');
 	                context.sendResponse('Successfully deleted *' + newDeletionFinal + '*.\n>_I am a bot. This action was performed automagically!_');
 	            }
 	            
@@ -318,9 +324,7 @@ function editTraineeSyntaxError(){
 	            
 	        }
 	        
-	        else if(event.message.substring(0,17) === '[getTraineeInfo]'){
-	            //Space of message should be 17
-	        }
+	        
 	        
 	        
 	        
