@@ -30,8 +30,35 @@ var traineeToGetInfoOf = '';
 
 //    <><><> permissionNodes <><><>
 
+var users = {
+    
+    kaleb418: {
+        permissionNode: 'leadMod'
+    },
+    ciamouse: {
+        permissionNode: 'leadMod'
+    },
+    galactic_storm: {
+        permissionNode: 'regMod'
+    }
+    
+    
+}
 
 
+function getPermNode(user){
+   var beans = users[user];
+   return beans.permissionNode;
+}
+function checkPerms(handle){
+    try{
+       getPermNode(handle);
+       resultOfPermCheck = getPermNode(handle);
+    }
+    catch (e){
+        resultOfPermCheck = 'fail';
+    }
+}
 
 
 function editTraineeSyntaxError(){
@@ -41,7 +68,7 @@ function editTraineeSyntaxError(){
         function MessageHandler(context, event) {
 	        if(event.message !== undefined){
 	        if (event.message[0] === '['){
-	        
+	            
 	        
 	            if(event.message.toLowerCase() === '[test]'){
 	                context.sendResponse('Test successful! Message handler online!\n>_I am a bot. This action was performed automagically!_');
@@ -53,7 +80,22 @@ function editTraineeSyntaxError(){
 	            else if(event.message.toLowerCase() === '[menu]'){
 	                context.sendResponse('_Showing menu..._\n\n*Type the command shown in red for each article.*\n\nGetting Started...`[start]`\nMenu... `[menu]`\nCommands...`[tools]`\nVideo...`[t-vid]`\nAdministration...`[admins]`\n>_I am a bot. This action was performed automagically!_');
 	            }
-	        
+	            
+	            else if(event.message === '[testThis]'){
+	                checkPerms(event.senderobj.subdisplay);
+	                if(resultOfPermCheck === 'leadMod'){
+	                    context.sendResponse('Yay! You have the perms.');
+	                }
+	                
+	                else if(resultOfPermCheck === 'regMod'){
+	                    context.sendResponse('You have some perms.');
+	                }
+	                
+	                else{
+	                    context.sendResponse('No perms for you!');
+	                }
+	            }
+	            
 	            else if(event.message.toLowerCase() === '[t-vid]'){
 	                context.sendResponse('Please watch this entertaining video for more info! https://www.youtube.com/watch?v=Butvl6MzG50&feature=youtu.be');
 	            }
@@ -330,14 +372,7 @@ function editTraineeSyntaxError(){
 	        
 	        
 	        
-	        /*else if(event.message === '[testJSON]'){
-	            var testSurvey = {
-	                "type":"survey",
-	                "question":"Test",
-	                "options":["Why", "Does", "This", "Work"]
-                    };
-              context.sendResponse(JSON.stringify(testSurvey));
-	        }*/
+	        
 	        else if(event.message === '[getMyID]'){
 	            context.sendResponse(event.sender);
 	        }
@@ -565,5 +600,3 @@ function editTraineeSyntaxError(){
 	    function DbPutHandler(context, event) {
 	        
 	    }
-
-	    
