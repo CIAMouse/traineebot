@@ -38,7 +38,199 @@ var users = {
     ciamouse: {
         permissionNode: 'leadMod'
     },
+    ante: {
+        permissionNode: 'regMod'
+    },
+    antmasterj: {
+        permissionNode: 'regMod'
+    },
+    areya_sunshine: {
+        permissionNode: 'regMod'
+    },
+    bettyslays: {
+        permissionNode: 'regMod'
+    },
+    blueboltz: {
+        permissionNode: 'regMod'
+    },
+    brandonvalencia: {
+        permissionNode: 'regMod'
+    },
+    brendini_007: {
+        permissionNode: 'regMod'
+    },
+    bruhitzzlandon: {
+        permissionNode: 'regMod'
+    },
+    captainlight22: {
+        permissionNode: 'regMod'
+    },
+    cookieeatemma: {
+        permissionNode: 'regMod'
+    },
+    coolbro458: {
+        permissionNode: 'regMod'
+    },
+    coretti33: {
+        permissionNode: 'regMod'
+    },
+    damario42: {
+        permissionNode: 'regMod'
+    },
+    danflex: {
+        permissionNode: 'regMod'
+    },
+    danslxys: {
+        permissionNode: 'regMod'
+    },
+    darthknight360: {
+        permissionNode: 'regMod'
+    },
+    derpyclause: {
+        permissionNode: 'regMod'
+    },
+    diamondav: {
+        permissionNode: 'regMod'
+    },
+    diamondqueen105: {
+        permissionNode: 'regMod'
+    },
+    djpips: {
+        permissionNode: 'regMod'
+    },
+    dogcatdogcat4: {
+        permissionNode: 'regMod'
+    },
+    eldesttoast: {
+        permissionNode: 'regMod'
+    },
+    gabby: {
+        permissionNode: 'regMod'
+    },
     galactic_storm: {
+        permissionNode: 'regMod'
+    },
+    glisss: {
+        permissionNode: 'regMod'
+    },
+    handyholly: {
+        permissionNode: 'regMod'
+    },
+    hartbraker2003: {
+        permissionNode: 'regMod'
+    },
+    helpful_wolf: {
+        permissionNode: 'regMod'
+    },
+    infinitefrost: {
+        permissionNode: 'regMod'
+    },
+    j_gizzle_135: {
+        permissionNode: 'regMod'
+    },
+    jake5632: {
+        permissionNode: 'regMod'
+    },
+    jiselleangeles: {
+        permissionNode: 'leadMod'
+    },
+    kurtroyle: {
+        permissionNode: 'regMod'
+    },
+    legomite: {
+        permissionNode: 'regMod'
+    },
+    lerondoesgaming: {
+        permissionNode: 'regMod'
+    },
+    libby: {
+        permissionNode: 'regMod'
+    },
+    lifeboat: {
+        permissionNode: 'leadMod'
+    },
+    lizbeth: {
+        permissionNode: 'regMod'
+    },
+    lukehoffman: {
+        permissionNode: 'leadMod'
+    },
+    lulucrxftinq: {
+        permissionNode: 'regMod'
+    },
+    meh1285: {
+        permissionNode: 'regMod'
+    },
+    micah214: {
+        permissionNode: 'regMod'
+    },
+    milescholly21: {
+        permissionNode: 'regMod'
+    },
+    narwhalslovei: {
+        permissionNode: 'regMod'
+    },
+    nevershoutbearr: {
+        permissionNode: 'regMod'
+    },
+    paulchenhd: {
+        permissionNode: 'regMod'
+    },
+    rosiemc: {
+        permissionNode: 'regMod'
+    },
+    shinyx123: {
+        permissionNode: 'regMod'
+    },
+    sircometz: {
+        permissionNode: 'regMod'
+    },
+    spencersteiner: {
+        permissionNode: 'leadMod'
+    },
+    stephanie: {
+        permissionNode: 'leadMod'
+    },
+    tdehaney: {
+        permissionNode: 'regMod'
+    },
+    thefancypig: {
+        permissionNode: 'regMod'
+    },
+    thenerdygamer: {
+        permissionNode: 'regMod'
+    },
+    traineehelper: {
+        permissionNode: 'leadMod'
+    },
+    truffledor: {
+        permissionNode: 'regMod'
+    },
+    tyler989: {
+        permissionNode: 'regMod'
+    },
+    ultramarine: {
+        permissionNode: 'regMod'
+    },
+    veraqz: {
+        permissionNode: 'regMod'
+    },
+    woobix: {
+        permissionNode: 'regMod'
+    },
+    xfacelessraider: {
+        permissionNode: 'regMod'
+    },
+    xkatethesavage: {
+        permissionNode: 'regMod'
+    },
+    yuriplaysmcpeyt: {
+        permissionNode: 'regMod'
+    },
+    ziqtheman: {
+        permissionNode: 'regMod'
+    },
+    zombieslayer124: {
         permissionNode: 'regMod'
     }
     
