@@ -26,6 +26,7 @@ var thingToEditFinal = '';
 var thingToDBValueCheck = '';
 var makeList = '';
 var errorIsNotTrainee = true;
+var traineeToGetInfoOf = '';
 function editTraineeSyntaxError(){
     context.sendResponse('Error: Can\'t parse the command. Correct Syntax:\n`[editTrainee] "<trainee-name>" "<name/IGN/knownIPs>" "<text>"`\n>_I am a bot. This action was performed automagically!_');
 }
@@ -198,6 +199,7 @@ function editTraineeSyntaxError(){
 	                
 	                if(errorIsNotTrainee === false){
 	                thingToDBValueCheck = 'getTraineeInfo';
+	                traineeToGetInfoOf = makeList;
 	                context.simpledb.doGet(makeList);
 	                }else{
 	                    context.sendResponse('Error: *' + makeList + '* is an unknown trainee. Trainee names are CaSe SeNsItIvE. Try `[getTrainees]` to get the up-to-date list of trainees.\n>_I am a bot. This action was performed automagically._');
@@ -522,9 +524,24 @@ function editTraineeSyntaxError(){
 	            var traineeToGetObj = JSON.parse(event.dbval);
 	            var currentTraineeName = traineeToGetObj.name;
 	            var currentTraineeIGN = traineeToGetObj.IGN;
-	            var currentTraineeIP = traineeToGetObj.IP;
 	            
-	            context.sendResponse('Success');
+	            if((event.senderobj.subdisplay === 'kaleb418') || (event.senderobj.subdisplay === 'ciamouse')){
+	            var currentTraineeIP = traineeToGetObj.IP;
+	            }else{
+	                makeList = '';
+	                for(g = 0; g < traineeToGetObj.IP.length; g++){
+	                    
+	                    if(traineeToGetObj.IP[g] === '.'){
+	                        makeList = makeList + '.';
+	                    }else{
+	                        makeList = makeList + '*'
+	                    }
+	                    
+	                }
+	                makeList = makeList;
+	                currentTraineeIP = makeList;
+	            }
+	            context.sendResponse('>*Trainee Name:* ' + traineeToGetInfoOf + '\n\n' + '>*Real Name:* ' + currentTraineeName + '\n\n' + '>*Trainee IGN:* ' + currentTraineeIGN + '\n\n' + '>*Trainee IP:* ' + currentTraineeIP + '\n*---*\n>_I am a bot. This action was performed automagically!_');
 	            
 	            
 	            
