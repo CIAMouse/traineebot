@@ -204,9 +204,11 @@ function editTraineeSyntaxError(){
 	                }
 	                
 	                if(errorIsNotTrainee === false){
-	                thingToDBValueCheck = 'getTraineeInfo';
-	                traineeToGetInfoOf = makeList;
-	                context.simpledb.doGet(makeList);
+
+	                        thingToDBValueCheck = 'getTraineeInfo';
+	                        traineeToGetInfoOf = makeList;
+	                        context.simpledb.doGet(makeList);
+	                   
 	                }else{
 	                    context.sendResponse('Error: *' + makeList + '* is an unknown trainee. Trainee names are CaSe SeNsItIvE. Try `[getTrainees]` to get the up-to-date list of trainees.\n>_I am a bot. This action was performed automagically._');
 	                }
