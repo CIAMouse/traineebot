@@ -531,7 +531,11 @@ function editTraineeSyntaxError(){
 	            
 	            if((event.senderobj.subdisplay === 'kaleb418') || (event.senderobj.subdisplay === 'ciamouse')){
 	            var currentTraineeIP = traineeToGetObj.IP;
-	            }else{
+	            }
+	            else if(traineeToGetObj.IP === "Unknown"){
+	                var currentTraineeIP = traineeToGetObj.IP;
+	            }
+	            else{
 	                makeList = '';
 	                for(g = 0; g < traineeToGetObj.IP.length; g++){
 	                    
