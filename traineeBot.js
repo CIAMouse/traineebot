@@ -33,7 +33,7 @@ var traineeToGetInfoOf = '';
 var users = {
     
     kaleb418: {
-        permissionNode: 'regMod'
+        permissionNode: 'leadMod'
     },
     ciamouse: {
         permissionNode: 'leadMod'
@@ -54,7 +54,7 @@ var users = {
         permissionNode: 'regMod'
     },
     brandonvalencia: {
-        permissionNode: 'leadMod'
+        permissionNode: 'regMod'
     },
     brendini_007: {
         permissionNode: 'regMod'
