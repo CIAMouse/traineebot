@@ -54,7 +54,7 @@ var users = {
         permissionNode: 'regMod'
     },
     brandonvalencia: {
-        permissionNode: 'regMod'
+        permissionNode: 'leadMod'
     },
     brendini_007: {
         permissionNode: 'regMod'
@@ -731,7 +731,7 @@ function editTraineeSyntaxError(){
 	        }
 	        
 	        else if(thingToEditFinal === 'IP'){
-	            if((event.senderobj.subdisplay === 'kaleb418') || (event.senderobj.subdisplay === 'ciamouse')){
+	            if(resultOfPermCheck === 'leadMod'){
 	            var oldIP = currentTraineeIP;
 	            context.simpledb.doPut(traineeToEditFinal, '{"name":"' + currentTraineeName + '", "IGN":"' + currentTraineeIGN + '", "IP":"' + editToAddFinal + '"}');
 	            context.sendResponse('Successfully changed ' + traineeToEditFinal + '\'s IP from *' + oldIP + '* to *' + editToAddFinal +'*.\n>_I am a bot. This action was performed automagically!_');
@@ -749,7 +749,7 @@ function editTraineeSyntaxError(){
 	            var currentTraineeName = traineeToGetObj.name;
 	            var currentTraineeIGN = traineeToGetObj.IGN;
 	            
-	            if((event.senderobj.subdisplay === 'kaleb418') || (event.senderobj.subdisplay === 'ciamouse')){
+	            if(resultOfPermCheck === 'leadMod'){
 	            var currentTraineeIP = traineeToGetObj.IP;
 	            }
 	            else if(traineeToGetObj.IP === "Unknown"){
