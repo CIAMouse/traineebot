@@ -33,7 +33,7 @@ var traineeToGetInfoOf = '';
 var users = {
     
     kaleb418: {
-        permissionNode: 'leadMod'
+        permissionNode: 'regMod'
     },
     ciamouse: {
         permissionNode: 'leadMod'
@@ -256,66 +256,73 @@ function checkPerms(handle){
 function editTraineeSyntaxError(){
     context.sendResponse('Error: Can\'t parse the command. Correct Syntax:\n`[editTrainee] "<trainee-name>" "<name/IGN/knownIPs>" "<text>"`\n>_I am a bot. This action was performed automagically!_');
 }
-
+        
         function MessageHandler(context, event) {
+            checkPerms(event.senderobj.subdisplay);
 	        if(event.message !== undefined){
 	        if (event.message[0] === '['){
+	            
 	            
 	        
 	            if(event.message.toLowerCase() === '[test]'){
 	                context.sendResponse('Test successful! Message handler online!\n>_I am a bot. This action was performed automagically!_');
 	            }
+	            // ------------------------
 	            else if((event.message.toLowerCase() === '[help]')||(event.message.toLowerCase() === '[info]')){
 	                context.sendResponse('Hello ' + event.senderobj.display + '. Glad I could help. My name is Trainee Helper, and I am a bot. My job is to help you learn more about the trainee team. To get started, click on my name, then *Direct Message*, and send me `[menu]`.\n*This bot was created by @kaleb418*\n>_I am a bot. This action was performed automagically!_');
 	            }
-	        
+	        // ------------------------
 	            else if(event.message.toLowerCase() === '[menu]'){
 	                context.sendResponse('_Showing menu..._\n\n*Type the command shown in red for each article.*\n\nGetting Started...`[start]`\nMenu... `[menu]`\nCommands...`[tools]`\nVideo...`[t-vid]`\nAdministration...`[admins]`\n>_I am a bot. This action was performed automagically!_');
 	            }
-	            
-	            else if(event.message === '[testThis]'){
-	                checkPerms(event.senderobj.subdisplay);
-	                if(resultOfPermCheck === 'leadMod'){
-	                    context.sendResponse('Yay! You have the perms.');
-	                }
-	                
-	                else if(resultOfPermCheck === 'regMod'){
-	                    context.sendResponse('You have some perms.');
-	                }
-	                
-	                else{
-	                    context.sendResponse('No perms for you!');
-	                }
-	            }
+	            // ------------------------
 	            
 	            else if(event.message.toLowerCase() === '[t-vid]'){
 	                context.sendResponse('Please watch this entertaining video for more info! https://www.youtube.com/watch?v=Butvl6MzG50&feature=youtu.be');
 	            }
-	        
+	        // ------------------------
 	            else if (event.message.toLowerCase() === '[tools]'){
 	                context.sendResponse('_Showing mod tools..._\n\n*Please note:* Trainees do *NOT* have access to these tools; they are here for you to learn them and know how to use them for when you graduate.\n\n`/lbban` - The main moderator command. Follow `/lbban` with `<player> <time-in-minutes|skin|warn> [reason (optional)]`. For example, if I were to ban myself (elite041802) for 15 minutes for reason: hacking, I would use `/lbban elite041802 15 Hacking`.\n\n`/lbban <player> skin` - Replaces a players current skin with its Alex or Steve counterparts.\n\n`/lbban <player> warn` - Warns the player that they are using inappropriate conduct and mutes them for five minutes.\n\n`/mod fly` - Toggles invisibility and flying ability.\n\n`/separate <player1> <player2>` - Bounces the two specified players back from each other and prevents them from seeing each other\'s chat messages.\n\n`/move <player>` - Teleports you to the specified player.\n\n>_I am a bot. This action was performed automagically!_');
 	            }
-	        
+	        // ------------------------
 	        else if (event.message.toLowerCase() === '[admins]'){
 	            context.sendResponse('_Showing admins..._\n\nLuke Hoffman (@luke_hoffman)\nJiselle Angeles (@ramennoodles)\nKaleb Wasmuth (@kaleb418)\nDave Diaz (@ciamouse)\nSpencer Steiner (@spencersteiner)\n\n *If you have any questions, feel free to DM any of these people, or any other official moderator.*\n>_I am a bot. This action was performed automagically!_');
 	            
 	        }
-	        
-	        
+	        // ------------------------
+	        else if(event.message === '[getMyPerm]'){
+	                checkPerms(event.senderobj.subdisplay);
+	                if(resultOfPermCheck === 'fail'){
+	                    resultOfPermCheck = 'defaultUser';
+	                }else{
+	                    
+	                }
+	                context.sendResponse('Your permission node: *' + resultOfPermCheck + '*');
+	        }
+	        // ------------------------
 	        
 	        else if(event.message.toLowerCase() === '[start-3]'){
 	            context.sendResponse('_Showing page 3 of 3 in \'start\'..._\n\nAnd, last but not least, have fun! We offer an in-game tag `[Crew]` for all trainees, direct message @ciamouse or @kaleb418 your IGN (gamertag) to get it added.\n>_I am a bot. This action was performed automagically!_');
 	        }
+	        // ------------------------
 	        else if(event.message.toLowerCase() === '[start-2]'){
 	            context.sendResponse('_Showing page 2 of 3 in \'start\'..._\n\nAfter that, let\'s learn the basics of slack. Here are some links to help you get started:\nhttps://get.slack.help/hc/en-us/articles/218080037-Getting-started-for-new-users\nhttps://get.slack.help/hc/en-us/articles/217626328-Onboarding-checklist-for-new-users\nhttps://get.slack.help/hc/en-us/articles/217626358-Cheat-sheet-for-basics-and-shortcuts\n\n*To continue with the introduction, direct message me* `[start-3]` *.*\n>_I am a bot. This action was performed automagically!_');
 	        }
+	        // ------------------------
 	        else if(event.message.toLowerCase() === '[start]'){
 	            context.sendResponse('_Showing page 1 of 3 in \'start\'..._\n\nHey there! Welcome to the trainee team. While you’re here, you’ll be shadowing mods and helping them out. If (and when) we feel you are ready, you’ll be asked to join another team, where the real mods hang out. In the meantime, have fun! If you need help, feel free to DM @kaleb418, @lukehoffman, or @ciamouse2001. Go ahead and set up your profile if you have not already done so. *To continue with the introduction, direct message me* `[start-2]` *.*\n>_I am a bot. This action was performed automagically!_');
 	        }
 	        
 	        
+	        
+	        // MOD COMMANDS
+	        
+	        
+	        
+	        // ------------------------
+	        
 	        else if((event.message.substring(0, 12) === '[addTrainee]')){
-	                
+	           if((resultOfPermCheck === 'leadMod') || (resultOfPermCheck === 'regMod')){
 	               if((event.message[11] === ']') && (event.message[12] === ' ') && (event.message[13] === '"')){
 	                   
 	               
@@ -357,11 +364,14 @@ function editTraineeSyntaxError(){
 	                   context.sendResponse('Error: Can\'t parse the command. Correct syntax:\n`[addTrainee] "<trainee-name>"`\n>_I am a bot. This action was performed automagically!_');
 	               }
 	               
-	               }
+	               }else{
+	                context.sendResponse('Error: Incorrect Permissions.\n>_I am a bot. This action was performed automagically!_');
+	            }
+	        }
 	            
-	            
-	        
+	        // ------------------------
 	        else if(event.message === '[getTrainees]'){
+	            if((resultOfPermCheck === 'leadMod') || (resultOfPermCheck === 'regMod')){
 	            traineeList = context.simpledb.botleveldata.trainees;
 	            
 	            
@@ -374,10 +384,13 @@ function editTraineeSyntaxError(){
 	                
 	            }
 	            context.sendResponse('_Listing trainees..._\n\n' + makeListVar.substring(0, makeListVar.length - 2) + '*---*\n>_I am a bot. This action was performed automagically!_');
+	        }else{
+	                context.sendResponse('Error: Incorrect Permissions.\n>_I am a bot. This action was performed automagically!_');
+	            }
 	        }
-	        
+	        // ------------------------
 	        else if(event.message.substring(0,11) === '[rmTrainee]'){
-	            
+	            if(resultOfPermCheck === 'leadMod'){
 	                
 	            
 	            
@@ -408,10 +421,13 @@ function editTraineeSyntaxError(){
 	                context.sendResponse('Error: Can\'t parse command. Correct syntax:\n`[rmTrainee] "<trainee-name>"`\n>_I am a bot. This action was performed automagically!_');
 	            }
 	            
+	        }else{
+	                context.sendResponse('Error: Incorrect Permissions.\n>_I am a bot. This action was performed automagically!_');
+	            }
 	        }
-	        
-	        
+	        // ------------------------
 	        else if(event.message.substring(0, 16) === '[getTraineeInfo]'){
+	            if((resultOfPermCheck === 'leadMod') || (resultOfPermCheck === 'regMod')){
 	            if((event.message[16] === ' ') && (event.message[17] === '"')){
 	                
 	                for(t = 18; t < event.message.length; t++){
@@ -450,23 +466,25 @@ function editTraineeSyntaxError(){
 	            }else{
 	                context.sendResponse('Error: Can\'t parse the command. Correct Syntax:\n`[getTraineeInfo] "<trainee-name>"`\n>_I am a bot. This action was performed automagically!_');
 	            }
+	        }else{
+	                context.sendResponse('Error: Incorrect Permissions.\n>_I am a bot. This action was performed automagically!_');
+	            }
 	        }
 	        
-	        
+	        // ------------------------
 	        else if(event.message === '[clearTrainees]'){
-	            if(event.senderobj.subdisplay === "kaleb418"){
+	            if(resultOfPermCheck === 'leadMod'){
 	                context.simpledb.botleveldata.trainees = [''];
 	                context.sendResponse('Successfully cleared trainee list!\n>_I am a bot. This action was performed automagically!_');
-	            }
-	            else{
+	            }else{
 	                context.sendResponse('Error: Incorrect Permissions.\n>_I am a bot. This action was performed automagically!_');
 	            }
 	        }
 	        
 	        //   <<<<<<>>>>>>  EDIT TRAINEE BLOCK <<<<<<>>>>>>
-	        
+	        // ------------------------
 	        else if(event.message.substring(0,13) === '[editTrainee]'){
-	            
+	            if((resultOfPermCheck === 'leadMod') || (resultOfPermCheck === 'regMod')){
 	            if(event.message[14] === '"'){
 	                var makingListAddon = '';
 	                
@@ -550,34 +568,14 @@ function editTraineeSyntaxError(){
 	                editTraineeSyntaxError();
 	            }
 	        
-	        }
-	        else if(event.message === '[getRawTrainees]'){
-	            if(event.senderobj.display === 'Kaleb Wasmuth'){
-	            context.sendResponse(context.simpledb.botleveldata.trainees);
-	            }else{
-	                context.sendResponse('Error: Incorrect Permissions.\n>_I am a bot. This action was performed automagically!_');
-	            }
-	            
-	        }
-	        
-	        
-	        
-	        
-	        
-	        
-	        else if(event.message === '[getMyID]'){
-	            context.sendResponse(event.sender);
-	        }
-	        else if(event.message === '[testNewCommand]'){
-	            if(event.senderobj.subdisplay === 'kaleb418'){
-	                var testCommand = 'oldusers';
-	                context.sendResponse(context.simpledb.botleveldata[testCommand]);
-	            }else{
+	        }else{
 	                context.sendResponse('Error: Incorrect Permissions.\n>_I am a bot. This action was performed automagically!_');
 	            }
 	        }
+	        
+	        // ------------------------
 	        else if(event.message === '[resetKnownUsers]'){
-	            if(event.senderobj.display === 'Kaleb Wasmuth' && event.senderobj.subdisplay === 'kaleb418'){
+	            if(resultOfPermCheck === 'leadMod'){
 	            context.simpledb.botleveldata.oldusers = [''];
 	            context.sendResponse('Reset known users list.');
 	            }else{
@@ -585,23 +583,10 @@ function editTraineeSyntaxError(){
 	            }
 	        }
 	        
-	        
-	        else if(event.message === '[fixKnownUsers]'){
-	            for(y = 0; y < context.simpledb.botleveldata.oldusers.length; y++){
-	                if(context.simpledb.botleveldata.oldusers !== null){
-	                    fixKnownUsers.push(context.simpledb.botleveldata.oldusers[y]);
-	                }else{
-	                    
-	                }
-	            }
-	            
-	            fixKnownUsers = fixKnownUsers;
-	            context.simpledb.botleveldata.oldusers = fixKnownUsers;
-	            context.sendResponse('Successfully fixed the known users list and removed all invalid names.\n>_I am a bot. This action was performed automagically!_');
-	        }
+	        // ------------------------
 	        
 	        else if(event.message.substring(0, 13) === '[rmKnownUser]'){
-	            if(event.senderobj.subdisplay === 'kaleb418'){
+	            if(resultOfPermCheck === 'leadMod'){
 	                if((event.message[13] === ' ') && (event.message[14] === '"')){
 	                    
 	                    for(i = 15; i < (event.message.length); i++){
@@ -636,9 +621,9 @@ function editTraineeSyntaxError(){
 	            }
 	        }
 	        
-	        
+	        // ------------------------
 	        else if(event.message === '[getKnownUsers]'){
-	            if(event.senderobj.subdisplay === 'kaleb418'){
+	            if(resultOfPermCheck === 'leadMod'){
 	                for(r = 0; r < context.simpledb.botleveldata.oldusers.length; r++){
 	                    if(context.simpledb.botleveldata.oldusers[r] !== ''){
 	                        if(makeNewKnownUsers === undefined){
@@ -666,13 +651,19 @@ function editTraineeSyntaxError(){
 	                context.sendResponse('Error: Incorrect Permissions.\n>_I am a bot. This action was performed automatically!_');
 	            }
 	        }
+	        
+	        // ------------------------
+	        
 	        else{
 	            context.sendResponse('Sorry, I don\'t understand! Please check for typos in your message, or don\'t use "[" at the beginning of your message. Alternatively, you can try `[help]` for me to help further.\n>_I am a bot. This action was performed automagically!_');
 	        }
-	        // END OF '[' MSGS
+	        
+	        
+	        
+	        
 	        
 	        }else{
-
+                // END OF '[' MSGS
 	        for(g = 0; g < context.simpledb.botleveldata.oldusers.length; g++){
                 if(event.senderobj.subdisplay === context.simpledb.botleveldata.oldusers[g]){
                     isNewUserVariable = false;
