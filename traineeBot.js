@@ -1,5 +1,5 @@
-var min = 0;
-var max = 11;
+var min = 95;
+var max = 100;
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
@@ -27,6 +27,7 @@ var thingToDBValueCheck = '';
 var makeList = '';
 var errorIsNotTrainee = true;
 var traineeToGetInfoOf = '';
+var traineeAdder = '';
 
 //    <><><> permissionNodes <><><>
 
@@ -179,6 +180,9 @@ var users = {
     rosiemc: {
         permissionNode: 'regMod'
     },
+    sashasparkle: {
+        permissionNode: 'regMod'
+    },
     shinyx123: {
         permissionNode: 'regMod'
     },
@@ -235,7 +239,7 @@ var users = {
     }
     
     
-}
+};
 
 
 function getPermNode(user){
@@ -265,32 +269,49 @@ function editTraineeSyntaxError(){
 	            
 	        
 	            if(event.message.toLowerCase() === '[test]'){
+	                /*context.simpledb.botleveldata.timesused = 0;
+	                context.simpledb.botleveldata.timestraineeused = 0;
+	                context.simpledb.botleveldata.timesmodused = 0;*/
+	                context.simpledb.botleveldata.timestraineeused = context.simpledb.botleveldata.timestraineeused + 1;
+	                context.simpledb.botleveldata.timesused = parseInt(context.simpledb.botleveldata.timesused) + 1;
 	                context.sendResponse('Test successful! Message handler online!\n>_I am a bot. This action was performed automagically!_');
 	            }
 	            // ------------------------
 	            else if((event.message.toLowerCase() === '[help]')||(event.message.toLowerCase() === '[info]')){
+	                context.simpledb.botleveldata.timestraineeused = context.simpledb.botleveldata.timestraineeused + 1;
+	                context.simpledb.botleveldata.timesused = parseInt(context.simpledb.botleveldata.timesused) + 1;
 	                context.sendResponse('Hello ' + event.senderobj.display + '. Glad I could help. My name is Trainee Helper, and I am a bot. My job is to help you learn more about the trainee team. To get started, click on my name, then *Direct Message*, and send me `[menu]`.\n*This bot was created by @kaleb418*\n>_I am a bot. This action was performed automagically!_');
 	            }
 	        // ------------------------
 	            else if(event.message.toLowerCase() === '[menu]'){
+	                context.simpledb.botleveldata.timestraineeused = context.simpledb.botleveldata.timestraineeused + 1;
+	                context.simpledb.botleveldata.timesused = parseInt(context.simpledb.botleveldata.timesused) + 1;
 	                context.sendResponse('_Showing menu..._\n\n*Type the command shown in red for each article.*\n\nGetting Started...`[start]`\nMenu... `[menu]`\nCommands...`[tools]`\nVideo...`[t-vid]`\nAdministration...`[admins]`\n>_I am a bot. This action was performed automagically!_');
 	            }
 	            // ------------------------
 	            
 	            else if(event.message.toLowerCase() === '[t-vid]'){
+	                context.simpledb.botleveldata.timestraineeused = context.simpledb.botleveldata.timestraineeused + 1;
+	                context.simpledb.botleveldata.timesused = parseInt(context.simpledb.botleveldata.timesused) + 1;
 	                context.sendResponse('Please watch this entertaining video for more info! https://www.youtube.com/watch?v=Butvl6MzG50&feature=youtu.be');
 	            }
 	        // ------------------------
 	            else if (event.message.toLowerCase() === '[tools]'){
+	                context.simpledb.botleveldata.timestraineeused = context.simpledb.botleveldata.timestraineeused + 1;
+	                context.simpledb.botleveldata.timesused = parseInt(context.simpledb.botleveldata.timesused) + 1;
 	                context.sendResponse('_Showing mod tools..._\n\n*Please note:* Trainees do *NOT* have access to these tools; they are here for you to learn them and know how to use them for when you graduate.\n\n`/lbban` - The main moderator command. Follow `/lbban` with `<player> <time-in-minutes|skin|warn> [reason (optional)]`. For example, if I were to ban myself (elite041802) for 15 minutes for reason: hacking, I would use `/lbban elite041802 15 Hacking`.\n\n`/lbban <player> skin` - Replaces a players current skin with its Alex or Steve counterparts.\n\n`/lbban <player> warn` - Warns the player that they are using inappropriate conduct and mutes them for five minutes.\n\n`/mod fly` - Toggles invisibility and flying ability.\n\n`/separate <player1> <player2>` - Bounces the two specified players back from each other and prevents them from seeing each other\'s chat messages.\n\n`/move <player>` - Teleports you to the specified player.\n\n>_I am a bot. This action was performed automagically!_');
 	            }
 	        // ------------------------
 	        else if (event.message.toLowerCase() === '[admins]'){
+	            context.simpledb.botleveldata.timestraineeused = context.simpledb.botleveldata.timestraineeused + 1;
+	            context.simpledb.botleveldata.timesused = parseInt(context.simpledb.botleveldata.timesused) + 1;
 	            context.sendResponse('_Showing admins..._\n\nLuke Hoffman (@luke_hoffman)\nJiselle Angeles (@ramennoodles)\nKaleb Wasmuth (@kaleb418)\nDave Diaz (@ciamouse)\nSpencer Steiner (@spencersteiner)\n\n *If you have any questions, feel free to DM any of these people, or any other official moderator.*\n>_I am a bot. This action was performed automagically!_');
 	            
 	        }
 	        // ------------------------
 	        else if(event.message === '[getMyPerm]'){
+	            context.simpledb.botleveldata.timestraineeused = context.simpledb.botleveldata.timestraineeused + 1;
+	            context.simpledb.botleveldata.timesused = parseInt(context.simpledb.botleveldata.timesused) + 1;
 	                checkPerms(event.senderobj.subdisplay);
 	                if(resultOfPermCheck === 'fail'){
 	                    resultOfPermCheck = 'defaultUser';
@@ -302,14 +323,20 @@ function editTraineeSyntaxError(){
 	        // ------------------------
 	        
 	        else if(event.message.toLowerCase() === '[start-3]'){
+	            context.simpledb.botleveldata.timestraineeused = context.simpledb.botleveldata.timestraineeused + 1;
+	            context.simpledb.botleveldata.timesused = parseInt(context.simpledb.botleveldata.timesused) + 1;
 	            context.sendResponse('_Showing page 3 of 3 in \'start\'..._\n\nAnd, last but not least, have fun! We offer an in-game tag `[Crew]` for all trainees, direct message @ciamouse or @kaleb418 your IGN (gamertag) to get it added.\n>_I am a bot. This action was performed automagically!_');
 	        }
 	        // ------------------------
 	        else if(event.message.toLowerCase() === '[start-2]'){
+	            context.simpledb.botleveldata.timestraineeused = context.simpledb.botleveldata.timestraineeused + 1;
+	            context.simpledb.botleveldata.timesused = parseInt(context.simpledb.botleveldata.timesused) + 1;
 	            context.sendResponse('_Showing page 2 of 3 in \'start\'..._\n\nAfter that, let\'s learn the basics of slack. Here are some links to help you get started:\nhttps://get.slack.help/hc/en-us/articles/218080037-Getting-started-for-new-users\nhttps://get.slack.help/hc/en-us/articles/217626328-Onboarding-checklist-for-new-users\nhttps://get.slack.help/hc/en-us/articles/217626358-Cheat-sheet-for-basics-and-shortcuts\n\n*To continue with the introduction, direct message me* `[start-3]` *.*\n>_I am a bot. This action was performed automagically!_');
 	        }
 	        // ------------------------
 	        else if(event.message.toLowerCase() === '[start]'){
+	            context.simpledb.botleveldata.timestraineeused = context.simpledb.botleveldata.timestraineeused + 1;
+	            context.simpledb.botleveldata.timesused = parseInt(context.simpledb.botleveldata.timesused) + 1;
 	            context.sendResponse('_Showing page 1 of 3 in \'start\'..._\n\nHey there! Welcome to the trainee team. While you’re here, you’ll be shadowing mods and helping them out. If (and when) we feel you are ready, you’ll be asked to join another team, where the real mods hang out. In the meantime, have fun! If you need help, feel free to DM @kaleb418, @lukehoffman, or @ciamouse2001. Go ahead and set up your profile if you have not already done so. *To continue with the introduction, direct message me* `[start-2]` *.*\n>_I am a bot. This action was performed automagically!_');
 	        }
 	        
@@ -322,6 +349,8 @@ function editTraineeSyntaxError(){
 	        // ------------------------
 	        
 	        else if((event.message.substring(0, 12) === '[addTrainee]')){
+	            context.simpledb.botleveldata.timesmodused = context.simpledb.botleveldata.timesmodused + 1;
+	            context.simpledb.botleveldata.timesused = context.simpledb.botleveldata.timesused + 1;
 	           if((resultOfPermCheck === 'leadMod') || (resultOfPermCheck === 'regMod')){
 	               if((event.message[11] === ']') && (event.message[12] === ' ') && (event.message[13] === '"')){
 	                   
@@ -350,7 +379,7 @@ function editTraineeSyntaxError(){
 	                    }
 	                    if(badNewName === false){
 	                     context.simpledb.botleveldata.trainees.push(newTrainee);
-	                     context.simpledb.doPut(newTrainee, '{"name":"' + newTrainee + '", "IGN":"Unknown", "IP":"Unknown"}');
+	                     context.simpledb.doPut(newTrainee, '{"name":"' + newTrainee + '", "IGN":"Unknown", "IP":"Unknown", "adder":"' + event.senderobj.display + '"}');
 	                     context.sendResponse('Added *' + newTrainee + '* to the trainee list!\n>_I am a bot. This action was performed automagically!_');
 	                    }
 	                    else{
@@ -371,25 +400,44 @@ function editTraineeSyntaxError(){
 	            
 	        // ------------------------
 	        else if(event.message === '[getTrainees]'){
+	            context.simpledb.botleveldata.timesmodused = context.simpledb.botleveldata.timesmodused + 1;
+	            context.simpledb.botleveldata.timesused = context.simpledb.botleveldata.timesused + 1;
 	            if((resultOfPermCheck === 'leadMod') || (resultOfPermCheck === 'regMod')){
+
 	            traineeList = context.simpledb.botleveldata.trainees;
+
 	            
+
 	            
+
 	            for (f = 0; f < traineeList.length; f++){
+
 	                if(traineeList[f] !== ''){
+
 	                 makeListVar = makeListVar + traineeList[f] + '\n\n>';
+
 	                }else{
+
 	                    
+
 	                }
+
 	                
+
 	            }
+
 	            context.sendResponse('_Listing trainees..._\n\n' + makeListVar.substring(0, makeListVar.length - 2) + '*---*\n>_I am a bot. This action was performed automagically!_');
+
 	        }else{
+
 	                context.sendResponse('Error: Incorrect Permissions.\n>_I am a bot. This action was performed automagically!_');
+
 	            }
 	        }
 	        // ------------------------
 	        else if(event.message.substring(0,11) === '[rmTrainee]'){
+	            context.simpledb.botleveldata.timesmodused = context.simpledb.botleveldata.timesmodused + 1;
+	            context.simpledb.botleveldata.timesused = context.simpledb.botleveldata.timesused + 1;
 	            if(resultOfPermCheck === 'leadMod'){
 	                
 	            
@@ -427,6 +475,8 @@ function editTraineeSyntaxError(){
 	        }
 	        // ------------------------
 	        else if(event.message.substring(0, 16) === '[getTraineeInfo]'){
+	            context.simpledb.botleveldata.timesmodused = context.simpledb.botleveldata.timesmodused + 1;
+	            context.simpledb.botleveldata.timesused = context.simpledb.botleveldata.timesused + 1;
 	            if((resultOfPermCheck === 'leadMod') || (resultOfPermCheck === 'regMod')){
 	            if((event.message[16] === ' ') && (event.message[17] === '"')){
 	                
@@ -473,6 +523,8 @@ function editTraineeSyntaxError(){
 	        
 	        // ------------------------
 	        else if(event.message === '[clearTrainees]'){
+	            context.simpledb.botleveldata.timesmodused = context.simpledb.botleveldata.timesmodused + 1;
+	            context.simpledb.botleveldata.timesused = context.simpledb.botleveldata.timesused + 1;
 	            if(resultOfPermCheck === 'leadMod'){
 	                context.simpledb.botleveldata.trainees = [''];
 	                context.sendResponse('Successfully cleared trainee list!\n>_I am a bot. This action was performed automagically!_');
@@ -481,9 +533,20 @@ function editTraineeSyntaxError(){
 	            }
 	        }
 	        
+	        // ------------------------
+	        
+	        else if(event.message === '[getBotInfo]'){
+	            context.simpledb.botleveldata.timesused += 1;
+	            context.simpledb.botleveldata.timesmodused += 1;
+	            context.sendResponse('>*Times Used:* ' + context.simpledb.botleveldata.timesused + '\n\n>*Times Trainee Commands Used:* ' + context.simpledb.botleveldata.timestraineeused + '\n\n>*Times Moderator Commands Used:* ' + context.simpledb.botleveldata.timesmodused + '\n\n>_I am a bot. This action was performed automagically!_');
+	        }
+	        
+	        
 	        //   <<<<<<>>>>>>  EDIT TRAINEE BLOCK <<<<<<>>>>>>
 	        // ------------------------
 	        else if(event.message.substring(0,13) === '[editTrainee]'){
+	            context.simpledb.botleveldata.timesmodused = context.simpledb.botleveldata.timesmodused + 1;
+	            context.simpledb.botleveldata.timesused = context.simpledb.botleveldata.timesused + 1;
 	            if((resultOfPermCheck === 'leadMod') || (resultOfPermCheck === 'regMod')){
 	            if(event.message[14] === '"'){
 	                var makingListAddon = '';
@@ -575,6 +638,8 @@ function editTraineeSyntaxError(){
 	        
 	        // ------------------------
 	        else if(event.message === '[resetKnownUsers]'){
+	            context.simpledb.botleveldata.timesmodused = context.simpledb.botleveldata.timesmodused + 1;
+	            context.simpledb.botleveldata.timesused = context.simpledb.botleveldata.timesused + 1;
 	            if(resultOfPermCheck === 'leadMod'){
 	            context.simpledb.botleveldata.oldusers = [''];
 	            context.sendResponse('Reset known users list.');
@@ -586,6 +651,8 @@ function editTraineeSyntaxError(){
 	        // ------------------------
 	        
 	        else if(event.message.substring(0, 13) === '[rmKnownUser]'){
+	            context.simpledb.botleveldata.timesmodused = context.simpledb.botleveldata.timesmodused + 1;
+	            context.simpledb.botleveldata.timesused = context.simpledb.botleveldata.timesused + 1;
 	            if(resultOfPermCheck === 'leadMod'){
 	                if((event.message[13] === ' ') && (event.message[14] === '"')){
 	                    
@@ -623,6 +690,8 @@ function editTraineeSyntaxError(){
 	        
 	        // ------------------------
 	        else if(event.message === '[getKnownUsers]'){
+	            context.simpledb.botleveldata.timesmodused = context.simpledb.botleveldata.timesmodused + 1;
+	            context.simpledb.botleveldata.timesused = context.simpledb.botleveldata.timesused + 1;
 	            if(resultOfPermCheck === 'leadMod'){
 	                for(r = 0; r < context.simpledb.botleveldata.oldusers.length; r++){
 	                    if(context.simpledb.botleveldata.oldusers[r] !== ''){
@@ -748,7 +817,7 @@ function editTraineeSyntaxError(){
 	            var traineeToGetObj = JSON.parse(event.dbval);
 	            var currentTraineeName = traineeToGetObj.name;
 	            var currentTraineeIGN = traineeToGetObj.IGN;
-	            
+	            var traineeAdder = traineeToGetObj.adder;
 	            if(resultOfPermCheck === 'leadMod'){
 	            var currentTraineeIP = traineeToGetObj.IP;
 	            }
@@ -769,11 +838,56 @@ function editTraineeSyntaxError(){
 	                makeList = makeList;
 	                currentTraineeIP = makeList;
 	            }
-	            context.sendResponse('>*Trainee Name:* ' + traineeToGetInfoOf + '\n\n' + '>*Real Name:* ' + currentTraineeName + '\n\n' + '>*Trainee IGN:* ' + currentTraineeIGN + '\n\n' + '>*Trainee IP:* ' + currentTraineeIP + '\n*---*\n>_I am a bot. This action was performed automagically!_');
+	            function decideToSendAdder(){
+	                if(traineeAdder !== undefined){
+	                    return ('\n\n_Added by ' + traineeAdder + '_');
+	                }else{
+	                    return '';
+	                }
+	            }
+	            context.sendResponse('>*Trainee Name:* ' + traineeToGetInfoOf + '\n\n' + '>*Real Name:* ' + currentTraineeName + '\n\n' + '>*Trainee IGN:* ' + currentTraineeIGN + '\n\n' + '>*Trainee IP:* ' + currentTraineeIP + decideToSendAdder() + '\n*---*\n>_I am a bot. This action was performed automagically!_');
 	            
 	            
 	            
 	        }
+	        
+	    /*else if(thingToDBValueCheck === 'getTrainees'){
+	        if((resultOfPermCheck === 'leadMod') || (resultOfPermCheck === 'regMod')){
+
+	            traineeList = context.simpledb.botleveldata.trainees;
+
+	            
+
+	            
+
+	            for (f = 0; f < traineeList.length; f++){
+
+	                if(traineeList[f] !== ''){
+
+	                 makeListVar = makeListVar + traineeList[f] + '\n\n>';
+
+	                }else{
+
+	                    
+
+	                }
+
+	                
+
+	            }
+
+	            context.sendResponse('_Listing trainees..._\n\n' + makeListVar.substring(0, makeListVar.length - 2) + '*---*\n>_I am a bot. This action was performed automagically!_');
+
+	        }
+	        
+	        else{
+
+	                context.sendResponse('Error: Incorrect Permissions.\n>_I am a bot. This action was performed automagically!_');
+
+	            }
+	    }*/
+	    
+	        
 	        
 	        else{
 	            
