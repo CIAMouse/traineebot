@@ -30,6 +30,9 @@ var traineeToGetInfoOf = '';
 var traineeAdder = '';
 var makeTagList = '';
 var traineeToSearchFor = '';
+var isTrainee = false;
+var makeTagNeeded = '';
+var tagToAdd = '';
 
 //    <><><> permissionNodes <><><>
 
@@ -256,7 +259,7 @@ function checkPerms(handle){
     catch (e){
         resultOfPermCheck = 'fail';
         
-        }
+    }
 }
 
 
@@ -341,9 +344,11 @@ function editTraineeSyntaxError(){
 	            context.simpledb.botleveldata.timestraineeused = context.simpledb.botleveldata.timestraineeused + 1;
 	            context.simpledb.botleveldata.timesused = parseInt(context.simpledb.botleveldata.timesused) + 1;
 	            context.sendResponse('_Showing page 1 of 3 in \'start\'..._\n\nHey there! Welcome to the trainee team. While you’re here, you’ll be shadowing mods and helping them out. If (and when) we feel you are ready, you’ll be asked to join another team, where the real mods hang out. In the meantime, have fun! If you need help, feel free to DM @kaleb418, @lukehoffman, or @ciamouse2001. Go ahead and set up your profile if you have not already done so. *To continue with the introduction, direct message me* `[start-2]` *.*\n>_I am a bot. This action was performed automagically!_');
+            }
+	        // ------------------------
+	        else if(event.message === '[getBotInfo]'){
+	            context.sendResponse('>*Times Used:* ' + context.simpledb.botleveldata.timesused + '\n\n>*Times Trainee Commands Used:* ' + context.simpledb.botleveldata.timestraineeused + '\n\n>*Times Moderator Commands Used:* ' + context.simpledb.botleveldata.timesmodused + '\n\n>_I am a bot. This action was performed automagically!_');
 	        }
-	        
-	        
 	        
 	        // MOD COMMANDS
 	        
@@ -382,7 +387,7 @@ function editTraineeSyntaxError(){
 	                    }
 	                    if(badNewName === false){
 	                     context.simpledb.botleveldata.trainees.push(newTrainee);
-	                     context.simpledb.doPut(newTrainee, '{"name":"' + newTrainee + '", "IGN":"Unknown", "IP":"Unknown", "adder":"' + event.senderobj.display + '"}');
+	                     context.simpledb.doPut(newTrainee, '{"name":"' + newTrainee + '", "IGN":"Unknown", "IP":"Unknown", "adder":"' + event.senderobj.display + '", "tag": "Unknown"}');
 	                     context.sendResponse('Added *' + newTrainee + '* to the trainee list!\n>_I am a bot. This action was performed automagically!_');
 	                    }
 	                    else{
@@ -536,12 +541,6 @@ function editTraineeSyntaxError(){
 	            }
 	        }
 	        
-	        // ------------------------
-	        
-	        else if(event.message === '[getBotInfo]'){
-	            context.sendResponse('>*Times Used:* ' + context.simpledb.botleveldata.timesused + '\n\n>*Times Trainee Commands Used:* ' + context.simpledb.botleveldata.timestraineeused + '\n\n>*Times Moderator Commands Used:* ' + context.simpledb.botleveldata.timesmodused + '\n\n>_I am a bot. This action was performed automagically!_');
-	        }
-	        
 	        
 	        //   <<<<<<>>>>>>  EDIT TRAINEE BLOCK <<<<<<>>>>>>
 	        // ------------------------
@@ -668,11 +667,42 @@ function editTraineeSyntaxError(){
 	                        }
 	                    
 	                    }
+	                    if((event.message[lastKnownApost + 1] === ' ') && (event.message[lastKnownApost + 2] === '"')){
+	                        for(var aa = lastKnownApost + 3; aa < event.message.length; aa++){
+	                            if(event.message[aa] !== '"'){
+	                                makeTagNeeded = makeTagNeeded + event.message[aa];
+	                            }else{
+	                                makeTagNeeded = makeTagNeeded;
+	                                break;
+	                            }
+	                        }
+	                    }else{
+	                        context.sendResponse('Error: Can\'t parse the command. Correct Syntax:\n`[giveTag] "<trainee-name>" "<active/away/awol>"`\n>_I am a bot. This action was performed automagically!_');
+	                    }
 	                    
+	                    
+	                    tagToAdd = makeTagNeeded;
 	                    traineeToSearchFor = makeTagList;
 	                    
+	                    for(var ab = 0; ab < context.simpledb.botleveldata.trainees.length; ab++){
+	                        if(traineeToSearchFor !== context.simpledb.botleveldata.trainees[ab]){
+	                            isTrainee = false;
+	                        }else{
+	                            isTrainee = true;
+	                            break;
+	                        }
+	                    }
+	                    
+	                    if(isTrainee === true){
+	                        thingToDBValueCheck = 'giveTag';
+	                        context.simpledb.doGet(traineeToSearchFor);
+	                    }else{
+	                        context.sendResponse('Error: *' + traineeToSearchFor + '* is an unknown trainee. Please check for typos in your message, or use `[getTrainees]` to get the latest list of trainees.\n>_I am a bot. This action was performed automagically!_');
+	                    }
+	                    
+	                    
 	                }else{
-	                    context.sendResponse('Error: Can\'t parse the command. Correct Syntax:\n`[giveTag] "<trainee-name>" "<active/away/awol>"`\n>_I am a bot. This action was performed automagically!_');
+	                    context.sendResponse('Error: Can\'t parse the command. Correct Syntax:\n`[giveTag] "<trainee-name>" "<active/away/mia (missing-in-action)>"`\n>_I am a bot. This action was performed automagically!_');
 	                }
 	            }else{
 	                context.sendResponse('Error: Incorrect Permissions.\n>_I am a bot. This action was performed automagically!_');
@@ -816,25 +846,30 @@ function editTraineeSyntaxError(){
 	            var currentTraineeName = traineeToEditObj.name;
 	            var currentTraineeIGN = traineeToEditObj.IGN;
 	            var currentTraineeIP = traineeToEditObj.IP;
-	        
-	        
+	            var currentTraineeTag = traineeToEditObj.tag;
+	            
+	            if(currentTraineeTag === 'Unknown'){
+	                currentTraineeTag = '';
+	            }else{
+	                
+	            }
 	        
 	            if(thingToEditFinal === 'name'){
 	                var oldName = currentTraineeName;
-	                context.simpledb.doPut(traineeToEditFinal, '{"name":"' + editToAddFinal + '", "IGN":"' + currentTraineeIGN + '", "IP":"' + currentTraineeIP + '", "adder":"' + traineeAdder + '"}');
+	                context.simpledb.doPut(traineeToEditFinal, '{"name":"' + editToAddFinal + '", "IGN":"' + currentTraineeIGN + '", "IP":"' + currentTraineeIP + '", "adder":"' + traineeAdder + '", "tag": "' + currentTraineeTag + '"}');
 	                context.sendResponse('Successfully changed ' + traineeToEditFinal + '\'s name from *' + oldName + '* to *' + editToAddFinal +'*.\n>_I am a bot. This action was performed automagically!_');
 	            }
 	        
 	            else if(thingToEditFinal === 'IGN'){
 	                var oldIGN = currentTraineeIGN;
-	                context.simpledb.doPut(traineeToEditFinal, '{"name":"' + currentTraineeName + '", "IGN":"' + editToAddFinal + '", "IP":"' + currentTraineeIP + '", "adder":"' + traineeAdder + '"}');
+	                context.simpledb.doPut(traineeToEditFinal, '{"name":"' + currentTraineeName + '", "IGN":"' + editToAddFinal + '", "IP":"' + currentTraineeIP + '", "adder":"' + traineeAdder + '", "tag": "' + currentTraineeTag + '"}');
 	                context.sendResponse('Successfully changed ' + traineeToEditFinal + '\'s IGN from *' + oldIGN + '* to *' + editToAddFinal +'*.\n>_I am a bot. This action was performed automagically!_');
 	            }
 	        
 	            else if(thingToEditFinal === 'IP'){
 	                if(resultOfPermCheck === 'leadMod'){
 	                var oldIP = currentTraineeIP;
-	                context.simpledb.doPut(traineeToEditFinal, '{"name":"' + currentTraineeName + '", "IGN":"' + currentTraineeIGN + '", "IP":"' + editToAddFinal + '", "adder":"' + traineeAdder + '"}');
+	                context.simpledb.doPut(traineeToEditFinal, '{"name":"' + currentTraineeName + '", "IGN":"' + currentTraineeIGN + '", "IP":"' + editToAddFinal + '", "adder":"' + traineeAdder + '", "tag": "' + currentTraineeTag + '"}');
 	                context.sendResponse('Successfully changed ' + traineeToEditFinal + '\'s IP from *' + oldIP + '* to *' + editToAddFinal +'*.\n>_I am a bot. This action was performed automagically!_');
 	                }else{
 	                    context.sendResponse('Error: Incorrect Permissions.\n>_I am a bot. This action was performed automatically!_');
@@ -850,6 +885,14 @@ function editTraineeSyntaxError(){
 	            var currentTraineeName = traineeToEditObj.name;
 	            var currentTraineeIGN = traineeToEditObj.IGN;
 	            var traineeAdder = traineeToEditObj.adder;
+	            var currentTraineeTag = '`' + traineeToEditObj.tag + '`';
+	            
+	            if(currentTraineeTag === '`Unknown`'){
+	                currentTraineeTag = '';
+	            }else{
+	                
+	            }
+	            
 	            if(resultOfPermCheck === 'leadMod'){
 	                var currentTraineeIP = traineeToEditObj.IP;
 	            }
@@ -871,10 +914,33 @@ function editTraineeSyntaxError(){
 	                var currentTraineeIP = makeList;
 	            }
 	            
-	            context.sendResponse('>*Trainee Name:* ' + traineeToGetInfoOf + '\n\n' + '>*Real Name:* ' + currentTraineeName + '\n\n' + '>*Trainee IGN:* ' + currentTraineeIGN + '\n\n' + '>*Trainee IP:* ' + currentTraineeIP + '\n\n_Added by ' + traineeAdder + '_' + '\n*---*\n>_I am a bot. This action was performed automagically!_');
+	            context.sendResponse('>*Trainee Name:* ' + traineeToGetInfoOf + '  ' + currentTraineeTag + '\n\n' + '>*Real Name:* ' + currentTraineeName + '\n\n' + '>*Trainee IGN:* ' + currentTraineeIGN + '\n\n' + '>*Trainee IP:* ' + currentTraineeIP + '\n\n_Added by ' + traineeAdder + '_' + '\n*---*\n>_I am a bot. This action was performed automagically!_');
 	            
 	            
 	            
+	            
+	        }
+	        else if(thingToDBValueCheck === 'giveTag'){
+	            var traineeToEditObj = JSON.parse(event.dbval);
+	            var currentTraineeName = traineeToEditObj.name;
+	            var currentTraineeIGN = traineeToEditObj.IGN;
+	            var traineeAdder = traineeToEditObj.adder;
+	            var currentTraineeIP = traineeToEditObj.IP;
+	            if(tagToAdd === 'active'){
+	                context.simpledb.doPut(traineeToSearchFor, '{"name": "' + currentTraineeName + '", "IGN": "' + currentTraineeIGN + '", "IP": "' + currentTraineeIP + '", "adder": "' + traineeAdder + '", "tag": "Active"}');
+	                context.sendResponse('Successfully added the tag *Active* to *' + traineeToSearchFor + '*.\n>_I am a bot. This action was performed automagically!_');
+	            }
+	            else if(tagToAdd === 'away'){
+	                context.simpledb.doPut(traineeToSearchFor, '{"name": "' + currentTraineeName + '", "IGN": "' + currentTraineeIGN + '", "IP": "' + currentTraineeIP + '", "adder": "' + traineeAdder + '", "tag": "Excused Absence"}');
+	                context.sendResponse('Successfully added the tag *Excused Absence* to *' + traineeToSearchFor + '*.\n>_I am a bot. This action was performed automagically!_');
+	            }
+	            else if(tagToAdd === 'mia'){
+	                context.simpledb.doPut(traineeToSearchFor, '{"name": "' + currentTraineeName + '", "IGN": "' + currentTraineeIGN + '", "IP": "' + currentTraineeIP + '", "adder": "' + traineeAdder + '", "tag": "Inactive"}');
+	                context.sendResponse('Successfully added the tag *Inactive* to *' + traineeToSearchFor + '*.\n>_I am a bot. This action was performed automagically!_');
+	            }
+	            else{
+	                context.sendResponse('Error: Unknown tag. Correct Syntax:\n`[giveTag] "<trainee-name>" "<active/away/mia (missing-in-action)>"`\n>_I am a bot. This action was performed automagically!_');
+	            }
 	            
 	        }
 	        else{
@@ -883,5 +949,5 @@ function editTraineeSyntaxError(){
 	    }
 	
 	    function DbPutHandler(context, event) {
-	        
+
 	    }
