@@ -33,12 +33,6 @@ var traineeAdder = '';
 
 var users = {
     
-    kaleb418: {
-        permissionNode: 'leadMod'
-    },
-    ciamouse: {
-        permissionNode: 'leadMod'
-    },
     ante: {
         permissionNode: 'regMod'
     },
@@ -65,6 +59,9 @@ var users = {
     },
     captainlight22: {
         permissionNode: 'regMod'
+    },
+    ciamouse: {
+        permissionNode: 'leadMod'
     },
     cookieeatemma: {
         permissionNode: 'regMod'
@@ -133,6 +130,9 @@ var users = {
         permissionNode: 'regMod'
     },
     jiselleangeles: {
+        permissionNode: 'leadMod'
+    },
+    kaleb418: {
         permissionNode: 'leadMod'
     },
     kurtroyle: {
