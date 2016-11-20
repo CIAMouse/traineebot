@@ -253,7 +253,8 @@ function checkPerms(handle){
     }
     catch (e){
         resultOfPermCheck = 'fail';
-    }
+        
+        }
 }
 
 
@@ -781,35 +782,35 @@ function editTraineeSyntaxError(){
 	        
 	        if(thingToDBValueCheck === 'editTrainee'){
 	   
-	        var currentTraineeName = traineeToEditObj.name;
-	        var currentTraineeIGN = traineeToEditObj.IGN;
-	        var currentTraineeIP = traineeToEditObj.IP;
+	            var currentTraineeName = traineeToEditObj.name;
+	            var currentTraineeIGN = traineeToEditObj.IGN;
+	            var currentTraineeIP = traineeToEditObj.IP;
 	        
 	        
 	        
-	        if(thingToEditFinal === 'name'){
-	            var oldName = currentTraineeName;
-	            context.simpledb.doPut(traineeToEditFinal, '{"name":"' + editToAddFinal + '", "IGN":"' + currentTraineeIGN + '", "IP":"' + currentTraineeIP + '", "adder":"' + traineeAdder + '"}');
-	            context.sendResponse('Successfully changed ' + traineeToEditFinal + '\'s name from *' + oldName + '* to *' + editToAddFinal +'*.\n>_I am a bot. This action was performed automagically!_');
-	        }
-	        
-	        else if(thingToEditFinal === 'IGN'){
-	            var oldIGN = currentTraineeIGN;
-	            context.simpledb.doPut(traineeToEditFinal, '{"name":"' + currentTraineeName + '", "IGN":"' + editToAddFinal + '", "IP":"' + currentTraineeIP + '", "adder":"' + traineeAdder + '"}');
-	            context.sendResponse('Successfully changed ' + traineeToEditFinal + '\'s IGN from *' + oldIGN + '* to *' + editToAddFinal +'*.\n>_I am a bot. This action was performed automagically!_');
-	        }
-	        
-	        else if(thingToEditFinal === 'IP'){
-	            if(resultOfPermCheck === 'leadMod'){
-	            var oldIP = currentTraineeIP;
-	            context.simpledb.doPut(traineeToEditFinal, '{"name":"' + currentTraineeName + '", "IGN":"' + currentTraineeIGN + '", "IP":"' + editToAddFinal + '", "adder":"' + traineeAdder + '"}');
-	            context.sendResponse('Successfully changed ' + traineeToEditFinal + '\'s IP from *' + oldIP + '* to *' + editToAddFinal +'*.\n>_I am a bot. This action was performed automagically!_');
-	            }else{
-	                context.sendResponse('Error: Incorrect Permissions.\n>_I am a bot. This action was performed automatically!_');
+	            if(thingToEditFinal === 'name'){
+	                var oldName = currentTraineeName;
+	                context.simpledb.doPut(traineeToEditFinal, '{"name":"' + editToAddFinal + '", "IGN":"' + currentTraineeIGN + '", "IP":"' + currentTraineeIP + '", "adder":"' + traineeAdder + '"}');
+	                context.sendResponse('Successfully changed ' + traineeToEditFinal + '\'s name from *' + oldName + '* to *' + editToAddFinal +'*.\n>_I am a bot. This action was performed automagically!_');
 	            }
-	        }else{
-	            context.sendResponse('Error: Unknown subcommand. Please specify a subcommand (name/IGN/IP).\n>_I am a bot. This action was performed automatically!_');
-	        }
+	        
+	            else if(thingToEditFinal === 'IGN'){
+	                var oldIGN = currentTraineeIGN;
+	                context.simpledb.doPut(traineeToEditFinal, '{"name":"' + currentTraineeName + '", "IGN":"' + editToAddFinal + '", "IP":"' + currentTraineeIP + '", "adder":"' + traineeAdder + '"}');
+	                context.sendResponse('Successfully changed ' + traineeToEditFinal + '\'s IGN from *' + oldIGN + '* to *' + editToAddFinal +'*.\n>_I am a bot. This action was performed automagically!_');
+	            }
+	        
+	            else if(thingToEditFinal === 'IP'){
+	                if(resultOfPermCheck === 'leadMod'){
+	                var oldIP = currentTraineeIP;
+	                context.simpledb.doPut(traineeToEditFinal, '{"name":"' + currentTraineeName + '", "IGN":"' + currentTraineeIGN + '", "IP":"' + editToAddFinal + '", "adder":"' + traineeAdder + '"}');
+	                context.sendResponse('Successfully changed ' + traineeToEditFinal + '\'s IP from *' + oldIP + '* to *' + editToAddFinal +'*.\n>_I am a bot. This action was performed automagically!_');
+	                }else{
+	                    context.sendResponse('Error: Incorrect Permissions.\n>_I am a bot. This action was performed automatically!_');
+	                }
+	            }else{
+	                context.sendResponse('Error: Unknown subcommand. Please specify a subcommand (name/IGN/IP).\n>_I am a bot. This action was performed automatically!_');
+	            }
 	        }
 	        
 	        else if(thingToDBValueCheck === 'getTraineeInfo'){
@@ -819,9 +820,9 @@ function editTraineeSyntaxError(){
 	            var currentTraineeIGN = traineeToEditObj.IGN;
 	            var traineeAdder = traineeToEditObj.adder;
 	            if(resultOfPermCheck === 'leadMod'){
-	            var currentTraineeIP = traineeToEditObj.IP;
+	                var currentTraineeIP = traineeToEditObj.IP;
 	            }
-	            else if(traineeToGetObj.IP === "Unknown"){
+	            else if(traineeToEditObj.IP === "Unknown"){
 	                var currentTraineeIP = traineeToEditObj.IP;
 	            }
 	            else{
@@ -836,38 +837,15 @@ function editTraineeSyntaxError(){
 	                    
 	                }
 	                makeList = makeList;
-	                currentTraineeIP = makeList;
+	                var currentTraineeIP = makeList;
 	            }
 	            
 	            context.sendResponse('>*Trainee Name:* ' + traineeToGetInfoOf + '\n\n' + '>*Real Name:* ' + currentTraineeName + '\n\n' + '>*Trainee IGN:* ' + currentTraineeIGN + '\n\n' + '>*Trainee IP:* ' + currentTraineeIP + '\n\n_Added by ' + traineeAdder + '_' + '\n*---*\n>_I am a bot. This action was performed automagically!_');
 	            
 	            
 	            
-	        }
-	        
-	    /*else if(thingToDBValueCheck === 'getTrainees'){
-	        if((resultOfPermCheck === 'leadMod') || (resultOfPermCheck === 'regMod')){
-	            traineeList = context.simpledb.botleveldata.trainees;
 	            
-	            
-	            for (f = 0; f < traineeList.length; f++){
-	                if(traineeList[f] !== ''){
-	                 makeListVar = makeListVar + traineeList[f] + '\n\n>';
-	                }else{
-	                    
-	                }
-	                
-	            }
-	            context.sendResponse('_Listing trainees..._\n\n' + makeListVar.substring(0, makeListVar.length - 2) + '*---*\n>_I am a bot. This action was performed automagically!_');
 	        }
-	        
-	        else{
-	                context.sendResponse('Error: Incorrect Permissions.\n>_I am a bot. This action was performed automagically!_');
-	            }
-	    }*/
-	    
-	        
-	        
 	        else{
 	            
 	        }
