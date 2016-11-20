@@ -247,14 +247,13 @@ function getPermNode(user){
    return beans.permissionNode;
 }
 function checkPerms(handle){
-    /*try{
+    try{
        getPermNode(handle);
        resultOfPermCheck = getPermNode(handle);
     }
     catch (e){
         resultOfPermCheck = 'fail';
-    }*/
-    resultOfPermCheck = 'leadMod';
+    }
 }
 
 
