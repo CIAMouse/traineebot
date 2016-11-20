@@ -537,8 +537,6 @@ function editTraineeSyntaxError(){
 	        // ------------------------
 	        
 	        else if(event.message === '[getBotInfo]'){
-	            context.simpledb.botleveldata.timesused += 1;
-	            context.simpledb.botleveldata.timesmodused += 1;
 	            context.sendResponse('>*Times Used:* ' + context.simpledb.botleveldata.timesused + '\n\n>*Times Trainee Commands Used:* ' + context.simpledb.botleveldata.timestraineeused + '\n\n>*Times Moderator Commands Used:* ' + context.simpledb.botleveldata.timesmodused + '\n\n>_I am a bot. This action was performed automagically!_');
 	        }
 	        
@@ -648,6 +646,16 @@ function editTraineeSyntaxError(){
 	                context.sendResponse('Error: Incorrect Permissions.\n>_I am a bot. This action was performed automagically!_');
 	            }
 	        }
+	        
+	        // ------------------------
+	        
+	        
+	        else if(event.message.substring(0, 9) === '[giveTag]'){
+	            context.simpledb.botleveldata.timesmodused = context.simpledb.botleveldata.timesmodused + 1;
+	            context.simpledb.botleveldata.timesused = context.simpledb.botleveldata.timesused + 1;
+	            context.sendResponse('Under construction...\n>_I am a bot. This action was performed automagically!_');
+	        }
+	        
 	        
 	        // ------------------------
 	        
