@@ -28,6 +28,8 @@ var makeList = '';
 var errorIsNotTrainee = true;
 var traineeToGetInfoOf = '';
 var traineeAdder = '';
+var makeTagList = '';
+var traineeToSearchFor = '';
 
 //    <><><> permissionNodes <><><>
 
@@ -653,7 +655,28 @@ function editTraineeSyntaxError(){
 	        else if(event.message.substring(0, 9) === '[giveTag]'){
 	            context.simpledb.botleveldata.timesmodused = context.simpledb.botleveldata.timesmodused + 1;
 	            context.simpledb.botleveldata.timesused = context.simpledb.botleveldata.timesused + 1;
-	            context.sendResponse('Under construction...\n>_I am a bot. This action was performed automagically!_');
+    	        if((resultOfPermCheck === 'leadMod') || (resultOfPermCheck === 'regMod')){
+	                if((event.message[9] === ' ') && (event.message[10] === '"')){
+	                    for(var c = 11; c < event.message.length; c++){
+	                    
+	                        if(event.message[c] !== '"'){
+	                            makeTagList = makeTagList + event.message[c];
+	                        }else{
+	                            var lastKnownApost = c;
+	                            makeTagList = makeTagList;
+	                            break;
+	                        }
+	                    
+	                    }
+	                    
+	                    traineeToSearchFor = makeTagList;
+	                    
+	                }else{
+	                    context.sendResponse('Error: Can\'t parse the command. Correct Syntax:\n`[giveTag] "<trainee-name>" "<active/away/awol>"`\n>_I am a bot. This action was performed automagically!_');
+	                }
+	            }else{
+	                context.sendResponse('Error: Incorrect Permissions.\n>_I am a bot. This action was performed automagically!_');
+	            }
 	        }
 	        
 	        
