@@ -107,6 +107,9 @@ var users = {
     eldesttoast: {
         permissionNode: 'regMod'
     },
+    frostaurawolf_: {
+        permissionNode: 'regMod'
+    },
     gabby: {
         permissionNode: 'regMod'
     },
@@ -126,6 +129,9 @@ var users = {
         permissionNode: 'regMod'
     },
     infinitefrost: {
+        permissionNode: 'regMod'
+    },
+    itskylo: {
         permissionNode: 'regMod'
     },
     j_gizzle_135: {
@@ -282,6 +288,7 @@ function editTraineeSyntaxError(){
 	                context.simpledb.botleveldata.timesused = parseInt(context.simpledb.botleveldata.timesused) + 1;
 	                context.sendResponse('Test successful! Message handler online!\n>_I am a bot. This action was performed automagically!_');
 	            }
+	            
 	            // ------------------------
 	            else if((event.message.toLowerCase() === '[help]')||(event.message.toLowerCase() === '[info]')){
 	                context.simpledb.botleveldata.timestraineeused = context.simpledb.botleveldata.timestraineeused + 1;
