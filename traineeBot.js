@@ -922,9 +922,6 @@ function editTraineeSyntaxError(){
 	            
 	            context.sendResponse('>*Trainee Name:* ' + traineeToGetInfoOf + '  ' + currentTraineeTag + '\n\n' + '>*Real Name:* ' + currentTraineeName + '\n\n' + '>*Trainee IGN:* ' + currentTraineeIGN + '\n\n' + '>*Trainee IP:* ' + currentTraineeIP + '\n\n_Added by ' + traineeAdder + '_' + '\n*---*\n>_I am a bot. This action was performed automagically!_');
 	            
-	            
-	            
-	            
 	        }
 	        else if(thingToDBValueCheck === 'giveTag'){
 	            var traineeToEditObj = JSON.parse(event.dbval);
