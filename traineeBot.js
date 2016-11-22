@@ -35,6 +35,7 @@ var makeTagNeeded = '';
 var tagToAdd = '';
 var badIP = '';
 var testForRealIP = '';
+var checkedAndBadIP = false;
 
 //    <><><> permissionNodes <><><>
 
@@ -954,6 +955,7 @@ function editTraineeSyntaxError(){
 	            var currentTraineeIGN = traineeToEditObj.IGN;
 	            var traineeAdder = traineeToEditObj.adder;
 	            var currentTraineeTag = '`' + traineeToEditObj.tag + '`';
+	            var currentTraineeIP = traineeToEditObj.IP;
 	            
 	            if(currentTraineeTag === '`Unknown`'){
 	                currentTraineeTag = '';
@@ -961,11 +963,22 @@ function editTraineeSyntaxError(){
 	                
 	            }
 	            
+	            var thisOne = context.simpledb.botleveldata.badips;
+	            for(var o = 0; o < thisOne.length; o++){
+	                if(currentTraineeIP === thisOne[o]){
+	                    checkedAndBadIP = true;
+	                    break;
+	                }else{
+	                    checkedAndBadIP = false;
+	                }
+	            }
+	            
+	            
 	            if(resultOfPermCheck === 'leadMod'){
-	                var currentTraineeIP = traineeToEditObj.IP;
+	                currentTraineeIP = traineeToEditObj.IP;
 	            }
 	            else if(traineeToEditObj.IP === "Unknown"){
-	                var currentTraineeIP = traineeToEditObj.IP;
+	                currentTraineeIP = traineeToEditObj.IP;
 	            }
 	            else{
 	                makeList = '';
@@ -979,11 +992,19 @@ function editTraineeSyntaxError(){
 	                    
 	                }
 	                makeList = makeList;
-	                var currentTraineeIP = makeList;
+	                currentTraineeIP = makeList;
 	            }
 	            
-	            context.sendResponse('>*Trainee Name:* ' + traineeToGetInfoOf + '  ' + currentTraineeTag + '\n\n' + '>*Real Name:* ' + currentTraineeName + '\n\n' + '>*Trainee IGN:* ' + currentTraineeIGN + '\n\n' + '>*Trainee IP:* ' + currentTraineeIP + '\n\n_Added by ' + traineeAdder + '_' + '\n*---*\n>_I am a bot. This action was performed automagically!_');
 	            
+	            if(checkedAndBadIP === false){
+	                context.sendResponse('>*Trainee Name:* ' + traineeToGetInfoOf + '  ' + currentTraineeTag + '\n\n' + '>*Real Name:* ' + currentTraineeName + '\n\n' + '>*Trainee IGN:* ' + currentTraineeIGN + '\n\n' + '>*Trainee IP:* ' + currentTraineeIP + '\n\n_Added by ' + traineeAdder + '_' + '\n*---*\n>_I am a bot. This action was performed automagically!_');
+	            }else{
+	                if(resultOfPermCheck === 'leadMod'){
+	                    context.sendResponse('>*Trainee Name:* ' + traineeToGetInfoOf + '  ' + currentTraineeTag + '\n\n' + '>*Real Name:* ' + currentTraineeName + '\n\n' + '>*Trainee IGN:* ' + currentTraineeIGN + '\n\n' + '>*Trainee IP:* ' + currentTraineeIP + '\n\n_Added by ' + traineeAdder + '_' + '\n\n*Warning: The IP of this trainee (' + currentTraineeIP + ') matches a known blacklisted IP. This is a critical warning, please alert a staff member immediately.*\n' +'\n*---*\n>_I am a bot. This action was performed automagically!_');
+	                }else{
+	                    context.sendResponse('>*Trainee Name:* ' + traineeToGetInfoOf + '  ' + currentTraineeTag + '\n\n' + '>*Real Name:* ' + currentTraineeName + '\n\n' + '>*Trainee IGN:* ' + currentTraineeIGN + '\n\n' + '>*Trainee IP:* ' + currentTraineeIP + '\n\n_Added by ' + traineeAdder + '_' + '\n\n*Warning: The IP of this trainee matches a known blacklisted IP. This is a critical warning, please alert a staff member immediately.*\n' +'\n*---*\n>_I am a bot. This action was performed automagically!_');
+	                }
+	            }
 	            
 	            
 	            
