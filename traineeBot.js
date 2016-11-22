@@ -33,6 +33,8 @@ var traineeToSearchFor = '';
 var isTrainee = false;
 var makeTagNeeded = '';
 var tagToAdd = '';
+var badIP = '';
+var testForRealIP = '';
 
 //    <><><> permissionNodes <><><>
 
@@ -540,8 +542,68 @@ function editTraineeSyntaxError(){
 	                context.sendResponse('Error: Incorrect Permissions.\n>_I am a bot. This action was performed automagically!_');
 	            }
 	        }
+	        // ------------------------
+	        
+	        else if(event.message.substring(0, 10) === '[addBadIP]'){
+	            context.simpledb.botleveldata.timesmodused = context.simpledb.botleveldata.timesmodused + 1;
+	            context.simpledb.botleveldata.timesused = context.simpledb.botleveldata.timesused + 1;
+	            if(resultOfPermCheck === 'leadMod'){
+	                if((event.message[10] === ' ') && (event.message[11] === '"')){
+	                    makeListVar = '';
+	                    
+	                    for(var e = 12; e < event.message.length; e++){
+	                        if(event.message[e] !== '"'){
+	                            makeListVar = makeListVar + event.message[e];
+	                        }else{
+	                            makeListVar = makeListVar;
+	                            break;
+	                        }
+	                    }
+	                    
+	                    badIP = makeListVar;
+	                    makeListVar = '';
+	                    
+	                    for(var d = 0; d < badIP.length; d++){
+	                        if(badIP[d] !== '.'){
+	                            makeListVar = makeListVar + badIP[d];
+	                        }else{
+	                            
+	                        }
+	                    }
+	                    
+	                    testForRealIP = makeListVar;
+	                    
+	                    if(isNaN(testForRealIP) === false){
+	                        var badIPList = context.simpledb.botleveldata.badips;
+	                        badIPList.push(badIP);
+	                        context.simpledb.botleveldata.badips = badIPList;
+	                        context.sendResponse(':heavy_plus_sign: Successfully added *' + badIP + '* to the blacklisted IP list.\n>_I am a bot. This action was performed automagically!_');
+	                    }else{
+	                        context.sendResponse('Error: *' + badIP + '* is not a valid IP address.\n>_I am a bot. This action was performed automagically!_');
+	                    }
+	                }else{
+	                    context.sendResponse('Error: Can\'t parse the command. Correct Syntax:\n`[addBadIP] "<IP>"`\n>_I am a bot. This action was performed automagically!_');
+	                }
+	            }else{
+	                context.sendResponse('Error: Incorrect Permissions.\n>_I am a bot. This action was performed automagically!_');
+	            }
+	        }
 	        
 	        // ------------------------
+	        
+	        else if(event.message === '[clearBadIPs]'){
+	            context.simpledb.botleveldata.timesmodused = context.simpledb.botleveldata.timesmodused + 1;
+	            context.simpledb.botleveldata.timesused = context.simpledb.botleveldata.timesused + 1;
+	            if(resultOfPermCheck === 'leadMod'){
+	                context.simpledb.botleveldata.badips = [];
+	                context.sendResponse(':heavy_minus_sign: Successfully cleared the blacklisted IP list.\n>_I am a bot. This action was performed automagically!_');
+	            }else{
+	                context.sendResponse('Error: Incorrect Permissions.\n>_I am a bot. This action was performed automagically!_');
+	            }
+	        }
+	        
+	        // ------------------------
+	        
 	        else if(event.message === '[clearTrainees]'){
 	            context.simpledb.botleveldata.timesmodused = context.simpledb.botleveldata.timesmodused + 1;
 	            context.simpledb.botleveldata.timesused = context.simpledb.botleveldata.timesused + 1;
