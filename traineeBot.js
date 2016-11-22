@@ -500,6 +500,7 @@ function editTraineeSyntaxError(){
 	                    if(event.message[t] !== '"'){
 	                        makeList = makeList + event.message[t];
 	                    }else{
+	                        lastKnownComma = t;
 	                        makeList = makeList;
 	                        break;
 	                    }
@@ -519,7 +520,11 @@ function editTraineeSyntaxError(){
 	                }
 	                
 	                if(errorIsNotTrainee === false){
-
+                            if(event.message.substring(lastKnownComma + 2, lastKnownComma + 5) === '-h'){
+                            resultOfPermCheck = 'regMod';
+	                        }else{
+	                            
+	                        }
 	                        thingToDBValueCheck = 'getTraineeInfo';
 	                        traineeToGetInfoOf = makeList;
 	                        context.simpledb.doGet(makeList);
@@ -854,12 +859,6 @@ function editTraineeSyntaxError(){
 	            var currentTraineeIGN = traineeToEditObj.IGN;
 	            var currentTraineeIP = traineeToEditObj.IP;
 	            var currentTraineeTag = traineeToEditObj.tag;
-	            
-	            if(currentTraineeTag === 'Unknown'){
-	                currentTraineeTag = '';
-	            }else{
-	                
-	            }
 	        
 	            if(thingToEditFinal === 'name'){
 	                var oldName = currentTraineeName;
