@@ -210,6 +210,9 @@ var users = {
     stephanie: {
         permissionNode: 'leadMod'
     },
+    swaggeddiamond80: {
+        permissionNode: 'regMod'
+    },
     tdehaney: {
         permissionNode: 'regMod'
     },
