@@ -36,6 +36,7 @@ var tagToAdd = '';
 var badIP = '';
 var testForRealIP = '';
 var checkedAndBadIP = false;
+var badIPAlreadyUsed = false;
 
 //    <><><> permissionNodes <><><>
 
@@ -574,13 +575,27 @@ function editTraineeSyntaxError(){
 	                    
 	                    testForRealIP = makeListVar;
 	                    
-	                    if(isNaN(testForRealIP) === false){
-	                        var badIPList = context.simpledb.botleveldata.badips;
-	                        badIPList.push(badIP);
-	                        context.simpledb.botleveldata.badips = badIPList;
-	                        context.sendResponse(':heavy_plus_sign: Successfully added *' + badIP + '* to the blacklisted IP list.\n>_I am a bot. This action was performed automagically!_');
+	                    makeListVar = '';
+	                    
+	                    for(var j = 0; j < context.simpledb.botleveldata.badips.length; j++){
+	                        if(badIP === context.simpledb.botleveldata.badips[j]){
+	                            badIPAlreadyUsed = true;
+	                            break;
+	                        }else{
+	                            badIPAlreadyUsed = false;
+	                        }
+	                    }
+	                    if(badIPAlreadyUsed !== true){
+	                        if(isNaN(testForRealIP) === false){
+	                            var badIPList = context.simpledb.botleveldata.badips;
+	                            badIPList.push(badIP);
+	                            context.simpledb.botleveldata.badips = badIPList;
+	                            context.sendResponse(':heavy_plus_sign: Successfully added *' + badIP + '* to the blacklisted IP list.\n>_I am a bot. This action was performed automagically!_');
+	                        }else{
+	                            context.sendResponse(':warning: Error: *' + badIP + '* is not a valid IP address.\n>_I am a bot. This action was performed automagically!_');
+	                        }
 	                    }else{
-	                        context.sendResponse(':warning: Error: *' + badIP + '* is not a valid IP address.\n>_I am a bot. This action was performed automagically!_');
+	                        context.sendResponse(':warning: Error: IP is already a blacklisted IP.\n>_I am a bot. This action was performed automagically!_');
 	                    }
 	                }else{
 	                    context.sendResponse(':warning: Error: Can\'t parse the command. Correct Syntax:\n`[addBadIP] "<IP>"`\n>_I am a bot. This action was performed automagically!_');
