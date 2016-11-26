@@ -436,33 +436,18 @@ function editTraineeSyntaxError(){
 	            if((resultOfPermCheck === 'leadMod') || (resultOfPermCheck === 'regMod')){
 
 	            traineeList = context.simpledb.botleveldata.trainees;
-
-	            
-
-	            
-
 	            for (f = 0; f < traineeList.length; f++){
-
 	                if(traineeList[f] !== ''){
-
 	                 makeListVar = makeListVar + traineeList[f] + '\n\n>';
-
 	                }else{
-
 	                    
-
 	                }
-
-	                
-
 	            }
 
 	            context.sendResponse('_Listing trainees..._\n\n' + makeListVar.substring(0, makeListVar.length - 2) + '*---*\n>_I am a bot. This action was performed automagically!_');
 
 	        }else{
-
 	                permError();
-
 	            }
 	        }
 	        // ------------------------
@@ -470,9 +455,6 @@ function editTraineeSyntaxError(){
 	            context.simpledb.botleveldata.timesmodused = context.simpledb.botleveldata.timesmodused + 1;
 	            context.simpledb.botleveldata.timesused = context.simpledb.botleveldata.timesused + 1;
 	            if(resultOfPermCheck === 'leadMod'){
-	                
-	            
-	            
 	            for(i = 13; i < (event.message.length); i++){
 	                
 	                if(event.message[i] !== '"'){
@@ -491,7 +473,6 @@ function editTraineeSyntaxError(){
 	                context.simpledb.botleveldata.trainees.splice(deletionIndex, 1);
 	                context.sendResponse(':heavy_minus_sign: Successfully deleted *' + newDeletionFinal + '*.\n>_I am a bot. This action was performed automagically!_');
 	            }
-	            
 	            else{
 	                context.sendResponse(':warning: Error: *' + newDeletionFinal + '* is an unknown trainee. Trainee names are CaSe SeNsItIvE. Try `[getTrainees]` to get the up-to-date list of trainees.\n>_I am a bot. This action was performed automagically._');
 	            }
@@ -522,7 +503,6 @@ function editTraineeSyntaxError(){
 	                    }
 	                    
 	                }
-	                
 	                
 	                for(h = 0; h < context.simpledb.botleveldata.trainees.length; h++){
 	                    
@@ -898,8 +878,6 @@ function editTraineeSyntaxError(){
 	            else{
 	                context.sendResponse(':warning: Error: *' + newDeletionFinal + '* is an unknown user. User names are CaSe SeNsItIvE.\n>_I am a bot. This action was performed automagically._');
 	            }
-	            
-	                    
 	                }else{
 	                    context.sendResponse(':warning: Error: Can\'t parse command. Correct syntax:\n`[rmKnownUser] "<user_handle (@)>"`\n>_I am a bot. This action was performed automagically!_');
 	                }
@@ -953,11 +931,6 @@ function editTraineeSyntaxError(){
 	        else{
 	            context.sendResponse('Sorry, I don\'t understand! Please check for typos in your message, or don\'t use "[" at the beginning of your message. Alternatively, you can try `[help]` for me to help further.\n>_I am a bot. This action was performed automagically!_');
 	        }
-	        
-	        
-	        
-	        
-	        
 	        }else{
                 // END OF '[' MSGS
 	        for(g = 0; g < context.simpledb.botleveldata.oldusers.length; g++){
@@ -1111,7 +1084,6 @@ function editTraineeSyntaxError(){
 	                makeList = makeList;
 	                currentTraineeIP = makeList;
 	            }
-	            
 	            
 	            if(traineeAddedDate !== undefined){
 	            
