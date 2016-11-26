@@ -278,6 +278,16 @@ function checkPerms(handle){
     }
 }
 
+function permError(){
+    if(resultOfPermCheck === 'fail'){
+        resultOfPermCheck = 'defaultUser';
+    }else{
+        
+    }
+    context.sendResponse(':warning: Error: Incorrect Permissions. Your permission node is *' + resultOfPermCheck + '*. Please contact KaIeb if you think this is in error.\n>_I am a bot. This action was performed automatically._');
+    
+}
+
 function editTraineeSyntaxError(){
     context.sendResponse('Error: Can\'t parse the command. Correct Syntax:\n`[editTrainee] "<trainee-name>" "<name/IGN/knownIPs>" "<text>"`\n>_I am a bot. This action was performed automagically!_');
 }
@@ -409,16 +419,13 @@ function editTraineeSyntaxError(){
 	                    else{
 	                        context.sendResponse(':warning: Error: Trainee name already in use.\n>_I am a bot. This action was performed automagically!_');
 	                    }
-	                
-	               
-	               
 	               }
 	               else{
 	                   context.sendResponse(':warning: Error: Can\'t parse the command. Correct syntax:\n`[addTrainee] "<trainee-name>"`\n>_I am a bot. This action was performed automagically!_');
 	               }
 	               
 	               }else{
-	                context.sendResponse(':warning: Error: Incorrect Permissions.\n>_I am a bot. This action was performed automagically!_');
+	                permError();
 	            }
 	        }
 	            
@@ -454,7 +461,7 @@ function editTraineeSyntaxError(){
 
 	        }else{
 
-	                context.sendResponse(':warning: Error: Incorrect Permissions.\n>_I am a bot. This action was performed automagically!_');
+	                permError();
 
 	            }
 	        }
@@ -494,7 +501,7 @@ function editTraineeSyntaxError(){
 	            }
 	            
 	        }else{
-	                context.sendResponse(':warning: Error: Incorrect Permissions.\n>_I am a bot. This action was performed automagically!_');
+	                permError();
 	            }
 	        }
 	        // ------------------------
@@ -546,7 +553,7 @@ function editTraineeSyntaxError(){
 	                context.sendResponse(':warning: Error: Can\'t parse the command. Correct Syntax:\n`[getTraineeInfo] "<trainee-name>"`\n>_I am a bot. This action was performed automagically!_');
 	            }
 	        }else{
-	                context.sendResponse(':warning: Error: Incorrect Permissions.\n>_I am a bot. This action was performed automagically!_');
+	                permError();
 	            }
 	        }
 	        // ------------------------
@@ -606,7 +613,7 @@ function editTraineeSyntaxError(){
 	                    context.sendResponse(':warning: Error: Can\'t parse the command. Correct Syntax:\n`[addBadIP] "<IP>"`\n>_I am a bot. This action was performed automagically!_');
 	                }
 	            }else{
-	                context.sendResponse(':warning: Error: Incorrect Permissions.\n>_I am a bot. This action was performed automagically!_');
+	                permError();
 	            }
 	        }
 	        
@@ -619,7 +626,7 @@ function editTraineeSyntaxError(){
 	                context.simpledb.botleveldata.badips = [];
 	                context.sendResponse(':heavy_minus_sign: Successfully cleared the blacklisted IP list.\n>_I am a bot. This action was performed automagically!_');
 	            }else{
-	                context.sendResponse(':warning: Error: Incorrect Permissions.\n>_I am a bot. This action was performed automagically!_');
+	                permError();
 	            }
 	        }
 	        
@@ -675,7 +682,7 @@ function editTraineeSyntaxError(){
 	                    context.sendResponse(':warning: Error: Can\'t parse the command. Correct Syntax:\n`[checkIP] "<IP>"`\n>_I am a bot. This action was performed automagically!_');
 	                }
 	            }else{
-	                context.sendResponse(':warning: Error: Incorrect Permissions.\n>_I am a bot. This action was performed automagically!_');
+	                permError();
 	            }
 	        }
 	        
@@ -688,7 +695,7 @@ function editTraineeSyntaxError(){
 	                context.simpledb.botleveldata.trainees = [''];
 	                context.sendResponse('Successfully cleared trainee list!\n>_I am a bot. This action was performed automagically!_');
 	            }else{
-	                context.sendResponse(':warning: Error: Incorrect Permissions.\n>_I am a bot. This action was performed automagically!_');
+	                permError();
 	            }
 	        }
 	        
@@ -783,7 +790,7 @@ function editTraineeSyntaxError(){
 	            }
 	        
 	        }else{
-	                context.sendResponse(':warning: Error: Incorrect Permissions.\n>_I am a bot. This action was performed automagically!_');
+	            permError();
 	            }
 	        }
 	        
@@ -795,7 +802,7 @@ function editTraineeSyntaxError(){
 	            context.simpledb.botleveldata.oldusers = [''];
 	            context.sendResponse('Reset known users list.');
 	            }else{
-	                context.sendResponse(':warning: Error: Incorrect Permissions.\n>_I am a bot. This action was performed automagically!_');
+	                permError();
 	            }
 	        }
 	        
@@ -856,7 +863,7 @@ function editTraineeSyntaxError(){
 	                    context.sendResponse(':warning: Error: Can\'t parse the command. Correct Syntax:\n`[giveTag] "<trainee-name>" "<active/away/mia (missing-in-action)>"`\n>_I am a bot. This action was performed automagically!_');
 	                }
 	            }else{
-	                context.sendResponse(':warning: Error: Incorrect Permissions.\n>_I am a bot. This action was performed automagically!_');
+	                permError();
 	            }
 	        }
 	        
@@ -897,10 +904,17 @@ function editTraineeSyntaxError(){
 	                    context.sendResponse(':warning: Error: Can\'t parse command. Correct syntax:\n`[rmKnownUser] "<user_handle (@)>"`\n>_I am a bot. This action was performed automagically!_');
 	                }
 	            }else{
-	                context.sendResponse(':warning: Error: Incorrect Permissions.\n>_I am a bot. This action was performed automatically!_');
+	                permError();
 	            }
 	        }
-	        
+	        // ------------------------
+	        else if(event.message === '[testFeature]'){
+	            if(event.senderobj.subdisplay === 'kaleb418'){
+	                
+	            }else{
+	                permError();
+	            }
+	        }
 	        // ------------------------
 	        else if(event.message === '[getKnownUsers]'){
 	            context.simpledb.botleveldata.timesmodused = context.simpledb.botleveldata.timesmodused + 1;
@@ -930,7 +944,7 @@ function editTraineeSyntaxError(){
 	                
 	                context.sendResponse('_Listing known users..._\n\n' + toMakeKnownUsers.substring(0, (toMakeKnownUsers.length - 3)) + '\n*---*\n>_I am a bot. This action was performed automagically!_');
 	            }else{
-	                context.sendResponse(':warning: Error: Incorrect Permissions.\n>_I am a bot. This action was performed automatically!_');
+	                permError();
 	            }
 	        }
 	        
@@ -1126,6 +1140,7 @@ function editTraineeSyntaxError(){
 	            
 	            
 	        }
+	        
 	        else if(thingToDBValueCheck === 'giveTag'){
 	            var traineeToEditObj = JSON.parse(event.dbval);
 	            var currentTraineeName = traineeToEditObj.name;
