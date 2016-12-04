@@ -363,7 +363,7 @@ function editTraineeSyntaxError(){
 	        else if(event.message.toLowerCase() === '[start-3]'){
 	            context.simpledb.botleveldata.timestraineeused = context.simpledb.botleveldata.timestraineeused + 1;
 	            context.simpledb.botleveldata.timesused = parseInt(context.simpledb.botleveldata.timesused) + 1;
-	            context.sendResponse('_Showing page 3 of 3 in \'start\'..._\n\nAnd, last but not least, have fun! We offer an in-game tag `[Crew]` for all trainees, direct message @ciamouse or @kaleb418 your IGN (gamertag) to get it added. When (and if) the moderators and staff members feel you are ready to become a full moderator, you will be processed into a member of our team. For now, the only extra command you have is `/d`.\n>_I am a bot. This action was performed automagically!_');
+	            context.sendResponse('_Showing page 3 of 3 in \'start\'..._\n\nAnd, last but not least, have fun! We offer an in-game tag `[Crew]` for all trainees, please fill out this form to have it applied to your account: https://goo.gl/forms/VF301aUsFK9QWAEG2. When (and if) the moderators and staff members feel you are ready to become a full moderator, you will be processed into a member of our team. For now, the only extra command you have is `/d`.\n>_I am a bot. This action was performed automagically!_');
 	        }
 	        // ------------------------
 	        else if(event.message.toLowerCase() === '[start-2]'){
