@@ -423,7 +423,7 @@ function editTraineeSyntaxError(){
 	                     var dateToEdit = new Date();
 	                     var dateToAdd = dateToEdit.toDateString();
 	                     context.simpledb.botleveldata.trainees.push(newTrainee);
-	                     context.simpledb.doPut(newTrainee, '{"name":"' + newTrainee + '", "IGN":"Unknown", "IP":"Unknown", "adder":"' + event.senderobj.display + '", "tag": "Unknown", "dateAdded": "' + dateToAdd + '"}');
+	                     context.simpledb.doPut(newTrainee, '{"name":"Unknown", "IGN":"Unknown", "IP":"Unknown", "adder":"' + event.senderobj.display + '", "tag": "Unknown", "dateAdded": "' + dateToAdd + '"}');
 	                     context.sendResponse(':heavy_plus_sign: Added *' + newTrainee + '* to the trainee list!\n>_I am a bot. This action was performed automagically!_');
 	                    }
 	                    else{
