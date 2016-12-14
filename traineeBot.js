@@ -108,6 +108,9 @@ var users = {
     dogcatdogcat4: {
         permissionNode: 'regMod'
     },
+    dudeitz_holly: {
+        permissionNode: 'regMod'
+    },
     eldesttoast: {
         permissionNode: 'regMod'
     },
@@ -192,7 +195,13 @@ var users = {
     nevershoutbearr: {
         permissionNode: 'regMod'
     },
+    omg_itstommy: {
+        permissionNode: 'regMod'
+    },
     paulchenhd: {
+        permissionNode: 'regMod'
+    },
+    rashawn2clutch: {
         permissionNode: 'regMod'
     },
     rosiemc: {
@@ -256,6 +265,9 @@ var users = {
         permissionNode: 'regMod'
     },
     yuriplaysmcpeyt: {
+        permissionNode: 'regMod'
+    },
+    yuri_: {
         permissionNode: 'regMod'
     },
     ziqtheman: {
@@ -363,7 +375,7 @@ function editTraineeSyntaxError(){
 	        else if(event.message.toLowerCase() === '[start-3]'){
 	            context.simpledb.botleveldata.timestraineeused = context.simpledb.botleveldata.timestraineeused + 1;
 	            context.simpledb.botleveldata.timesused = parseInt(context.simpledb.botleveldata.timesused) + 1;
-	            context.sendResponse('_Showing page 3 of 3 in \'start\'..._\n\nAnd, last but not least, have fun! We offer an in-game tag `[Crew]` for all trainees, please fill out this form to have it applied to your account: https://goo.gl/forms/VF301aUsFK9QWAEG2. When (and if) the moderators and staff members feel you are ready to become a full moderator, you will be processed into a member of our team. For now, the only extra command you have is `/d`.\n>_I am a bot. This action was performed automagically!_');
+	            context.sendResponse('_Showing page 3 of 3 in \'start\'..._\n\nAnd, last but not least, have fun! We offer an in-game tag `[Crew]` for all trainees, please DM @kaleb418 or @ciamouse to have it added. When (and if) the moderators and staff members feel you are ready to become a full moderator, you will be processed into a member of our team. For now, the only extra command you have is `/d`.\n>_I am a bot. This action was performed automagically!_');
 	        }
 	        // ------------------------
 	        else if(event.message.toLowerCase() === '[start-2]'){
@@ -382,7 +394,7 @@ function editTraineeSyntaxError(){
                 context.sendResponse('*#announcements* - You cannot post in this channel. This is for staff members only to communicate important information with the trainees and/or moderators.\n*#main* - This is the main channel. Moderators and trainees can communicate about Lifeboat-related topics.\n*#chatter* - This channel is for non-work related topics. It is meant to reduce stress and have fun discussions with your fellow crew members.\n *#report-desk* - This channel is under strict watch by a bot. If you send a message in here, you will be warned by the bot. Please only send player reports in this channel. Reports *must* consist of proof (image or video), the name of the accused, along with any additional information, such as what the report is about. It will be ignored if missing any of these components. Please ignore the bot if you send a video in the channel and it warns you.\n>_I am a bot. This action was performed automagically!_');
             }
 	        // ------------------------
-	        else if(event.message.toLowerCase() === '[getBotInfo]'){
+	        else if(event.message === '[getBotInfo]'){
 	            context.sendResponse('>*Times Used:* ' + context.simpledb.botleveldata.timesused + '\n\n>*Times Trainee Commands Used:* ' + context.simpledb.botleveldata.timestraineeused + '\n\n>*Times Moderator Commands Used:* ' + context.simpledb.botleveldata.timesmodused + '\n\nThis bot was created and published by KaIeb Wasmuth. Please contact him for feature requests.\n*---*\n>_I am a bot. This action was performed automagically!_');
 	        }
 	        
@@ -394,7 +406,7 @@ function editTraineeSyntaxError(){
 	            context.simpledb.botleveldata.timesmodused = context.simpledb.botleveldata.timesmodused + 1;
 	            context.simpledb.botleveldata.timesused = context.simpledb.botleveldata.timesused + 1;
 	           if((resultOfPermCheck === 'leadMod') || (resultOfPermCheck === 'regMod')){
-	               if((event.message[11] === ']') && (event.message[12] === ' ') && (event.message[13] === '"')){
+	               if((event.message[11] === ']') && (event.message[12] === ' ') && (event.message[13] === '"') && (event.message[event.message.length - 1] === '"')){
 	                   
 	               
 	                 for(i = 14; i < (event.message.length - 1); i++){
@@ -477,7 +489,7 @@ function editTraineeSyntaxError(){
 	            }
 	            
 	            newDeletionFinal = newDeletion;
-	            if(event.message[11] === ' ' && event.message[12] === '"'){
+	            if(event.message[11] === ' ' && event.message[12] === '"' && (event.message[event.message.length - 1] === '"')){
 	            var deletionIndex = context.simpledb.botleveldata.trainees.indexOf(newDeletionFinal);
 	            if(deletionIndex > -1){
 	                context.simpledb.botleveldata.trainees.splice(deletionIndex, 1);
@@ -552,7 +564,7 @@ function editTraineeSyntaxError(){
 	            context.simpledb.botleveldata.timesmodused = context.simpledb.botleveldata.timesmodused + 1;
 	            context.simpledb.botleveldata.timesused = context.simpledb.botleveldata.timesused + 1;
 	            if(resultOfPermCheck === 'leadMod'){
-	                if((event.message[10] === ' ') && (event.message[11] === '"')){
+	                if((event.message[10] === ' ') && (event.message[11] === '"') && (event.message[event.message.length - 1] === '"')){
 	                    makeListVar = '';
 	                    
 	                    for(var e = 12; e < event.message.length; e++){
@@ -626,7 +638,7 @@ function editTraineeSyntaxError(){
 	            context.simpledb.botleveldata.timesmodused = context.simpledb.botleveldata.timesmodused + 1;
 	            context.simpledb.botleveldata.timesused = context.simpledb.botleveldata.timesused + 1;
 	            if(resultOfPermCheck === 'leadMod'){
-	                if((event.message[9] === ' ') && (event.message[10] === '"')){
+	                if((event.message[9] === ' ') && (event.message[10] === '"') && (event.message[event.message.length - 1] === '"')){
 	                    makeListVar = '';
 	                    for(var g = 11; g < event.message.length; g++){
 	                        if(event.message[g] !== '"'){
@@ -724,7 +736,7 @@ function editTraineeSyntaxError(){
 	                
 	                if(isKnownTrainee === true){
 	                    // Trainee is known, begin parsing of what to change, what to change it to
-	                    if((event.message[lastKnownQuote + 1] === ' ') && (event.message[lastKnownQuote + 2] === '"')){
+	                    if((event.message[lastKnownQuote + 1] === ' ') && (event.message[lastKnownQuote + 2] === '"') && (event.message[event.message.length - 1] === '"')){
 	                        makingListAddon = '';
 	                        for(r = lastKnownQuote + 3; r < event.message.length; r++){
 	                            
@@ -803,7 +815,7 @@ function editTraineeSyntaxError(){
 	            context.simpledb.botleveldata.timesmodused = context.simpledb.botleveldata.timesmodused + 1;
 	            context.simpledb.botleveldata.timesused = context.simpledb.botleveldata.timesused + 1;
     	        if((resultOfPermCheck === 'leadMod') || (resultOfPermCheck === 'regMod')){
-	                if((event.message[9] === ' ') && (event.message[10] === '"')){
+	                if((event.message[9] === ' ') && (event.message[10] === '"') && (event.message[event.message.length - 1] === '"')){
 	                    for(var c = 11; c < event.message.length; c++){
 	                    
 	                        if(event.message[c] !== '"'){
@@ -864,7 +876,7 @@ function editTraineeSyntaxError(){
 	            context.simpledb.botleveldata.timesmodused = context.simpledb.botleveldata.timesmodused + 1;
 	            context.simpledb.botleveldata.timesused = context.simpledb.botleveldata.timesused + 1;
 	            if(resultOfPermCheck === 'leadMod'){
-	                if((event.message[13] === ' ') && (event.message[14] === '"')){
+	                if((event.message[13] === ' ') && (event.message[14] === '"') && (event.message[event.message.length - 1] === '"')){
 	                    
 	                    for(i = 15; i < (event.message.length); i++){
 	                
