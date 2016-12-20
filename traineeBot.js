@@ -207,6 +207,9 @@ var users = {
     rosiemc: {
         permissionNode: 'regMod'
     },
+    sam: {
+        permissionNode: 'regMod'
+    },
     sashasparkle: {
         permissionNode: 'regMod'
     },
@@ -811,7 +814,7 @@ function editTraineeSyntaxError(){
 	        // ------------------------
 	        
 	        
-	        else if(event.message.substring(0, 9) === '[giveTag]'){
+	        /*else if(event.message.substring(0, 9) === '[giveTag]'){
 	            context.simpledb.botleveldata.timesmodused = context.simpledb.botleveldata.timesmodused + 1;
 	            context.simpledb.botleveldata.timesused = context.simpledb.botleveldata.timesused + 1;
     	        if((resultOfPermCheck === 'leadMod') || (resultOfPermCheck === 'regMod')){
@@ -867,7 +870,7 @@ function editTraineeSyntaxError(){
 	            }else{
 	                permError();
 	            }
-	        }
+	        }*/
 	        
 	        
 	        // ------------------------
@@ -1110,24 +1113,24 @@ function editTraineeSyntaxError(){
 	            if(traineeAddedDate !== undefined){
 	            
 	                if(checkedAndBadIP === false){
-	                    context.sendResponse('>*Trainee Name:* ' + traineeToGetInfoOf + '  ' + currentTraineeTag + '\n\n' + '>*Real Name:* ' + currentTraineeName + '\n\n' + '>*Trainee IGN:* ' + currentTraineeIGN + '\n\n' + '>*Trainee IP:* ' + currentTraineeIP + '\n\n_Added by ' + traineeAdder + ' on ' + traineeAddedDate + ' (UTC)_' + '\n*---*\n>_I am a bot. This action was performed automagically!_');
+	                    context.sendResponse('>*Trainee Name:* ' + traineeToGetInfoOf + '\n\n' + '>*Real Name:* ' + currentTraineeName + '\n\n' + '>*Trainee IGN:* ' + currentTraineeIGN + '\n\n' + '>*Trainee IP:* ' + currentTraineeIP + '\n\n_Added by ' + traineeAdder + ' on ' + traineeAddedDate + ' (UTC)_' + '\n*---*\n>_I am a bot. This action was performed automagically!_');
 	                }else{
 	                    if(resultOfPermCheck === 'leadMod'){
-	                        context.sendResponse('>*Trainee Name:* ' + traineeToGetInfoOf + '  ' + currentTraineeTag + '\n\n' + '>*Real Name:* ' + currentTraineeName + '\n\n' + '>*Trainee IGN:* ' + currentTraineeIGN + '\n\n' + '>*Trainee IP:* ' + currentTraineeIP + '\n\n_Added by ' + traineeAdder + ' on ' + traineeAddedDate + ' (UTC)_' + '\n\n*Warning: The IP of this trainee (' + currentTraineeIP + ') matches a known blacklisted IP. This is a critical warning, please alert a staff member immediately.*\n' +'\n*---*\n>_I am a bot. This action was performed automagically!_');
+	                        context.sendResponse('>*Trainee Name:* ' + traineeToGetInfoOf + '\n\n' + '>*Real Name:* ' + currentTraineeName + '\n\n' + '>*Trainee IGN:* ' + currentTraineeIGN + '\n\n' + '>*Trainee IP:* ' + currentTraineeIP + '\n\n_Added by ' + traineeAdder + ' on ' + traineeAddedDate + ' (UTC)_' + '\n\n*Warning: The IP of this trainee (' + currentTraineeIP + ') matches a known blacklisted IP. This is a critical warning, please alert a staff member immediately.*\n' +'\n*---*\n>_I am a bot. This action was performed automagically!_');
 	                    }else{
-	                        context.sendResponse('>*Trainee Name:* ' + traineeToGetInfoOf + '  ' + currentTraineeTag + '\n\n' + '>*Real Name:* ' + currentTraineeName + '\n\n' + '>*Trainee IGN:* ' + currentTraineeIGN + '\n\n' + '>*Trainee IP:* ' + currentTraineeIP + '\n\n_Added by ' + traineeAdder + ' on ' + traineeAddedDate + ' (UTC)_' + '\n\n*Warning: The IP of this trainee matches a known blacklisted IP. This is a critical warning, please alert a staff member immediately.*\n' +'\n*---*\n>_I am a bot. This action was performed automagically!_');
+	                        context.sendResponse('>*Trainee Name:* ' + traineeToGetInfoOf + '\n\n' + '>*Real Name:* ' + currentTraineeName + '\n\n' + '>*Trainee IGN:* ' + currentTraineeIGN + '\n\n' + '>*Trainee IP:* ' + currentTraineeIP + '\n\n_Added by ' + traineeAdder + ' on ' + traineeAddedDate + ' (UTC)_' + '\n\n*Warning: The IP of this trainee matches a known blacklisted IP. This is a critical warning, please alert a staff member immediately.*\n' +'\n*---*\n>_I am a bot. This action was performed automagically!_');
 	                    }
 	                }
 	            
 	            }else{
 	                
 	                if(checkedAndBadIP === false){
-	                    context.sendResponse('>*Trainee Name:* ' + traineeToGetInfoOf + '  ' + currentTraineeTag + '\n\n' + '>*Real Name:* ' + currentTraineeName + '\n\n' + '>*Trainee IGN:* ' + currentTraineeIGN + '\n\n' + '>*Trainee IP:* ' + currentTraineeIP + '\n\n_Added by ' + traineeAdder + '_' + '\n*---*\n>_I am a bot. This action was performed automagically!_');
+	                    context.sendResponse('>*Trainee Name:* ' + traineeToGetInfoOf + '>*Real Name:* ' + currentTraineeName + '\n\n' + '>*Trainee IGN:* ' + currentTraineeIGN + '\n\n' + '>*Trainee IP:* ' + currentTraineeIP + '\n\n_Added by ' + traineeAdder + '_' + '\n*---*\n>_I am a bot. This action was performed automagically!_');
 	                }else{
 	                    if(resultOfPermCheck === 'leadMod'){
-	                        context.sendResponse('>*Trainee Name:* ' + traineeToGetInfoOf + '  ' + currentTraineeTag + '\n\n' + '>*Real Name:* ' + currentTraineeName + '\n\n' + '>*Trainee IGN:* ' + currentTraineeIGN + '\n\n' + '>*Trainee IP:* ' + currentTraineeIP + '\n\n_Added by ' + traineeAdder + '_' + '\n\n*Warning: The IP of this trainee (' + currentTraineeIP + ') matches a known blacklisted IP. This is a critical warning, please alert a staff member immediately.*\n' +'\n*---*\n>_I am a bot. This action was performed automagically!_');
+	                        context.sendResponse('>*Trainee Name:* ' + traineeToGetInfoOf + '\n\n' + '>*Real Name:* ' + currentTraineeName + '\n\n' + '>*Trainee IGN:* ' + currentTraineeIGN + '\n\n' + '>*Trainee IP:* ' + currentTraineeIP + '\n\n_Added by ' + traineeAdder + '_' + '\n\n*Warning: The IP of this trainee (' + currentTraineeIP + ') matches a known blacklisted IP. This is a critical warning, please alert a staff member immediately.*\n' +'\n*---*\n>_I am a bot. This action was performed automagically!_');
 	                    }else{
-	                        context.sendResponse('>*Trainee Name:* ' + traineeToGetInfoOf + '  ' + currentTraineeTag + '\n\n' + '>*Real Name:* ' + currentTraineeName + '\n\n' + '>*Trainee IGN:* ' + currentTraineeIGN + '\n\n' + '>*Trainee IP:* ' + currentTraineeIP + '\n\n_Added by ' + traineeAdder + '_' + '\n\n*Warning: The IP of this trainee matches a known blacklisted IP. This is a critical warning, please alert a staff member immediately.*\n' +'\n*---*\n>_I am a bot. This action was performed automagically!_');
+	                        context.sendResponse('>*Trainee Name:* ' + traineeToGetInfoOf + '\n\n' + '>*Real Name:* ' + currentTraineeName + '\n\n' + '>*Trainee IGN:* ' + currentTraineeIGN + '\n\n' + '>*Trainee IP:* ' + currentTraineeIP + '\n\n_Added by ' + traineeAdder + '_' + '\n\n*Warning: The IP of this trainee matches a known blacklisted IP. This is a critical warning, please alert a staff member immediately.*\n' +'\n*---*\n>_I am a bot. This action was performed automagically!_');
 	                    }
 	                }
 	            }
@@ -1135,7 +1138,7 @@ function editTraineeSyntaxError(){
 	            
 	        }
 	        
-	        else if(thingToDBValueCheck === 'giveTag'){
+	        /*else if(thingToDBValueCheck === 'giveTag'){
 	            var traineeToEditObj = JSON.parse(event.dbval);
 	            var currentTraineeName = traineeToEditObj.name;
 	            var currentTraineeIGN = traineeToEditObj.IGN;
@@ -1176,7 +1179,7 @@ function editTraineeSyntaxError(){
 	                }
 	            }
 	            
-	        }
+	        }*/
 	        else{
 	            
 	        }
