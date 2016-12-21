@@ -438,7 +438,7 @@ function editTraineeSyntaxError(){
 	                     var dateToEdit = new Date();
 	                     var dateToAdd = dateToEdit.toDateString();
 	                     context.simpledb.botleveldata.trainees.push(newTrainee);
-	                     context.simpledb.doPut(newTrainee, '{"name":"Unknown", "IGN":"Unknown", "IP":"Unknown", "adder":"' + event.senderobj.display + '", "tag": "Unknown", "dateAdded": "' + dateToAdd + '"}');
+	                     context.simpledb.doPut(newTrainee, '{"name":"Unknown", "IGN":"Unknown", "IP":"Unknown", "adder":"' + event.senderobj.display + '", "tag": "Unknown", "dateAdded": "' + dateToAdd + '", "isOfficial":"No"}');
 	                     context.sendResponse(':heavy_plus_sign: Added *' + newTrainee + '* to the trainee list!\n>_I am a bot. This action was performed automagically!_');
 	                    }
 	                    else{
@@ -798,6 +798,46 @@ function editTraineeSyntaxError(){
 	            permError();
 	            }
 	        }
+	        // ------------------------
+	        
+	        else if(event.message.substring(0, 14) === '[makeOfficial]'){
+	            context.simpledb.botleveldata.timesmodused = context.simpledb.botleveldata.timesmodused + 1;
+	            context.simpledb.botleveldata.timesused = context.simpledb.botleveldata.timesused + 1;
+	            if(resultOfPermCheck === 'leadMod'){
+	                if((event.message[14] === ' ') && (event.message[15] === '"') && (event.message[event.message.length - 1] === '"')){
+	                    makeListVar = '';
+	                    for(var d = 16; d < event.message.length; d++){
+	                        if(event.message[d] !== '"'){
+	                            makeListVar = makeListVar + event.message[d];
+	                        }else{
+	                            makeListVar = makeListVar;
+	                            break;
+	                        }
+	                    }
+	                    isTrainee = false;
+	                    for(var q = 0; q < context.simpledb.botleveldata.trainees.length; q++){
+	                        if(makeListVar === context.simpledb.botleveldata.trainees[q]){
+	                            isTrainee = true;
+	                            break;
+	                        }else{
+	                            isTrainee = false;
+	                        }
+	                    }
+	                    
+	                    if(isTrainee === true){
+	                        thingToDBValueCheck = 'makeofficial';
+	                        context.simpledb.doGet(makeListVar);
+	                    }else{
+	                        context.sendResponse(':warning: Error: *' + makeListVar + '* is an unknown trainee. Please check for typos in your message, or use `[getTrainees]` to get the latest list of trainees.\n>_I am a bot. This action was performed automagically!_');
+	                    }
+	                    
+	                }else{
+	                    context.sendResponse(':warning: Error: Can\'t parse the command. Correct Syntax:\n`[makeOfficial] "<trainee-name>"`\n>_I am a bot. This action was performed automagically!_');
+	                }
+	            }else{
+	                permError();
+	            }
+	        }
 	        
 	        // ------------------------
 	        else if(event.message === '[resetKnownUsers]'){
@@ -1011,23 +1051,25 @@ function editTraineeSyntaxError(){
 	            var currentTraineeIP = traineeToEditObj.IP;
 	            var currentTraineeTag = traineeToEditObj.tag;
 	            var traineeAddedDate = traineeToEditObj.dateAdded;
+	            var isOfficial = traineeToEditObj.isOfficial;
+	            
 	            if(traineeAddedDate !== undefined){
 	            if(thingToEditFinal === 'name'){
 	                var oldName = currentTraineeName;
-	                context.simpledb.doPut(traineeToEditFinal, '{"name":"' + editToAddFinal + '", "IGN":"' + currentTraineeIGN + '", "IP":"' + currentTraineeIP + '", "adder":"' + traineeAdder + '", "tag": "' + currentTraineeTag + '", "dateAdded": "' + traineeAddedDate + '"}');
+	                context.simpledb.doPut(traineeToEditFinal, '{"name":"' + editToAddFinal + '", "IGN":"' + currentTraineeIGN + '", "IP":"' + currentTraineeIP + '", "adder":"' + traineeAdder + '", "tag": "' + currentTraineeTag + '", "dateAdded": "' + traineeAddedDate + '", "isOfficial":"' + isOfficial + '"}');
 	                context.sendResponse(':pencil2: Successfully changed ' + traineeToEditFinal + '\'s name from *' + oldName + '* to *' + editToAddFinal +'*.\n>_I am a bot. This action was performed automagically!_');
 	            }
 	        
 	            else if(thingToEditFinal === 'IGN'){
 	                var oldIGN = currentTraineeIGN;
-	                context.simpledb.doPut(traineeToEditFinal, '{"name":"' + currentTraineeName + '", "IGN":"' + editToAddFinal + '", "IP":"' + currentTraineeIP + '", "adder":"' + traineeAdder + '", "tag": "' + currentTraineeTag + '", "dateAdded": "' + traineeAddedDate + '"}');
+	                context.simpledb.doPut(traineeToEditFinal, '{"name":"' + currentTraineeName + '", "IGN":"' + editToAddFinal + '", "IP":"' + currentTraineeIP + '", "adder":"' + traineeAdder + '", "tag": "' + currentTraineeTag + '", "dateAdded": "' + traineeAddedDate + '", "isOfficial":"' + isOfficial + '"}');
 	                context.sendResponse(':pencil2: Successfully changed ' + traineeToEditFinal + '\'s IGN from *' + oldIGN + '* to *' + editToAddFinal +'*.\n>_I am a bot. This action was performed automagically!_');
 	            }
 	        
 	            else if(thingToEditFinal === 'IP'){
 	                if(resultOfPermCheck === 'leadMod'){
 	                var oldIP = currentTraineeIP;
-	                context.simpledb.doPut(traineeToEditFinal, '{"name":"' + currentTraineeName + '", "IGN":"' + currentTraineeIGN + '", "IP":"' + editToAddFinal + '", "adder":"' + traineeAdder + '", "tag": "' + currentTraineeTag + '", "dateAdded": "' + traineeAddedDate + '"}');
+	                context.simpledb.doPut(traineeToEditFinal, '{"name":"' + currentTraineeName + '", "IGN":"' + currentTraineeIGN + '", "IP":"' + editToAddFinal + '", "adder":"' + traineeAdder + '", "tag": "' + currentTraineeTag + '", "dateAdded": "' + traineeAddedDate + '", "isOfficial":"' + isOfficial + '"}');
 	                context.sendResponse(':pencil2: Successfully changed ' + traineeToEditFinal + '\'s IP from *' + oldIP + '* to *' + editToAddFinal +'*.\n>_I am a bot. This action was performed automagically!_');
 	                }else{
 	                    context.sendResponse(':warning: Error: Incorrect Permissions.\n>_I am a bot. This action was performed automatically!_');
@@ -1038,20 +1080,20 @@ function editTraineeSyntaxError(){
 	            }else{
 	                if(thingToEditFinal === 'name'){
 	                var oldName = currentTraineeName;
-	                context.simpledb.doPut(traineeToEditFinal, '{"name":"' + editToAddFinal + '", "IGN":"' + currentTraineeIGN + '", "IP":"' + currentTraineeIP + '", "adder":"' + traineeAdder + '", "tag": "' + currentTraineeTag + '"}');
+	                context.simpledb.doPut(traineeToEditFinal, '{"name":"' + editToAddFinal + '", "IGN":"' + currentTraineeIGN + '", "IP":"' + currentTraineeIP + '", "adder":"' + traineeAdder + '", "tag": "' + currentTraineeTag + '", "isOfficial":"' + isOfficial + '"}');
 	                context.sendResponse(':pencil2: Successfully changed ' + traineeToEditFinal + '\'s name from *' + oldName + '* to *' + editToAddFinal +'*.\n>_I am a bot. This action was performed automagically!_');
 	            }
 	        
 	            else if(thingToEditFinal === 'IGN'){
 	                var oldIGN = currentTraineeIGN;
-	                context.simpledb.doPut(traineeToEditFinal, '{"name":"' + currentTraineeName + '", "IGN":"' + editToAddFinal + '", "IP":"' + currentTraineeIP + '", "adder":"' + traineeAdder + '", "tag": "' + currentTraineeTag + '"}');
+	                context.simpledb.doPut(traineeToEditFinal, '{"name":"' + currentTraineeName + '", "IGN":"' + editToAddFinal + '", "IP":"' + currentTraineeIP + '", "adder":"' + traineeAdder + '", "tag": "' + currentTraineeTag + '", "isOfficial":"' + isOfficial + '"}');
 	                context.sendResponse(':pencil2: Successfully changed ' + traineeToEditFinal + '\'s IGN from *' + oldIGN + '* to *' + editToAddFinal +'*.\n>_I am a bot. This action was performed automagically!_');
 	            }
 	        
 	            else if(thingToEditFinal === 'IP'){
 	                if(resultOfPermCheck === 'leadMod'){
 	                var oldIP = currentTraineeIP;
-	                context.simpledb.doPut(traineeToEditFinal, '{"name":"' + currentTraineeName + '", "IGN":"' + currentTraineeIGN + '", "IP":"' + editToAddFinal + '", "adder":"' + traineeAdder + '", "tag": "' + currentTraineeTag + '"}');
+	                context.simpledb.doPut(traineeToEditFinal, '{"name":"' + currentTraineeName + '", "IGN":"' + currentTraineeIGN + '", "IP":"' + editToAddFinal + '", "adder":"' + traineeAdder + '", "tag": "' + currentTraineeTag + '", "isOfficial":"' + isOfficial + '"}');
 	                context.sendResponse(':pencil2: Successfully changed ' + traineeToEditFinal + '\'s IP from *' + oldIP + '* to *' + editToAddFinal +'*.\n>_I am a bot. This action was performed automagically!_');
 	                }else{
 	                    context.sendResponse(':warning: Error: Incorrect Permissions.\n>_I am a bot. This action was performed automatically!_');
@@ -1071,6 +1113,7 @@ function editTraineeSyntaxError(){
 	            var currentTraineeTag = '`' + traineeToEditObj.tag + '`';
 	            var currentTraineeIP = traineeToEditObj.IP;
 	            var traineeAddedDate = traineeToEditObj.dateAdded;
+	            var isOfficial = traineeToEditObj.isOfficial;
 	            
 	            if(currentTraineeTag === '`Unknown`'){
 	                currentTraineeTag = '';
@@ -1110,27 +1153,33 @@ function editTraineeSyntaxError(){
 	                currentTraineeIP = makeList;
 	            }
 	            
+	            if(isOfficial === undefined){
+	                isOfficial = 'Unknown (Error: Not supported for this trainee profile.)';
+	            }else{
+	                
+	            }
+	            
 	            if(traineeAddedDate !== undefined){
 	            
 	                if(checkedAndBadIP === false){
-	                    context.sendResponse('>*Trainee Name:* ' + traineeToGetInfoOf + '\n\n' + '>*Real Name:* ' + currentTraineeName + '\n\n' + '>*Trainee IGN:* ' + currentTraineeIGN + '\n\n' + '>*Trainee IP:* ' + currentTraineeIP + '\n\n_Added by ' + traineeAdder + ' on ' + traineeAddedDate + ' (UTC)_' + '\n*---*\n>_I am a bot. This action was performed automagically!_');
+	                    context.sendResponse('>*Trainee Name:* ' + traineeToGetInfoOf + '\n\n>*Is Official?* ' + isOfficial + '\n\n' + '>*Real Name:* ' + currentTraineeName + '\n\n' + '>*Trainee IGN:* ' + currentTraineeIGN + '\n\n' + '>*Trainee IP:* ' + currentTraineeIP + '\n\n_Added by ' + traineeAdder + ' on ' + traineeAddedDate + ' (UTC)_' + '\n*---*\n>_I am a bot. This action was performed automagically!_');
 	                }else{
 	                    if(resultOfPermCheck === 'leadMod'){
-	                        context.sendResponse('>*Trainee Name:* ' + traineeToGetInfoOf + '\n\n' + '>*Real Name:* ' + currentTraineeName + '\n\n' + '>*Trainee IGN:* ' + currentTraineeIGN + '\n\n' + '>*Trainee IP:* ' + currentTraineeIP + '\n\n_Added by ' + traineeAdder + ' on ' + traineeAddedDate + ' (UTC)_' + '\n\n*Warning: The IP of this trainee (' + currentTraineeIP + ') matches a known blacklisted IP. This is a critical warning, please alert a staff member immediately.*\n' +'\n*---*\n>_I am a bot. This action was performed automagically!_');
+	                        context.sendResponse('>*Trainee Name:* ' + traineeToGetInfoOf + '\n\n>*Is Official?* ' + isOfficial + '\n\n' + '>*Real Name:* ' + currentTraineeName + '\n\n' + '>*Trainee IGN:* ' + currentTraineeIGN + '\n\n' + '>*Trainee IP:* ' + currentTraineeIP + '\n\n_Added by ' + traineeAdder + ' on ' + traineeAddedDate + ' (UTC)_' + '\n\n*Warning: The IP of this trainee (' + currentTraineeIP + ') matches a known blacklisted IP. This is a critical warning, please alert a staff member immediately.*\n' +'\n*---*\n>_I am a bot. This action was performed automagically!_');
 	                    }else{
-	                        context.sendResponse('>*Trainee Name:* ' + traineeToGetInfoOf + '\n\n' + '>*Real Name:* ' + currentTraineeName + '\n\n' + '>*Trainee IGN:* ' + currentTraineeIGN + '\n\n' + '>*Trainee IP:* ' + currentTraineeIP + '\n\n_Added by ' + traineeAdder + ' on ' + traineeAddedDate + ' (UTC)_' + '\n\n*Warning: The IP of this trainee matches a known blacklisted IP. This is a critical warning, please alert a staff member immediately.*\n' +'\n*---*\n>_I am a bot. This action was performed automagically!_');
+	                        context.sendResponse('>*Trainee Name:* ' + traineeToGetInfoOf + '\n\n>*Is Official?* ' + isOfficial + '\n\n' + '>*Real Name:* ' + currentTraineeName + '\n\n' + '>*Trainee IGN:* ' + currentTraineeIGN + '\n\n' + '>*Trainee IP:* ' + currentTraineeIP + '\n\n_Added by ' + traineeAdder + ' on ' + traineeAddedDate + ' (UTC)_' + '\n\n*Warning: The IP of this trainee matches a known blacklisted IP. This is a critical warning, please alert a staff member immediately.*\n' +'\n*---*\n>_I am a bot. This action was performed automagically!_');
 	                    }
 	                }
 	            
 	            }else{
 	                
 	                if(checkedAndBadIP === false){
-	                    context.sendResponse('>*Trainee Name:* ' + traineeToGetInfoOf + '>*Real Name:* ' + currentTraineeName + '\n\n' + '>*Trainee IGN:* ' + currentTraineeIGN + '\n\n' + '>*Trainee IP:* ' + currentTraineeIP + '\n\n_Added by ' + traineeAdder + '_' + '\n*---*\n>_I am a bot. This action was performed automagically!_');
+	                    context.sendResponse('>*Trainee Name:* ' + traineeToGetInfoOf + '\n\n>*Is Official?* ' + isOfficial + '\n\n' +'>*Real Name:* ' + currentTraineeName + '\n\n' + '>*Trainee IGN:* ' + currentTraineeIGN + '\n\n' + '>*Trainee IP:* ' + currentTraineeIP + '\n\n_Added by ' + traineeAdder + '_' + '\n*---*\n>_I am a bot. This action was performed automagically!_');
 	                }else{
 	                    if(resultOfPermCheck === 'leadMod'){
-	                        context.sendResponse('>*Trainee Name:* ' + traineeToGetInfoOf + '\n\n' + '>*Real Name:* ' + currentTraineeName + '\n\n' + '>*Trainee IGN:* ' + currentTraineeIGN + '\n\n' + '>*Trainee IP:* ' + currentTraineeIP + '\n\n_Added by ' + traineeAdder + '_' + '\n\n*Warning: The IP of this trainee (' + currentTraineeIP + ') matches a known blacklisted IP. This is a critical warning, please alert a staff member immediately.*\n' +'\n*---*\n>_I am a bot. This action was performed automagically!_');
+	                        context.sendResponse('>*Trainee Name:* ' + traineeToGetInfoOf + '\n\n>*Is Official?* ' + isOfficial + '\n\n' + '>*Real Name:* ' + currentTraineeName + '\n\n' + '>*Trainee IGN:* ' + currentTraineeIGN + '\n\n' + '>*Trainee IP:* ' + currentTraineeIP + '\n\n_Added by ' + traineeAdder + '_' + '\n\n*Warning: The IP of this trainee (' + currentTraineeIP + ') matches a known blacklisted IP. This is a critical warning, please alert a staff member immediately.*\n' +'\n*---*\n>_I am a bot. This action was performed automagically!_');
 	                    }else{
-	                        context.sendResponse('>*Trainee Name:* ' + traineeToGetInfoOf + '\n\n' + '>*Real Name:* ' + currentTraineeName + '\n\n' + '>*Trainee IGN:* ' + currentTraineeIGN + '\n\n' + '>*Trainee IP:* ' + currentTraineeIP + '\n\n_Added by ' + traineeAdder + '_' + '\n\n*Warning: The IP of this trainee matches a known blacklisted IP. This is a critical warning, please alert a staff member immediately.*\n' +'\n*---*\n>_I am a bot. This action was performed automagically!_');
+	                        context.sendResponse('>*Trainee Name:* ' + traineeToGetInfoOf + '\n\n>*Is Official?* ' + isOfficial + '\n\n' + '>*Real Name:* ' + currentTraineeName + '\n\n' + '>*Trainee IGN:* ' + currentTraineeIGN + '\n\n' + '>*Trainee IP:* ' + currentTraineeIP + '\n\n_Added by ' + traineeAdder + '_' + '\n\n*Warning: The IP of this trainee matches a known blacklisted IP. This is a critical warning, please alert a staff member immediately.*\n' +'\n*---*\n>_I am a bot. This action was performed automagically!_');
 	                    }
 	                }
 	            }
@@ -1180,6 +1229,26 @@ function editTraineeSyntaxError(){
 	            }
 	            
 	        }*/
+	        else if(thingToDBValueCheck === 'makeofficial'){
+	            var traineeToEditObj = JSON.parse(event.dbval);
+	            var currentTraineeName = traineeToEditObj.name;
+	            var currentTraineeIGN = traineeToEditObj.IGN;
+	            var traineeAdder = traineeToEditObj.adder;
+	            var currentTraineeIP = traineeToEditObj.IP;
+	            var traineeAddedDate = traineeToEditObj.dateAdded;
+	            var isOfficial = traineeToEditObj.isOfficial;
+	            
+	            if(isOfficial === 'No'){
+	                context.simpledb.doPut(makeListVar, '{"name":"' + currentTraineeName + '", "IGN":"' + currentTraineeIGN + '", "adder":"' + traineeAdder + '", "IP":"' + currentTraineeIP + '", "dateAdded":"' + traineeAddedDate + '", "isOfficial":"Yes"}');
+	                context.sendResponse(':pencil2: Successfully made *' + makeListVar + '* an official trainee.\n>_I am a bot. This action was performed automagically!_');
+	            }
+	            else if(isOfficial === undefined){
+	                context.sendResponse(':warning: This trainee profile does not support "official" statuses. Only trainees added after the "official" status was implemented may be given official status.\n>_I am a bot. This action was performed automagically!_');
+	            }
+	            else{
+	                context.sendResponse(':warning: The trainee *' + makeListVar + '* is already an official trainee.\n>_I am a bot. This action was performed automagically!_');
+	            }
+	        }
 	        else{
 	            
 	        }
