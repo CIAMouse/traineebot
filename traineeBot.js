@@ -511,6 +511,50 @@ function editTraineeSyntaxError(){
 	            }
 	        }
 	        // ------------------------
+	        
+	        else if(event.message.substring(0, 16) === '[overAddTrainee]'){
+	            context.simpledb.botleveldata.timesmodused = context.simpledb.botleveldata.timesmodused + 1;
+	            context.simpledb.botleveldata.timesused = context.simpledb.botleveldata.timesused + 1;
+	            if(resultOfPermCheck === 'leadMod'){
+	                if((event.message[16] === ' ') && (event.message[17] === '"') && (event.message[event.message.length - 1] === '"')){
+	                    isTrainee = false;
+	                    makeListVar = '';
+	                    
+	                    for(var i = 18; i < event.message.length; i++){
+	                        if(event.message[i] !== '"'){
+	                            makeListVar = makeListVar + event.message[i];
+	                        }else{
+	                            makeListVar = makeListVar;
+	                            break;
+	                        }
+	                    }
+	                    
+	                    for(var x = 0; x < context.simpledb.botleveldata.trainees.length; x++){
+	                        if(context.simpledb.botleveldata.trainees[x] === makeListVar){
+	                            isTrainee = true;
+	                            break;
+	                        }else{
+	                            isTrainee = false;
+	                        }
+	                    }
+	                    
+	                    if(!isTrainee){
+	                        var tempTrainees = context.simpledb.botleveldata.trainees;
+	                        tempTrainees.push(makeListVar);
+	                        context.simpledb.botleveldata.trainees = tempTrainees;
+	                        context.sendResponse(':heavy_plus_sign: Added *' + makeListVar + '* to the trainee list, with the same trainee profile information as the last one.\n>_I am a bot. This action was performed automagically!_');
+	                    }else{
+	                         context.sendResponse(':warning: Error: Trainee name already in use.\n>_I am a bot. This action was performed automagically!_');
+	                    }
+	                }else{
+	                    context.sendResponse(':warning: Error: Can\'t parse the command. Correct Syntax:\n`[overAddTrainee] "<trainee-name>"`\n>_I am a bot. This action was performed automagically!_');
+	                }
+	            }else{
+	                permError();
+	            }
+	        }
+	        
+	        // ------------------------
 	        else if(event.message.substring(0, 16) === '[getTraineeInfo]'){
 	            context.simpledb.botleveldata.timesmodused = context.simpledb.botleveldata.timesmodused + 1;
 	            context.simpledb.botleveldata.timesused = context.simpledb.botleveldata.timesused + 1;
