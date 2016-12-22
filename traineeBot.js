@@ -741,7 +741,7 @@ function editTraineeSyntaxError(){
 	            context.simpledb.botleveldata.timesmodused = context.simpledb.botleveldata.timesmodused + 1;
 	            context.simpledb.botleveldata.timesused = context.simpledb.botleveldata.timesused + 1;
 	            if(resultOfPermCheck === 'leadMod'){
-	                context.simpledb.botleveldata.trainees = [''];
+	                context.simpledb.botleveldata.trainees = [];
 	                context.sendResponse('Successfully cleared trainee list!\n>_I am a bot. This action was performed automagically!_');
 	            }else{
 	                permError();
