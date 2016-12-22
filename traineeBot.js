@@ -720,7 +720,7 @@ function editTraineeSyntaxError(){
 	                    }
 	                    if(isNaN(testForRealIP) === false){
 	                        if(checkedAndBadIP === true){
-	                            context.sendResponse('Warning: The IP *' + badIPToCheck + '* is a match. Please beware users with this IP.\n>_I am a bot. This action was performed automagically!_');
+	                            context.sendResponse(':rotating_light: Warning: The IP *' + badIPToCheck + '* is a match. Please beware users with this IP.\n>_I am a bot. This action was performed automagically!_');
 	                        }else{
 	                            context.sendResponse('The IP *' + badIPToCheck + '* is not a blacklisted IP.\n>_I am a bot. This action was performed automagically!_');
 	                        }
