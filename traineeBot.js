@@ -315,6 +315,11 @@ function permError(){
 function editTraineeSyntaxError(){
     context.sendResponse('Error: Can\'t parse the command. Correct Syntax:\n`[editTrainee] "<trainee-name>" "<name/IGN/knownIPs>" "<text>"`\n>_I am a bot. This action was performed automagically!_');
 }
+
+function unknownTraineeError(traineeName){
+    context.sendResponse(':warning: Error: *' + traineeName + '* is an unknown trainee. Trainee names are CaSe SeNsItIvE. Try `[getTrainees]` to get the up-to-date list of trainees.\n>_I am a bot. This action was performed automagically._');
+}
+
         
         function MessageHandler(context, event) {
             checkPerms(event.senderobj.subdisplay);
@@ -502,7 +507,7 @@ function editTraineeSyntaxError(){
 	                context.sendResponse(':heavy_minus_sign: Successfully deleted *' + newDeletionFinal + '*.\n>_I am a bot. This action was performed automagically!_');
 	            }
 	            else{
-	                context.sendResponse(':warning: Error: *' + newDeletionFinal + '* is an unknown trainee. Trainee names are CaSe SeNsItIvE. Try `[getTrainees]` to get the up-to-date list of trainees.\n>_I am a bot. This action was performed automagically._');
+	                unknownTraineeError(newDeletionFinal);
 	            }
 	            }
 	            else{
@@ -598,7 +603,7 @@ function editTraineeSyntaxError(){
 	                        context.simpledb.doGet(makeList);
 	                   
 	                }else{
-	                    context.sendResponse(':warning: Error: *' + makeList + '* is an unknown trainee. Trainee names are CaSe SeNsItIvE. Try `[getTrainees]` to get the up-to-date list of trainees.\n>_I am a bot. This action was performed automagically._');
+	                    unknownTraineeError(makeList);
 	                }
 	                
 	            }else{
@@ -758,7 +763,7 @@ function editTraineeSyntaxError(){
 	            context.simpledb.botleveldata.timesmodused = context.simpledb.botleveldata.timesmodused + 1;
 	            context.simpledb.botleveldata.timesused = context.simpledb.botleveldata.timesused + 1;
 	            if((resultOfPermCheck === 'leadMod') || (resultOfPermCheck === 'regMod')){
-	            if(event.message[14] === '"'){
+	            if((event.message[14] === '"') && (event.message[event.message.length - 1] === '"')){
 	                var makingListAddon = '';
 	                
 	                
@@ -834,7 +839,7 @@ function editTraineeSyntaxError(){
 	                    }
 	                    
 	                }else{
-	                    context.sendResponse(':warning: Error: *' + traineeToEditFinal + '* is an unknown trainee. Please check for typos in your message, or use `[getTrainees]` to get the latest list of trainees.\n>_I am a bot. This action was performed automagically!_');
+	                    unknownTraineeError(traineeToEditFinal);
 	                }
 	                
 	            }else{
@@ -875,7 +880,7 @@ function editTraineeSyntaxError(){
 	                        thingToDBValueCheck = 'makeofficial';
 	                        context.simpledb.doGet(makeListVar);
 	                    }else{
-	                        context.sendResponse(':warning: Error: *' + makeListVar + '* is an unknown trainee. Please check for typos in your message, or use `[getTrainees]` to get the latest list of trainees.\n>_I am a bot. This action was performed automagically!_');
+	                        unknownTraineeError(makeListVar);
 	                    }
 	                    
 	                }else{
