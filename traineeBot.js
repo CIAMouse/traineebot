@@ -145,6 +145,9 @@ var users = {
     jake5632: {
         permissionNode: 'regMod'
     },
+    jeremiahc: {
+        permissionNode: 'regMod'
+    },
     jiselleangeles: {
         permissionNode: 'leadMod'
     },
@@ -265,9 +268,9 @@ var users = {
     yuriplaysmcpeyt: {
         permissionNode: 'regMod'
     },
-    /*yuri_: {
+    yuri_: {
         permissionNode: 'regMod'
-    },*/
+    },
     ziqtheman: {
         permissionNode: 'regMod'
     },
