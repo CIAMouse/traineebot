@@ -1,8 +1,3 @@
-var min = 95;
-var max = 100;
-function getRandomInt(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
 var fixKnownUsers = [];
 var makeNewKnownUsers = [];
 var x;
@@ -270,9 +265,9 @@ var users = {
     yuriplaysmcpeyt: {
         permissionNode: 'regMod'
     },
-    yuri_: {
+    /*yuri_: {
         permissionNode: 'regMod'
-    },
+    },*/
     ziqtheman: {
         permissionNode: 'regMod'
     },
@@ -288,6 +283,7 @@ function getPermNode(user){
    var beans = users[user];
    return beans.permissionNode;
 }
+
 function checkPerms(handle){
     try{
        getPermNode(handle);
@@ -297,6 +293,10 @@ function checkPerms(handle){
         resultOfPermCheck = 'fail';
         
     }
+}
+
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 function permError(){
@@ -378,7 +378,7 @@ function editTraineeSyntaxError(){
 	        else if(event.message.toLowerCase() === '[start-3]'){
 	            context.simpledb.botleveldata.timestraineeused = context.simpledb.botleveldata.timestraineeused + 1;
 	            context.simpledb.botleveldata.timesused = parseInt(context.simpledb.botleveldata.timesused) + 1;
-	            context.sendResponse('_Showing page 3 of 3 in \'start\'..._\n\nAnd, last but not least, have fun! We offer an in-game tag `[Crew]` for all trainees, please DM @kaleb418 or @ciamouse to have it added. When (and if) the moderators and staff members feel you are ready to become a full moderator, you will be processed into a member of our team. For now, the only extra command you have is `/d`.\n>_I am a bot. This action was performed automagically!_');
+	            context.sendResponse('_Showing page 3 of 3 in \'start\'..._\n\nAnd, last but not least, please direct message @kaleb418 to have your [Crew] rank added. When (and if) the moderators and staff members feel you are ready to become a full moderator, you will be processed into a member of our team. For now, the only extra command you have is `/d`.\nAs a side note, please keep in mind that the agreement you signed and returned to a staff member is to be kept in effect until you are no longer a volunteer or employee for Hydreon, which terminates the entire agreement.\n>_I am a bot. This action was performed automagically!_');
 	        }
 	        // ------------------------
 	        else if(event.message.toLowerCase() === '[start-2]'){
@@ -997,7 +997,7 @@ function editTraineeSyntaxError(){
 	        // ------------------------
 	        else if(event.message === '[testFeature]'){
 	            if(event.senderobj.subdisplay === 'kaleb418'){
-	                
+	                context.sendResponse('Nothing to test.');
 	            }else{
 	                permError();
 	            }
@@ -1056,7 +1056,7 @@ function editTraineeSyntaxError(){
 	        }else{
 	            
 	        }
-	        if(isNewUserVariable === true){
+	        if((isNewUserVariable === true) && (event.message !== ('@' + event.senderobj.subdisplay + ' has joined the group.'))){
 	            var addOldUser = event.senderobj.subdisplay;
 	            var asdfg = context.simpledb.botleveldata.oldusers;
 	            if(addOldUser !== null || addOldUser !== 'null'){
@@ -1066,6 +1066,12 @@ function editTraineeSyntaxError(){
 	            }
 	            context.simpledb.botleveldata.oldusers = asdfg;
 	            context.sendResponse('Hello ' + event.senderobj.display + ', and welcome to the Lifeboat Trainees Program! I will be your guide as you learn what will be expected of you during your time as a trainee. Please wait for someone to talk to you, it shouldn\'t take too long.\n>_I am a bot. This action was performed automagically!_');
+	            /*var messageJSON = {
+	                "type":"msg",
+	                "text":"Test JSON"
+	            };
+	            var blahBlah = JSON.stringify(messageJSON);
+	            context.sendResponse(blahBlah);*/
 	    	}else{
 	            
 	        }
