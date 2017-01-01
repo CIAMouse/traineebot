@@ -1102,7 +1102,11 @@ function unknownTraineeError(traineeName){
 	            context.simpledb.botleveldata.timesused = context.simpledb.botleveldata.timesused + 1;
 	            if(resultOfPermCheck === 'leadMod'){
 	                for(var logIndex in context.simpledb.botleveldata.logs){
-	                    makeListVar = makeListVar + context.simpledb.botleveldata.logs[logIndex] + '\n\n>';
+	                    if(context.simpledb.botleveldata.logs[logIndex] !== '@undefined invoked the bot at 1/1/2017 using the message *hi*.'){
+	                        makeListVar = makeListVar + context.simpledb.botleveldata.logs[logIndex] + '\n\n>';
+	                    }else{
+	                        
+	                    }
 	                }
 	                makeListVar = makeListVar.substring(0, makeListVar.length - 2);
 	                context.sendResponse('_Listing last 50 logs..._\n\n' + makeListVar + '*---*\n>_I am a bot. This action was performed automagically!_');
