@@ -332,7 +332,7 @@ function unknownTraineeError(traineeName){
 	            function updateLogList(){
                     var currentLogs = context.simpledb.botleveldata.logs;
                     var userForLog = event.senderobj.subdisplay;
-                    var dateForLog = new Date;
+                    var dateForLog = new Date();
                     var msgForLog = event.message;
                     // Add log to front
                     currentLogs.unshift('@' + userForLog + ' invoked the bot at ' + (dateForLog.getMonth() + 1) + '/' + (dateForLog.getDay() + 1) + '/' + (dateForLog.getFullYear()) + ' using the message *' + msgForLog + '*.');
@@ -342,7 +342,11 @@ function unknownTraineeError(traineeName){
                     }else{
                         
                     }
-                    context.simpledb.botleveldata.logs = currentLogs;
+                    if(userForLog !== undefined){
+                        context.simpledb.botleveldata.logs = currentLogs;
+                    }else{
+                        
+                    }
                 }
 	        
 	            if(event.message.toLowerCase() === '[test]'){
