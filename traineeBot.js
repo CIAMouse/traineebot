@@ -330,7 +330,15 @@ function unknownTraineeError(traineeName){
 	        if (event.message[0] === '['){
 	            
 	            function updateLogList(){
-                    var currentLogs = context.simpledb.botleveldata.logs;
+	                var makeLogListVar = [];
+	                for(var ab in context.simpledb.botleveldata.logs){
+	                    if(context.simpledb.botleveldata.logs[ab].substring(0, 10) !== '@undefined'){
+	                        makeLogListVar.push(context.simpledb.botleveldata.logs[ab]);
+	                    }else{
+	                        
+	                    }
+	                }
+                    var currentLogs = makeLogListVar;
                     var userForLog = event.senderobj.subdisplay;
                     var dateForLog = new Date();
                     var msgForLog = event.message;
