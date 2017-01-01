@@ -323,31 +323,30 @@ function editTraineeSyntaxError(){
 function unknownTraineeError(traineeName){
     context.sendResponse(':warning: Error: *' + traineeName + '* is an unknown trainee. Trainee names are CaSe SeNsItIvE. Try `[getTrainees]` to get the up-to-date list of trainees.\n>_I am a bot. This action was performed automagically._');
 }
-
-function addLog(user, dateObj, msg){
-    currentLogs.unshift('@' + user + ' invoked the bot at ' + (dateObj.getMonth() + 1) + '/' + (dateObj.getDay() + 1) + '/' + (dateObj.getFullYear()) + ' using the message *' + msg + '*.');
-}
-
-function removeLog(){
-    currentLogs.splice(currentLogs.length - 1, 1);
-}
-
-function updateLogList(user, dateObj, msg){
-    currentLogs = context.simpledb.botleveldata.logs;
-    addLog(user, dateObj, msg);
-    removeLog();
-    context.simpledb.botleveldata.logs = currentLogs;
-}
-
         
         function MessageHandler(context, event) {
             checkPerms(event.senderobj.subdisplay);
 	        if(event.message !== undefined){
 	        if (event.message[0] === '['){
 	            
-	            
+	            function updateLogList(){
+                    var currentLogs = context.simpledb.botleveldata.logs;
+                    var userForLog = event.senderobj.subdisplay;
+                    var dateForLog = new Date;
+                    var msgForLog = event.message;
+                    // Add log to front
+                    currentLogs.unshift('@' + userForLog + ' invoked the bot at ' + (dateForLog.getMonth() + 1) + '/' + (dateForLog.getDay() + 1) + '/' + (dateForLog.getFullYear()) + ' using the message *' + msgForLog + '*.');
+                    // Remove 51st log if there are 51 logs
+                    if(currentLogs.length === 51){
+                        currentLogs.splice(currentLogs.length - 1, 1);
+                    }else{
+                        
+                    }
+                    context.simpledb.botleveldata.logs = currentLogs;
+                }
 	        
 	            if(event.message.toLowerCase() === '[test]'){
+	                updateLogList();
 	                /*context.simpledb.botleveldata.timesused = 0;
 	                context.simpledb.botleveldata.timestraineeused = 0;
 	                context.simpledb.botleveldata.timesmodused = 0;*/
@@ -357,18 +356,20 @@ function updateLogList(user, dateObj, msg){
 	            }
 	            // ------------------------
 	            else if((event.message.toLowerCase() === '[help]')||(event.message.toLowerCase() === '[info]')){
+	                updateLogList();
 	                context.simpledb.botleveldata.timestraineeused = context.simpledb.botleveldata.timestraineeused + 1;
 	                context.simpledb.botleveldata.timesused = parseInt(context.simpledb.botleveldata.timesused) + 1;
 	                context.sendResponse('Hello ' + event.senderobj.display + '. Glad I could help. My name is Trainee Helper, and I am a bot. My job is to help you learn more about the trainee team. To get started, click on my name, then *Direct Message*, and send me `[menu]`.\n*This bot was created by @kaleb418*\n>_I am a bot. This action was performed automagically!_');
 	            }
 	        // ------------------------
 	            else if(event.message.toLowerCase() === '[menu]'){
+	                updateLogList();
 	                context.simpledb.botleveldata.timestraineeused = context.simpledb.botleveldata.timestraineeused + 1;
 	                context.simpledb.botleveldata.timesused = parseInt(context.simpledb.botleveldata.timesused) + 1;
 	                   switch(resultOfPermCheck){
 	                       case 'regMod': context.sendResponse('_Showing menu..._\n\n*Type the command shown in red for each article. These commands are for the regMod permission group.*\n\nGetting Started...`[start]`\nMenu... `[menu]`\nCommands...`[tools]`\nChannel Guide...`[channels]`\nVideo...`[t-vid]`\nAdministration...`[admins]`\nGet your Permission Node...`[getMyPerm]`\nGet Bot Info...`[getBotInfo]`\nAdd Trainee Profile...`[addTrainee]`\nGet Trainee List...`[getTrainees]`\nEdit Trainee Profile...`[editTrainee]`\nGet Trainee Profile...`[getTraineeInfo]`\n>_I am a bot. This action was performed automagically!_');
 	                           break;
-	                       case 'leadMod': context.sendResponse('_Showing menu..._\n\n*Type the command shown in red for each article. These commands are for the leadMod permission group.*\n\nGetting Started...`[start]`\nMenu... `[menu]`\nCommands...`[tools]`\nChannel Guide...`[channels]`\nVideo...`[t-vid]`\nAdministration...`[admins]`\nGet your Permission Node...`[getMyPerm]`\nGet Bot Info...`[getBotInfo]`\nAdd Trainee Profile...`[addTrainee]`\nGet Trainee List...`[getTrainees]`\nEdit Trainee Profile...`[editTrainee]`\nGet Trainee Profile...`[getTraineeInfo]`\nCheck an IP...`[checkIP]`\nAdd a Bad IP...`[addBadIP]`\nClear Bad IP List...`[clearBadIPs]`\nClear Trainee List...`[clearTrainees]`\nClear Known Users List...`[resetKnownUsers]`\nRemove Known User...`[rmKnownUser]`\nRemove Trainee...`[rmTrainee]`\nSpam-Ping Everyone...`[getKnownUsers]`\nMake a Trainee Official...`[makeOfficial]`\nOverride Add Trainee...`[overAddTrainee]`\n>_I am a bot. This action was performed automagically!_');
+	                       case 'leadMod': context.sendResponse('_Showing menu..._\n\n*Type the command shown in red for each article. These commands are for the leadMod permission group.*\n\nGetting Started...`[start]`\nMenu... `[menu]`\nCommands...`[tools]`\nChannel Guide...`[channels]`\nVideo...`[t-vid]`\nAdministration...`[admins]`\nGet your Permission Node...`[getMyPerm]`\nGet Bot Info...`[getBotInfo]`\nAdd Trainee Profile...`[addTrainee]`\nGet Trainee List...`[getTrainees]`\nEdit Trainee Profile...`[editTrainee]`\nGet Trainee Profile...`[getTraineeInfo]`\nCheck an IP...`[checkIP]`\nAdd a Bad IP...`[addBadIP]`\nClear Bad IP List...`[clearBadIPs]`\nClear Trainee List...`[clearTrainees]`\nClear Known Users List...`[resetKnownUsers]`\nRemove Known User...`[rmKnownUser]`\nRemove Trainee...`[rmTrainee]`\nSpam-Ping Everyone...`[getKnownUsers]`\nMake a Trainee Official...`[makeOfficial]`\nOverride Add Trainee...`[overAddTrainee]`\nGet Bot Logs...`[getLogs`]\nClear Bot Logs...`[clearLogs]`\n>_I am a bot. This action was performed automagically!_');
 	                           break;
 	                       default: context.sendResponse('_Showing menu..._\n\n*Type the command shown in red for each article. These commands are for the defaultUser permission group.*\n\nGetting Started...`[start]`\nMenu... `[menu]`\nCommands...`[tools]`\nChannel Guide...`[channels]`\nVideo...`[t-vid]`\nAdministration...`[admins]`\nGet your Permission Node...`[getMyPerm]`\nGet Bot Info...`[getBotInfo]`\n>_I am a bot. This action was performed automagically!_');
 	                   }
@@ -376,18 +377,21 @@ function updateLogList(user, dateObj, msg){
 	            // ------------------------
 	            
 	            else if(event.message.toLowerCase() === '[t-vid]'){
+	                updateLogList();
 	                context.simpledb.botleveldata.timestraineeused = context.simpledb.botleveldata.timestraineeused + 1;
 	                context.simpledb.botleveldata.timesused = parseInt(context.simpledb.botleveldata.timesused) + 1;
 	                context.sendResponse('Please watch this entertaining video for more info! https://www.youtube.com/watch?v=Butvl6MzG50&feature=youtu.be');
 	            }
 	        // ------------------------
 	            else if (event.message.toLowerCase() === '[tools]'){
+	                updateLogList();
 	                context.simpledb.botleveldata.timestraineeused = context.simpledb.botleveldata.timestraineeused + 1;
 	                context.simpledb.botleveldata.timesused = parseInt(context.simpledb.botleveldata.timesused) + 1;
 	                context.sendResponse('_Showing mod tools..._\n\n*Please note:* Trainees do *NOT* have access to these tools; they are here for you to learn them and know how to use them for when you graduate.\n\n`/lbban` - The main moderator command. Follow `/lbban` with `<player> <time-in-minutes|skin|warn> [reason (optional)]`. For example, if I were to ban myself (elite041802) for 15 minutes for reason: hacking, I would use `/lbban elite041802 15 Hacking`.\n\n`/lbban <player> skin` - Replaces a players current skin with its Alex or Steve counterparts.\n\n`/lbban <player> warn` - Warns the player that they are using inappropriate conduct and mutes them for five minutes.\n\n`/mod fly` - Toggles invisibility and flying ability.\n\n`/separate <player1> <player2>` - Bounces the two specified players back from each other and prevents them from seeing each other\'s chat messages.\n\n`/move <player>` - Teleports you to the specified player.\n\n>_I am a bot. This action was performed automagically!_');
 	            }
 	        // ------------------------
 	        else if (event.message.toLowerCase() === '[admins]'){
+	            updateLogList();
 	            context.simpledb.botleveldata.timestraineeused = context.simpledb.botleveldata.timestraineeused + 1;
 	            context.simpledb.botleveldata.timesused = parseInt(context.simpledb.botleveldata.timesused) + 1;
 	            context.sendResponse('_Showing admins..._\n\nLuke Hoffman (@luke_hoffman)\nJiselle Angeles (@ramennoodles)\nKaleb Wasmuth (@kaleb418)\nDave Diaz (@ciamouse)\nSpencer Steiner (@spencersteiner)\n\n *If you have any questions, feel free to DM any of these people, or any other official moderator.*\n>_I am a bot. This action was performed automagically!_');
@@ -395,6 +399,7 @@ function updateLogList(user, dateObj, msg){
 	        }
 	        // ------------------------
 	        else if(event.message === '[getMyPerm]'){
+	            updateLogList();
 	            context.simpledb.botleveldata.timestraineeused = context.simpledb.botleveldata.timestraineeused + 1;
 	            context.simpledb.botleveldata.timesused = parseInt(context.simpledb.botleveldata.timesused) + 1;
 	                checkPerms(event.senderobj.subdisplay);
@@ -408,28 +413,33 @@ function updateLogList(user, dateObj, msg){
 	        // ------------------------
 	        
 	        else if(event.message.toLowerCase() === '[start-3]'){
+	            updateLogList();
 	            context.simpledb.botleveldata.timestraineeused = context.simpledb.botleveldata.timestraineeused + 1;
 	            context.simpledb.botleveldata.timesused = parseInt(context.simpledb.botleveldata.timesused) + 1;
 	            context.sendResponse('_Showing page 3 of 3 in \'start\'..._\n\nAnd, last but not least, please direct message @kaleb418 or @ciamouse to have your [Crew] rank added. When (and if) the moderators and staff members feel you are ready to become a full moderator, you will be processed into a member of our team. For now, the only extra command you have is `/d`.\nAs a side note, please keep in mind that the agreement you signed and returned to a staff member is to be kept in effect until you are no longer a volunteer or employee for Hydreon, which terminates the entire agreement.\n>_I am a bot. This action was performed automagically!_');
 	        }
 	        // ------------------------
 	        else if(event.message.toLowerCase() === '[start-2]'){
+	            updateLogList();
 	            context.simpledb.botleveldata.timestraineeused = context.simpledb.botleveldata.timestraineeused + 1;
 	            context.simpledb.botleveldata.timesused = parseInt(context.simpledb.botleveldata.timesused) + 1;
 	            context.sendResponse('_Showing page 2 of 3 in \'start\'..._\n\nAfter that, let\'s learn the basics of Slack, our chatting application. Here are some links to help you get started:\nhttps://get.slack.help/hc/en-us/articles/218080037-Getting-started-for-new-users\nhttps://get.slack.help/hc/en-us/articles/217626328-Onboarding-checklist-for-new-users\nhttps://get.slack.help/hc/en-us/articles/217626358-Cheat-sheet-for-basics-and-shortcuts\n\n*To continue with the introduction, direct message me* `[start-3]` *.*\n>_I am a bot. This action was performed automagically!_');
 	        }
 	        // ------------------------
 	        else if(event.message.toLowerCase() === '[start]'){
+	            updateLogList();
 	            context.simpledb.botleveldata.timestraineeused = context.simpledb.botleveldata.timestraineeused + 1;
 	            context.simpledb.botleveldata.timesused = parseInt(context.simpledb.botleveldata.timesused) + 1;
 	            context.sendResponse('_Showing page 1 of 3 in \'start\'..._\n\nHey there! I would like to welcome you to a program that you will be involved in for the next 1-3 weeks of your Lifeboat experience. Here at Lifeboat, we strive to provide the best server experience possible. We have a player base of around 8 million people, ranging from very young children to adults and parents. We have over 100 different servers, and over 7 gamemodes to choose from. We are the largest *Minecraft: Pocket Edition* server community, and have been the largest Minecraft network community above all Minecraft servers, PE and PC. Of course, with this huge player fanbase, there comes a huge responsibility. Part of that responsibility is making sure our players are enjoying their time on our servers, and aren\'t experiencing problems. Thus we introduced moderators to our servers.\n\nSomething we must be exceptionally clear on: Moderators do *NOT* exist to boss players around. They do not exist to tell players what to do. They do not exist to make a Lifeboat player\'s experience miserable. They are our line of defense against players who refuse to follow rules. Another thing we try to tell our moderators often is that we must *always* warn with correction before punishment. What good is punishing a player if they don\'t learn anything? We strive to verbally warn and correct a player when they are breaking our rules, so that they learn from their mistakes. Moderator tools are only necessary when a player defies a moderator\'s request to play by the rules of our servers. Then, and only then, are we to use the necessary force, and only in incremental amounts, usually starting with a mute, then working the way up to a 10 minute ban, and so on, if the player refuses to obey after the mute. However, a moderator should never be afraid to use his or her tools at their disposal. If a player continously disobeys correction, we must act according to the severity of the punishment. There are two exceptions to this rule: Hacking and inappropriate names. If you encounter a hacker or a user with a swear word in his name, please ban him for a full day (/lbban <player> 1440), and report him in #report-desk.\n\nThis was a brief introduction to how our moderators operate, please direct message any moderator or staff member for any questions or concerns you may have. Also, if you have not already done so, please set up your profile now, before continuing.\n\n*To continue with the introduction, direct message me* `[start-2]` *.*\n>_I am a bot. This action was performed automagically!_');
             }
             // ------------------------
             else if(event.message.toLowerCase() === '[channels]'){
+                updateLogList();
                 context.sendResponse('*#announcements* - You cannot post in this channel. This is for staff members only to communicate important information with the trainees and/or moderators.\n*#main* - This is the main channel. Moderators and trainees can communicate about Lifeboat-related topics.\n*#chatter* - This channel is for non-work related topics. It is meant to reduce stress and have fun discussions with your fellow crew members.\n *#report-desk* - This channel is under strict watch by a bot. If you send a message in here, you will be warned by the bot. Please only send player reports in this channel. Reports *must* consist of proof (image or video), the name of the accused, along with any additional information, such as what the report is about. It will be ignored if missing any of these components. Please ignore the bot if you send a video in the channel and it warns you.\n>_I am a bot. This action was performed automagically!_');
             }
 	        // ------------------------
 	        else if(event.message === '[getBotInfo]'){
+	            updateLogList();
 	            context.sendResponse('>*Times Used:* ' + context.simpledb.botleveldata.timesused + '\n\n>*Times Trainee Commands Used:* ' + context.simpledb.botleveldata.timestraineeused + '\n\n>*Times Moderator Commands Used:* ' + context.simpledb.botleveldata.timesmodused + '\n\nThis bot was created and published by KaIeb Wasmuth. Please contact him for feature requests.\n*---*\n>_I am a bot. This action was performed automagically!_');
 	        }
 	        
@@ -438,6 +448,7 @@ function updateLogList(user, dateObj, msg){
 	        // ------------------------
 	        
 	        else if((event.message.substring(0, 12) === '[addTrainee]')){
+	            updateLogList();
 	            context.simpledb.botleveldata.timesmodused = context.simpledb.botleveldata.timesmodused + 1;
 	            context.simpledb.botleveldata.timesused = context.simpledb.botleveldata.timesused + 1;
 	           if((resultOfPermCheck === 'leadMod') || (resultOfPermCheck === 'regMod')){
@@ -488,6 +499,7 @@ function updateLogList(user, dateObj, msg){
 	            
 	        // ------------------------
 	        else if(event.message === '[getTrainees]'){
+	            updateLogList();
 	            context.simpledb.botleveldata.timesmodused = context.simpledb.botleveldata.timesmodused + 1;
 	            context.simpledb.botleveldata.timesused = context.simpledb.botleveldata.timesused + 1;
 	            if((resultOfPermCheck === 'leadMod') || (resultOfPermCheck === 'regMod')){
@@ -509,6 +521,7 @@ function updateLogList(user, dateObj, msg){
 	        }
 	        // ------------------------
 	        else if(event.message.substring(0,11) === '[rmTrainee]'){
+	            updateLogList();
 	            context.simpledb.botleveldata.timesmodused = context.simpledb.botleveldata.timesmodused + 1;
 	            context.simpledb.botleveldata.timesused = context.simpledb.botleveldata.timesused + 1;
 	            if(resultOfPermCheck === 'leadMod'){
@@ -545,6 +558,7 @@ function updateLogList(user, dateObj, msg){
 	        // ------------------------
 	        
 	        else if(event.message.substring(0, 16) === '[overAddTrainee]'){
+	            updateLogList();
 	            context.simpledb.botleveldata.timesmodused = context.simpledb.botleveldata.timesmodused + 1;
 	            context.simpledb.botleveldata.timesused = context.simpledb.botleveldata.timesused + 1;
 	            if(resultOfPermCheck === 'leadMod'){
@@ -588,6 +602,7 @@ function updateLogList(user, dateObj, msg){
 	        
 	        // ------------------------
 	        else if(event.message.substring(0, 16) === '[getTraineeInfo]'){
+	            updateLogList();
 	            context.simpledb.botleveldata.timesmodused = context.simpledb.botleveldata.timesmodused + 1;
 	            context.simpledb.botleveldata.timesused = context.simpledb.botleveldata.timesused + 1;
 	            if((resultOfPermCheck === 'leadMod') || (resultOfPermCheck === 'regMod')){
@@ -640,6 +655,7 @@ function updateLogList(user, dateObj, msg){
 	        // ------------------------
 	        
 	        else if(event.message.substring(0, 10) === '[addBadIP]'){
+	            updateLogList();
 	            context.simpledb.botleveldata.timesmodused = context.simpledb.botleveldata.timesmodused + 1;
 	            context.simpledb.botleveldata.timesused = context.simpledb.botleveldata.timesused + 1;
 	            if(resultOfPermCheck === 'leadMod'){
@@ -701,6 +717,7 @@ function updateLogList(user, dateObj, msg){
 	        // ------------------------
 	        
 	        else if(event.message === '[clearBadIPs]'){
+	            updateLogList();
 	            context.simpledb.botleveldata.timesmodused = context.simpledb.botleveldata.timesmodused + 1;
 	            context.simpledb.botleveldata.timesused = context.simpledb.botleveldata.timesused + 1;
 	            if(resultOfPermCheck === 'leadMod'){
@@ -714,6 +731,7 @@ function updateLogList(user, dateObj, msg){
 	        // ------------------------
 	        
 	        else if(event.message.substring(0, 9) === '[checkIP]'){
+	            updateLogList();
 	            context.simpledb.botleveldata.timesmodused = context.simpledb.botleveldata.timesmodused + 1;
 	            context.simpledb.botleveldata.timesused = context.simpledb.botleveldata.timesused + 1;
 	            if(resultOfPermCheck === 'leadMod'){
@@ -770,6 +788,7 @@ function updateLogList(user, dateObj, msg){
 	        // ------------------------
 	        
 	        else if(event.message === '[clearTrainees]'){
+	            updateLogList();
 	            context.simpledb.botleveldata.timesmodused = context.simpledb.botleveldata.timesmodused + 1;
 	            context.simpledb.botleveldata.timesused = context.simpledb.botleveldata.timesused + 1;
 	            if(resultOfPermCheck === 'leadMod'){
@@ -784,6 +803,7 @@ function updateLogList(user, dateObj, msg){
 	        //   <<<<<<>>>>>>  EDIT TRAINEE BLOCK <<<<<<>>>>>>
 	        // ------------------------
 	        else if(event.message.substring(0,13) === '[editTrainee]'){
+	            updateLogList();
 	            context.simpledb.botleveldata.timesmodused = context.simpledb.botleveldata.timesmodused + 1;
 	            context.simpledb.botleveldata.timesused = context.simpledb.botleveldata.timesused + 1;
 	            if((resultOfPermCheck === 'leadMod') || (resultOfPermCheck === 'regMod')){
@@ -877,6 +897,7 @@ function updateLogList(user, dateObj, msg){
 	        // ------------------------
 	        
 	        else if(event.message.substring(0, 14) === '[makeOfficial]'){
+	            updateLogList();
 	            context.simpledb.botleveldata.timesmodused = context.simpledb.botleveldata.timesmodused + 1;
 	            context.simpledb.botleveldata.timesused = context.simpledb.botleveldata.timesused + 1;
 	            if(resultOfPermCheck === 'leadMod'){
@@ -917,6 +938,7 @@ function updateLogList(user, dateObj, msg){
 	        
 	        // ------------------------
 	        else if(event.message === '[resetKnownUsers]'){
+	            updateLogList();
 	            context.simpledb.botleveldata.timesmodused = context.simpledb.botleveldata.timesmodused + 1;
 	            context.simpledb.botleveldata.timesused = context.simpledb.botleveldata.timesused + 1;
 	            if(resultOfPermCheck === 'leadMod'){
@@ -992,6 +1014,7 @@ function updateLogList(user, dateObj, msg){
 	        // ------------------------
 	        
 	        else if(event.message.substring(0, 13) === '[rmKnownUser]'){
+	            updateLogList();
 	            context.simpledb.botleveldata.timesmodused = context.simpledb.botleveldata.timesmodused + 1;
 	            context.simpledb.botleveldata.timesused = context.simpledb.botleveldata.timesused + 1;
 	            if(resultOfPermCheck === 'leadMod'){
@@ -1028,6 +1051,7 @@ function updateLogList(user, dateObj, msg){
 	        }
 	        // ------------------------
 	        else if(event.message === '[testFeature]'){
+	            updateLogList();
 	            if(event.senderobj.subdisplay === 'kaleb418'){
 	                context.sendResponse('Nothing to test.');
 	            }else{
@@ -1036,6 +1060,7 @@ function updateLogList(user, dateObj, msg){
 	        }
 	        // ------------------------
 	        else if(event.message === '[getKnownUsers]'){
+	            updateLogList();
 	            context.simpledb.botleveldata.timesmodused = context.simpledb.botleveldata.timesmodused + 1;
 	            context.simpledb.botleveldata.timesused = context.simpledb.botleveldata.timesused + 1;
 	            if(resultOfPermCheck === 'leadMod'){
@@ -1068,6 +1093,34 @@ function updateLogList(user, dateObj, msg){
 	        }
 	        
 	        // ------------------------
+	        else if(event.message === '[getLogs]'){
+	            context.simpledb.botleveldata.timesmodused = context.simpledb.botleveldata.timesmodused + 1;
+	            context.simpledb.botleveldata.timesused = context.simpledb.botleveldata.timesused + 1;
+	            if(resultOfPermCheck === 'leadMod'){
+	                for(var logIndex in context.simpledb.botleveldata.logs){
+	                    makeListVar = makeListVar + context.simpledb.botleveldata.logs[logIndex] + '\n\n>';
+	                }
+	                makeListVar = makeListVar.substring(0, makeListVar.length - 2);
+	                context.sendResponse('_Listing last 50 logs..._\n\n' + makeListVar + '*---*\n>_I am a bot. This action was performed automagically!_');
+	            }else{
+	                permError();
+	            }
+	        }
+	        // ------------------------
+	        else if(event.message === '[clearLogs]'){
+	            updateLogList();
+	            context.simpledb.botleveldata.timesmodused = context.simpledb.botleveldata.timesmodused + 1;
+	            context.simpledb.botleveldata.timesused = context.simpledb.botleveldata.timesused + 1;
+	            if(resultOfPermCheck === 'leadMod'){
+	                context.simpledb.botleveldata.logs = [];
+	                updateLogList();
+	                context.sendResponse('Successfully cleared bot logs.\n>_I am a bot. This action was performed automagically!_');
+	            }else{
+	                updateLogList();
+	                permError();
+	            }
+	        }
+	        // ------------------------
 	        
 	        else{
 	            context.sendResponse('Sorry, I don\'t understand! Please check for typos in your message, or don\'t use "[" at the beginning of your message. Alternatively, you can try `[help]` for me to help further.\n>_I am a bot. This action was performed automagically!_');
@@ -1088,7 +1141,7 @@ function updateLogList(user, dateObj, msg){
 	        }else{
 	            
 	        }
-	        if((isNewUserVariable === true) && (event.message !== ('@' + event.senderobj.subdisplay + ' has joined the group.'))){
+	        if(isNewUserVariable === true){
 	            var addOldUser = event.senderobj.subdisplay;
 	            var asdfg = context.simpledb.botleveldata.oldusers;
 	            if(addOldUser !== null || addOldUser !== 'null'){
@@ -1097,6 +1150,7 @@ function updateLogList(user, dateObj, msg){
 	                
 	            }
 	            context.simpledb.botleveldata.oldusers = asdfg;
+	            updateLogList();
 	            context.sendResponse('Hello ' + event.senderobj.display + ', and welcome to the Lifeboat Trainees Program! I will be your guide as you learn what will be expected of you during your time as a trainee. Please wait for someone to talk to you, it shouldn\'t take too long.\n>_I am a bot. This action was performed automagically!_');
 	            /*var messageJSON = {
 	                "type":"msg",
