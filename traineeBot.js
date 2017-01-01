@@ -32,6 +32,7 @@ var badIP = '';
 var testForRealIP = '';
 var checkedAndBadIP = false;
 var badIPAlreadyUsed = false;
+var currentLogs;
 
 //    <><><> permissionNodes <><><>
 
@@ -86,6 +87,9 @@ var users = {
         permissionNode: 'regMod'
     },
     darthknight360: {
+        permissionNode: 'regMod'
+    },
+    delta4x: {
         permissionNode: 'regMod'
     },
     derpyclause: {
@@ -320,6 +324,21 @@ function unknownTraineeError(traineeName){
     context.sendResponse(':warning: Error: *' + traineeName + '* is an unknown trainee. Trainee names are CaSe SeNsItIvE. Try `[getTrainees]` to get the up-to-date list of trainees.\n>_I am a bot. This action was performed automagically._');
 }
 
+function addLog(user, dateObj, msg){
+    currentLogs.unshift('@' + user + ' invoked the bot at ' + (dateObj.getMonth() + 1) + '/' + (dateObj.getDay() + 1) + '/' + (dateObj.getFullYear()) + ' using the message *' + msg + '*.');
+}
+
+function removeLog(){
+    currentLogs.splice(currentLogs.length - 1, 1);
+}
+
+function updateLogList(user, dateObj, msg){
+    currentLogs = context.simpledb.botleveldata.logs;
+    addLog(user, dateObj, msg);
+    removeLog();
+    context.simpledb.botleveldata.logs = currentLogs;
+}
+
         
         function MessageHandler(context, event) {
             checkPerms(event.senderobj.subdisplay);
@@ -336,7 +355,6 @@ function unknownTraineeError(traineeName){
 	                context.simpledb.botleveldata.timesused = parseInt(context.simpledb.botleveldata.timesused) + 1;
 	                context.sendResponse('Test successful! Message handler online!\n>_I am a bot. This action was performed automagically!_');
 	            }
-	            
 	            // ------------------------
 	            else if((event.message.toLowerCase() === '[help]')||(event.message.toLowerCase() === '[info]')){
 	                context.simpledb.botleveldata.timestraineeused = context.simpledb.botleveldata.timestraineeused + 1;
@@ -347,7 +365,13 @@ function unknownTraineeError(traineeName){
 	            else if(event.message.toLowerCase() === '[menu]'){
 	                context.simpledb.botleveldata.timestraineeused = context.simpledb.botleveldata.timestraineeused + 1;
 	                context.simpledb.botleveldata.timesused = parseInt(context.simpledb.botleveldata.timesused) + 1;
-	                context.sendResponse('_Showing menu..._\n\n*Type the command shown in red for each article.*\n\nGetting Started...`[start]`\nMenu... `[menu]`\nCommands...`[tools]`\nChannel Guide...`[channels]`\nVideo...`[t-vid]`\nAdministration...`[admins]`\n>_I am a bot. This action was performed automagically!_');
+	                   switch(resultOfPermCheck){
+	                       case 'regMod': context.sendResponse('_Showing menu..._\n\n*Type the command shown in red for each article. These commands are for the regMod permission group.*\n\nGetting Started...`[start]`\nMenu... `[menu]`\nCommands...`[tools]`\nChannel Guide...`[channels]`\nVideo...`[t-vid]`\nAdministration...`[admins]`\nGet your Permission Node...`[getMyPerm]`\nGet Bot Info...`[getBotInfo]`\nAdd Trainee Profile...`[addTrainee]`\nGet Trainee List...`[getTrainees]`\nEdit Trainee Profile...`[editTrainee]`\nGet Trainee Profile...`[getTraineeInfo]`\n>_I am a bot. This action was performed automagically!_');
+	                           break;
+	                       case 'leadMod': context.sendResponse('_Showing menu..._\n\n*Type the command shown in red for each article. These commands are for the leadMod permission group.*\n\nGetting Started...`[start]`\nMenu... `[menu]`\nCommands...`[tools]`\nChannel Guide...`[channels]`\nVideo...`[t-vid]`\nAdministration...`[admins]`\nGet your Permission Node...`[getMyPerm]`\nGet Bot Info...`[getBotInfo]`\nAdd Trainee Profile...`[addTrainee]`\nGet Trainee List...`[getTrainees]`\nEdit Trainee Profile...`[editTrainee]`\nGet Trainee Profile...`[getTraineeInfo]`\nCheck an IP...`[checkIP]`\nAdd a Bad IP...`[addBadIP]`\nClear Bad IP List...`[clearBadIPs]`\nClear Trainee List...`[clearTrainees]`\nClear Known Users List...`[resetKnownUsers]`\nRemove Known User...`[rmKnownUser]`\nRemove Trainee...`[rmTrainee]`\nSpam-Ping Everyone...`[getKnownUsers]`\nMake a Trainee Official...`[makeOfficial]`\nOverride Add Trainee...`[overAddTrainee]`\n>_I am a bot. This action was performed automagically!_');
+	                           break;
+	                       default: context.sendResponse('_Showing menu..._\n\n*Type the command shown in red for each article. These commands are for the defaultUser permission group.*\n\nGetting Started...`[start]`\nMenu... `[menu]`\nCommands...`[tools]`\nChannel Guide...`[channels]`\nVideo...`[t-vid]`\nAdministration...`[admins]`\nGet your Permission Node...`[getMyPerm]`\nGet Bot Info...`[getBotInfo]`\n>_I am a bot. This action was performed automagically!_');
+	                   }
 	            }
 	            // ------------------------
 	            
