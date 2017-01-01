@@ -1102,7 +1102,7 @@ function unknownTraineeError(traineeName){
 	            context.simpledb.botleveldata.timesused = context.simpledb.botleveldata.timesused + 1;
 	            if(resultOfPermCheck === 'leadMod'){
 	                for(var logIndex in context.simpledb.botleveldata.logs){
-	                    if(context.simpledb.botleveldata.logs[logIndex] !== '@undefined invoked the bot at 1/1/2017 using the message *hi*.'){
+	                    if(context.simpledb.botleveldata.logs[logIndex].substring(0, 10) !== '@undefined'){
 	                        makeListVar = makeListVar + context.simpledb.botleveldata.logs[logIndex] + '\n\n>';
 	                    }else{
 	                        
