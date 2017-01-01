@@ -447,7 +447,7 @@ function unknownTraineeError(traineeName){
             // ------------------------
             else if(event.message.toLowerCase() === '[channels]'){
                 updateLogList();
-                context.sendResponse('*#announcements* - You cannot post in this channel. This is for staff members only to communicate important information with the trainees and/or moderators.\n*#main* - This is the main channel. Moderators and trainees can communicate about Lifeboat-related topics.\n*#chatter* - This channel is for non-work related topics. It is meant to reduce stress and have fun discussions with your fellow crew members.\n *#report-desk* - This channel is under strict watch by a bot. If you send a message in here, you will be warned by the bot. Please only send player reports in this channel. Reports *must* consist of proof (image or video), the name of the accused, along with any additional information, such as what the report is about. It will be ignored if missing any of these components. Please ignore the bot if you send a video in the channel and it warns you.\n>_I am a bot. This action was performed automagically!_');
+                context.sendResponse('*#announcements* - You cannot post in this channel. This is for staff members only to communicate important information with the trainees and/or moderators.\n*#crew* - This is the main channel. Moderators and trainees can communicate about Lifeboat-related topics.\n*#chatter* - This channel is for non-work related topics. It is meant to reduce stress and have fun discussions with your fellow crew members.\n *#report-desk* - This channel is under strict watch by a bot. If you send a message in here, you will be warned by the bot. Please only send player reports in this channel. Reports *must* consist of proof (image or video), the name of the accused, along with any additional information, such as what the report is about. It will be ignored if missing any of these components. Please ignore the bot if you send a video in the channel and it warns you.\n>_I am a bot. This action was performed automagically!_');
             }
 	        // ------------------------
 	        else if(event.message === '[getBotInfo]'){
@@ -1103,7 +1103,18 @@ function unknownTraineeError(traineeName){
 	                permError();
 	            }
 	        }
-	        
+	        /*else if(event.message === '[clearBadKnownUsers]'){
+	            var makeMyDay = [];
+	            for(var ac in context.simpledb.botleveldata.oldusers){
+	                if(context.simpledb.botleveldata.oldusers[ac] !== null){
+	                    makeMyDay.push(context.simpledb.botleveldata.oldusers[ac]);
+	                }else{
+	                    
+	                }
+	            }
+	            context.simpledb.botleveldata.oldusers = makeMyDay;
+	            context.sendResponse('Fixed.');
+	        }*/
 	        // ------------------------
 	        else if(event.message === '[getLogs]'){
 	            context.simpledb.botleveldata.timesmodused = context.simpledb.botleveldata.timesmodused + 1;
@@ -1160,7 +1171,7 @@ function unknownTraineeError(traineeName){
 	        if(isNewUserVariable === true){
 	            var addOldUser = event.senderobj.subdisplay;
 	            var asdfg = context.simpledb.botleveldata.oldusers;
-	            if(addOldUser !== null || addOldUser !== 'null'){
+	            if(addOldUser !== null){
 	            asdfg.push(addOldUser);
 	            }else{
 	                
