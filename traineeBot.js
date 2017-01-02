@@ -245,6 +245,9 @@ var users = {
     traineehelper: {
         permissionNode: 'leadMod'
     },
+    truepenguin: {
+        permissionNode: 'regMod'
+    },
     truffledor: {
         permissionNode: 'regMod'
     },
