@@ -36,11 +36,8 @@ var testForRealIP = '';
 var checkedAndBadIP = false;
 var badIPAlreadyUsed = false;
 var currentLogs;
-
 //    <><><> permissionNodes <><><>
-
 var users = {
-    
     ante: {
         permissionNode: 'regMod'
     },
@@ -287,16 +284,11 @@ var users = {
     zombieslayer124: {
         permissionNode: 'regMod'
     }
-    
-    
 };
-
-
 function getPermNode(user){
    var beans = users[user];
    return beans.permissionNode;
 }
-
 function checkPerms(handle){
     try{
        getPermNode(handle);
@@ -304,14 +296,11 @@ function checkPerms(handle){
     }
     catch (e){
         resultOfPermCheck = 'fail';
-        
     }
 }
-
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
-
 function permError(){
     if(resultOfPermCheck === 'fail'){
         resultOfPermCheck = 'defaultUser';
@@ -319,17 +308,13 @@ function permError(){
         
     }
     context.sendResponse(':warning: Error: Incorrect Permissions. Your permission node is *' + resultOfPermCheck + '*. Please contact KaIeb if you think this is in error.\n>_I am a bot. This action was performed automatically._');
-    
 }
-
 function editTraineeSyntaxError(){
     context.sendResponse('Error: Can\'t parse the command. Correct Syntax:\n`[editTrainee] "<trainee-name>" "<name/IGN/knownIPs>" "<text>"`\n>_I am a bot. This action was performed automagically!_');
 }
-
 function unknownTraineeError(traineeName){
     context.sendResponse(':warning: Error: *' + traineeName + '* is an unknown trainee. Trainee names are CaSe SeNsItIvE. Try `[getTrainees]` to get the up-to-date list of trainees.\n>_I am a bot. This action was performed automagically._');
 }
-        
         function MessageHandler(context, event) {
             checkPerms(event.senderobj.subdisplay);
 	        if(event.message !== undefined){
@@ -393,7 +378,6 @@ function unknownTraineeError(traineeName){
 	                   }
 	            }
 	            // ------------------------
-	            
 	            else if(event.message.toLowerCase() === '[t-vid]'){
 	                updateLogList();
 	                context.simpledb.botleveldata.timestraineeused = context.simpledb.botleveldata.timestraineeused + 1;
@@ -413,7 +397,6 @@ function unknownTraineeError(traineeName){
 	            context.simpledb.botleveldata.timestraineeused = context.simpledb.botleveldata.timestraineeused + 1;
 	            context.simpledb.botleveldata.timesused = parseInt(context.simpledb.botleveldata.timesused) + 1;
 	            context.sendResponse('_Showing admins..._\n\nLuke Hoffman (@luke_hoffman)\nJiselle Angeles (@ramennoodles)\nKaleb Wasmuth (@kaleb418)\nDave Diaz (@ciamouse)\nSpencer Steiner (@spencersteiner)\n\n *If you have any questions, feel free to DM any of these people, or any other official moderator.*\n>_I am a bot. This action was performed automagically!_');
-	            
 	        }
 	        // ------------------------
 	        else if(event.message === '[getMyPerm]'){
@@ -429,7 +412,6 @@ function unknownTraineeError(traineeName){
 	                context.sendResponse('Your permission node: *' + resultOfPermCheck + '*');
 	        }
 	        // ------------------------
-	        
 	        else if(event.message.toLowerCase() === '[start-3]'){
 	            updateLogList();
 	            context.simpledb.botleveldata.timestraineeused = context.simpledb.botleveldata.timestraineeused + 1;
@@ -460,32 +442,23 @@ function unknownTraineeError(traineeName){
 	            updateLogList();
 	            context.sendResponse('>*Times Used:* ' + context.simpledb.botleveldata.timesused + '\n\n>*Times Trainee Commands Used:* ' + context.simpledb.botleveldata.timestraineeused + '\n\n>*Times Moderator Commands Used:* ' + context.simpledb.botleveldata.timesmodused + '\n\nThis bot was created and published by KaIeb Wasmuth. Please contact him for feature requests.\n*---*\n>_I am a bot. This action was performed automagically!_');
 	        }
-	        
 	        // MOD COMMANDS <><><><><><><><><><><><><><><><><><><><><><><>
-	        
 	        // ------------------------
-	        
 	        else if((event.message.substring(0, 12) === '[addTrainee]')){
 	            updateLogList();
 	            context.simpledb.botleveldata.timesmodused = context.simpledb.botleveldata.timesmodused + 1;
 	            context.simpledb.botleveldata.timesused = context.simpledb.botleveldata.timesused + 1;
 	           if((resultOfPermCheck === 'leadMod') || (resultOfPermCheck === 'regMod')){
 	               if((event.message[11] === ']') && (event.message[12] === ' ') && (event.message[13] === '"') && (event.message[event.message.length - 1] === '"')){
-	                   
-	               
 	                 for(i = 14; i < (event.message.length - 1); i++){
-	                     
 	                     if(event.message[i] !== '"'){
 	                     newTrainee = newTrainee + event.message[i];
 	                     }
 	                     else{
 	                         break;
 	                     }
-	                     
 	                 }
-	                    
 	                    for(var x in context.simpledb.botleveldata.trainees){
-	                        
 	                        if(newTrainee === context.simpledb.botleveldata.trainees[x]){
 	                            badNewName = true;
 	                            break;
@@ -493,7 +466,6 @@ function unknownTraineeError(traineeName){
 	                        else{
 	                            
 	                        }
-	                        
 	                    }
 	                    if(badNewName === false){
 	                     var dateToEdit = new Date();
@@ -509,19 +481,16 @@ function unknownTraineeError(traineeName){
 	               else{
 	                   context.sendResponse(':warning: Error: Can\'t parse the command. Correct syntax:\n`[addTrainee] "<trainee-name>"`\n>_I am a bot. This action was performed automagically!_');
 	               }
-	               
 	               }else{
 	                permError();
 	            }
 	        }
-	            
 	        // ------------------------
 	        else if(event.message === '[getTrainees]'){
 	            updateLogList();
 	            context.simpledb.botleveldata.timesmodused = context.simpledb.botleveldata.timesmodused + 1;
 	            context.simpledb.botleveldata.timesused = context.simpledb.botleveldata.timesused + 1;
 	            if((resultOfPermCheck === 'leadMod') || (resultOfPermCheck === 'regMod')){
-
 	            traineeList = context.simpledb.botleveldata.trainees;
 	            for (f = 0; f < traineeList.length; f++){
 	                if(traineeList[f] !== ''){
@@ -530,9 +499,7 @@ function unknownTraineeError(traineeName){
 	                    
 	                }
 	            }
-
 	            context.sendResponse('_Listing trainees..._\n\n' + makeListVar.substring(0, makeListVar.length - 2) + '*---*\n>_I am a bot. This action was performed automagically!_');
-
 	        }else{
 	                permError();
 	            }
