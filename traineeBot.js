@@ -1,3 +1,6 @@
+//   Copyright Kaleb Wasmuth, 2016.
+//   All Rights Reserved.
+//   This script was originally designed for use in lifeboattrainees.slack.com, for Lifeboat Network™
 var fixKnownUsers = [];
 var makeNewKnownUsers = [];
 var x;
