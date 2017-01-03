@@ -140,6 +140,9 @@ var users = {
     infinitefrost: {
         permissionNode: 'regMod'
     },
+    ipixeldenise: {
+        permissionNode: 'regMod'
+    },
     itskylo: {
         permissionNode: 'regMod'
     },
@@ -541,7 +544,6 @@ function unknownTraineeError(traineeName){
 	            }
 	        }
 	        // ------------------------
-	        
 	        else if(event.message.substring(0, 16) === '[overAddTrainee]'){
 	            updateLogList();
 	            context.simpledb.botleveldata.timesmodused = context.simpledb.botleveldata.timesmodused + 1;
@@ -559,7 +561,6 @@ function unknownTraineeError(traineeName){
 	                            break;
 	                        }
 	                    }
-	                    
 	                    for(var x = 0; x < context.simpledb.botleveldata.trainees.length; x++){
 	                        if(context.simpledb.botleveldata.trainees[x] === makeListVar){
 	                            isTrainee = true;
@@ -568,7 +569,6 @@ function unknownTraineeError(traineeName){
 	                            isTrainee = false;
 	                        }
 	                    }
-	                    
 	                    if(!isTrainee){
 	                        var tempTrainees = context.simpledb.botleveldata.trainees;
 	                        tempTrainees.push(makeListVar);
@@ -584,7 +584,6 @@ function unknownTraineeError(traineeName){
 	                permError();
 	            }
 	        }
-	        
 	        // ------------------------
 	        else if(event.message.substring(0, 16) === '[getTraineeInfo]'){
 	            updateLogList();
@@ -602,9 +601,7 @@ function unknownTraineeError(traineeName){
 	                        makeList = makeList;
 	                        break;
 	                    }
-	                    
 	                }
-	                
 	                for(h = 0; h < context.simpledb.botleveldata.trainees.length; h++){
 	                    
 	                    if(makeList === context.simpledb.botleveldata.trainees[h]){
@@ -613,23 +610,18 @@ function unknownTraineeError(traineeName){
 	                    }else{
 	                        errorIsNotTrainee = true;
 	                    }
-	                    
 	                }
-	                
 	                if(errorIsNotTrainee === false){
                             if(event.message.substring(lastKnownComma + 2, lastKnownComma + 5) === '-h'){
                             resultOfPermCheck = 'regMod';
 	                        }else{
-	                            
 	                        }
 	                        thingToDBValueCheck = 'getTraineeInfo';
 	                        traineeToGetInfoOf = makeList;
 	                        context.simpledb.doGet(makeList);
-	                   
 	                }else{
 	                    unknownTraineeError(makeList);
 	                }
-	                
 	            }else{
 	                context.sendResponse(':warning: Error: Can\'t parse the command. Correct Syntax:\n`[getTraineeInfo] "<trainee-name>"`\n>_I am a bot. This action was performed automagically!_');
 	            }
@@ -638,7 +630,6 @@ function unknownTraineeError(traineeName){
 	            }
 	        }
 	        // ------------------------
-	        
 	        else if(event.message.substring(0, 10) === '[addBadIP]'){
 	            updateLogList();
 	            context.simpledb.botleveldata.timesmodused = context.simpledb.botleveldata.timesmodused + 1;
@@ -646,7 +637,6 @@ function unknownTraineeError(traineeName){
 	            if(resultOfPermCheck === 'leadMod'){
 	                if((event.message[10] === ' ') && (event.message[11] === '"') && (event.message[event.message.length - 1] === '"')){
 	                    makeListVar = '';
-	                    
 	                    for(var e = 12; e < event.message.length; e++){
 	                        if(event.message[e] !== '"'){
 	                            makeListVar = makeListVar + event.message[e];
@@ -655,7 +645,6 @@ function unknownTraineeError(traineeName){
 	                            break;
 	                        }
 	                    }
-	                    
 	                    badIP = makeListVar;
 	                    makeListVar = '';
 	                    
@@ -666,11 +655,8 @@ function unknownTraineeError(traineeName){
 	                            
 	                        }
 	                    }
-	                    
 	                    testForRealIP = makeListVar;
-	                    
 	                    makeListVar = '';
-	                    
 	                    for(var j = 0; j < context.simpledb.botleveldata.badips.length; j++){
 	                        if(badIP === context.simpledb.botleveldata.badips[j]){
 	                            badIPAlreadyUsed = true;
