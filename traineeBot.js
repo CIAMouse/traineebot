@@ -56,6 +56,9 @@ var users = {
     ciamouse: {
         permissionNode: 'leadMod'
     },
+    delta4x:{
+	permissionNode: 'regMod'
+    },
     diamondav: {
         permissionNode: 'regMod'
     },
