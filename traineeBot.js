@@ -38,70 +38,25 @@ var badIPAlreadyUsed = false;
 var currentLogs;
 //    <><><> permissionNodes <><><>
 var users = {
-    ante: {
-        permissionNode: 'regMod'
-    },
-    antmasterj: {
-        permissionNode: 'regMod'
-    },
-    areya_sunshine: {
-        permissionNode: 'regMod'
-    },
-    bettyslays: {
-        permissionNode: 'regMod'
-    },
-    blueboltz: {
-        permissionNode: 'regMod'
-    },
     brandonvalencia: {
-        permissionNode: 'regMod'
-    },
-    brendini_007: {
         permissionNode: 'regMod'
     },
     bruhitzzlandon: {
         permissionNode: 'regMod'
     },
-    captainlight22: {
+    frost1161: {
+        permissionNode: 'regMod'
+    },
+    galactic_storm: {
+        permissionNode: 'regMod'
+    },
+    ultramarine: {
         permissionNode: 'regMod'
     },
     ciamouse: {
         permissionNode: 'leadMod'
     },
-    cookieeatemma: {
-        permissionNode: 'regMod'
-    },
-    coolbro458: {
-        permissionNode: 'regMod'
-    },
-    coretti33: {
-        permissionNode: 'regMod'
-    },
-    damario42: {
-        permissionNode: 'regMod'
-    },
-    danflex: {
-        permissionNode: 'regMod'
-    },
-    danslxys: {
-        permissionNode: 'regMod'
-    },
-    darthknight360: {
-        permissionNode: 'regMod'
-    },
-    delta4x: {
-        permissionNode: 'regMod'
-    },
-    derpyclause: {
-        permissionNode: 'regMod'
-    },
     diamondav: {
-        permissionNode: 'regMod'
-    },
-    diamondqueen105: {
-        permissionNode: 'regMod'
-    },
-    djpips: {
         permissionNode: 'regMod'
     },
     dogcatdogcat4: {
@@ -110,181 +65,22 @@ var users = {
     dudeitz_holly: {
         permissionNode: 'regMod'
     },
-    eldesttoast: {
+    glisss:{
         permissionNode: 'regMod'
     },
-    frostaurawolf_: {
+    jacob_gates:{
         permissionNode: 'regMod'
     },
-    gabby: {
-        permissionNode: 'regMod'
-    },
-    galactic_storm: {
-        permissionNode: 'regMod'
-    },
-    glisss: {
-        permissionNode: 'regMod'
-    },
-    handyholly: {
-        permissionNode: 'regMod'
-    },
-    hartbraker2003: {
-        permissionNode: 'regMod'
-    },
-    helpful_wolf: {
-        permissionNode: 'regMod'
-    },
-    hypeze: {
-        permissionNode: 'regMod'
-    },
-    infinitefrost: {
-        permissionNode: 'regMod'
-    },
-    ipixeldenise: {
-        permissionNode: 'regMod'
-    },
-    itskylo: {
-        permissionNode: 'regMod'
-    },
-    j_gizzle_135: {
-        permissionNode: 'regMod'
-    },
-    jake5632: {
-        permissionNode: 'regMod'
-    },
-    jeremiahc: {
-        permissionNode: 'regMod'
-    },
-    jiselleangeles: {
+    kaleb418:{
         permissionNode: 'leadMod'
     },
-    kaleb418: {
-        permissionNode: 'leadMod'
-    },
-    kurtroyle: {
+    sashasparkle:{
         permissionNode: 'regMod'
     },
-    legomite: {
+    tdehaney:{
         permissionNode: 'regMod'
     },
-    lerondoesgaming: {
-        permissionNode: 'regMod'
-    },
-    libby: {
-        permissionNode: 'regMod'
-    },
-    lifeboat: {
-        permissionNode: 'leadMod'
-    },
-    lizbeth: {
-        permissionNode: 'regMod'
-    },
-    lukehoffman: {
-        permissionNode: 'leadMod'
-    },
-    lulucrxftinq: {
-        permissionNode: 'regMod'
-    },
-    meh1285: {
-        permissionNode: 'regMod'
-    },
-    micah214: {
-        permissionNode: 'regMod'
-    },
-    milescholly21: {
-        permissionNode: 'regMod'
-    },
-    narwhalslovei: {
-        permissionNode: 'regMod'
-    },
-    nevershoutbearr: {
-        permissionNode: 'regMod'
-    },
-    omg_itstommy: {
-        permissionNode: 'regMod'
-    },
-    paulchenhd: {
-        permissionNode: 'regMod'
-    },
-    rashawn2clutch: {
-        permissionNode: 'regMod'
-    },
-    rosiemc: {
-        permissionNode: 'regMod'
-    },
-    sam: {
-        permissionNode: 'regMod'
-    },
-    sashasparkle: {
-        permissionNode: 'regMod'
-    },
-    shinyx123: {
-        permissionNode: 'regMod'
-    },
-    sircometz: {
-        permissionNode: 'regMod'
-    },
-    sparklesb: {
-        permissionNode: 'regMod'
-    },
-    spencersteiner: {
-        permissionNode: 'leadMod'
-    },
-    stephanie: {
-        permissionNode: 'leadMod'
-    },
-    swaggeddiamond80: {
-        permissionNode: 'regMod'
-    },
-    tdehaney: {
-        permissionNode: 'regMod'
-    },
-    thefancypig: {
-        permissionNode: 'regMod'
-    },
-    thenerdygamer: {
-        permissionNode: 'regMod'
-    },
-    traineehelper: {
-        permissionNode: 'leadMod'
-    },
-    truepenguin: {
-        permissionNode: 'regMod'
-    },
-    truffledor: {
-        permissionNode: 'regMod'
-    },
-    tyler989: {
-        permissionNode: 'regMod'
-    },
-    ultramarine: {
-        permissionNode: 'regMod'
-    },
-    veraqz: {
-        permissionNode: 'regMod'
-    },
-    woobix: {
-        permissionNode: 'regMod'
-    },
-    xfacelessraider: {
-        permissionNode: 'regMod'
-    },
-    xkatethesavage: {
-        permissionNode: 'regMod'
-    },
-    yetii: {
-        permissionNode: 'regMod'
-    },
-    yuriplaysmcpeyt: {
-        permissionNode: 'regMod'
-    },
-    yuri_: {
-        permissionNode: 'regMod'
-    },
-    ziqtheman: {
-        permissionNode: 'regMod'
-    },
-    zombieslayer124: {
+    truepenguin:{
         permissionNode: 'regMod'
     }
 };
