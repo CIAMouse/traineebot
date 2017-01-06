@@ -399,7 +399,7 @@ function unknownTraineeError(traineeName){
 	            updateLogList();
 	            context.simpledb.botleveldata.timestraineeused = context.simpledb.botleveldata.timestraineeused + 1;
 	            context.simpledb.botleveldata.timesused = parseInt(context.simpledb.botleveldata.timesused) + 1;
-	            context.sendResponse('_Showing admins..._\n\nLuke Hoffman (@luke_hoffman)\nJiselle Angeles (@ramennoodles)\nKaleb Wasmuth (@kaleb418)\nDave Diaz (@ciamouse)\nSpencer Steiner (@spencersteiner)\n\n *If you have any questions, feel free to DM any of these people, or any other official moderator.*\n>_I am a bot. This action was performed automagically!_');
+	            context.sendResponse('_Showing admins..._\n\nLuke Hoffman (@luke_hoffman)\nJiselle Angeles (@ramennoodles)\nKaleb Wasmuth (@kaleb418)\nDave Diaz (@ciamouse)\nSpencer Steiner (@spencersteiner)\nJacob Gates (@jacob_gates)\nLuca Kermas (@craftyourbukkit)\n Vraj Patel (@frost1161)\n\n *If you have any questions, feel free to DM any of these people, or any other official moderator.*\n>_I am a bot. This action was performed automagically!_');
 	        }
 	        // ------------------------
 	        else if(event.message === '[getMyPerm]'){
@@ -438,7 +438,7 @@ function unknownTraineeError(traineeName){
             // ------------------------
             else if(event.message.toLowerCase() === '[channels]'){
                 updateLogList();
-                context.sendResponse('*#announcements* - You cannot post in this channel. This is for staff members only to communicate important information with the trainees and/or moderators.\n*#crew* - This is the main channel. Moderators and trainees can communicate about Lifeboat-related topics.\n*#chatter* - This channel is for non-work related topics. It is meant to reduce stress and have fun discussions with your fellow crew members.\n *#report-desk* - This channel is under strict watch by a bot. If you send a message in here, you will be warned by the bot. Please only send player reports in this channel. Reports *must* consist of proof (image or video), the name of the accused, along with any additional information, such as what the report is about. It will be ignored if missing any of these components. Please ignore the bot if you send a video in the channel and it warns you.\n>_I am a bot. This action was performed automagically!_');
+                context.sendResponse('*#announcements* - You cannot post in this channel. This is for staff members only to communicate important information with the trainees and/or moderators.\n*#trainee-crew* - This is the main channel. Moderators and trainees can communicate about Lifeboat-related topics.\n*#trainee-chatter* - This channel is for non-work related topics. It is meant to reduce stress and have fun discussions with your fellow crew members.\n *#trainee-reports* - This channel is under strict watch by a bot. If you send a message in here, you will be warned by the bot. Please only send player reports in this channel. Reports *must* consist of proof (image or video), the name of the accused, along with any additional information, such as what the report is about. It will be ignored if missing any of these components. Please ignore the bot if you send a video in the channel and it warns you.\n>_I am a bot. This action was performed automagically!_');
             }
 	        // ------------------------
 	        else if(event.message === '[getBotInfo]'){
