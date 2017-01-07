@@ -85,6 +85,9 @@ var users = {
     },
     truepenguin:{
         permissionNode: 'regMod'
+    },
+    ziqtheman: {
+        permissionNode: 'regMod'
     }
 };
 function getPermNode(user){
