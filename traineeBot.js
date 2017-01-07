@@ -57,7 +57,7 @@ var users = {
         permissionNode: 'leadMod'
     },
     delta4x:{
-	permissionNode: 'regMod'
+        permissionNode: 'regMod'
     },
     diamondav: {
         permissionNode: 'regMod'
@@ -122,32 +122,40 @@ function unknownTraineeError(traineeName){
 	        if(event.message !== undefined){
 	        if (event.message[0] === '['){
 	            
+	            var isTesting = context.simpledb.botleveldata.isTesting;
 	            function updateLogList(){
-	                var makeLogListVar = [];
-	                for(var ab in context.simpledb.botleveldata.logs){
-	                    if(context.simpledb.botleveldata.logs[ab].substring(0, 10) !== '@undefined'){
+	                if(!isTesting || (event.senderobj !== 'kaleb418')){
+	                    // Make a log list WITHOUT the update logs
+	                    makeLogListVar = [];
+	                    for(var ab in context.simpledb.botleveldata.logs){
+	                        if(context.simpledb.botleveldata.logs[ab].substring(0, 10) !== '@undefined'){
 	                        makeLogListVar.push(context.simpledb.botleveldata.logs[ab]);
-	                    }else{
-	                        
+	                        }else{
+	                            
+	                        }
 	                    }
+	                    // Define variables
+                        var currentLogs = makeLogListVar;
+                        var userForLog = event.senderobj.subdisplay;
+                        var dateForLog = new Date();
+                        var msgForLog = event.message;
+                        // Add log to front
+                        currentLogs.unshift('@' + userForLog + ' invoked the bot at ' + (dateForLog.getMonth() + 1) + '/' + (dateForLog.getDay() + 1) + '/' + (dateForLog.getFullYear()) + ' using the message *' + msgForLog + '*.');
+                        // Remove 51st log if there are 51 logs
+                        if(currentLogs.length === 51){
+                            currentLogs.splice(currentLogs.length - 1, 1);
+                        }else{
+                            
+                        }
+                        // Double check for undefined user
+                        if(userForLog !== undefined){
+                            context.simpledb.botleveldata.logs = currentLogs;
+                        }else{
+                            
+                        }
+	                }else{
+	                    
 	                }
-                    var currentLogs = makeLogListVar;
-                    var userForLog = event.senderobj.subdisplay;
-                    var dateForLog = new Date();
-                    var msgForLog = event.message;
-                    // Add log to front
-                    currentLogs.unshift('@' + userForLog + ' invoked the bot at ' + (dateForLog.getMonth() + 1) + '/' + (dateForLog.getDay() + 1) + '/' + (dateForLog.getFullYear()) + ' using the message *' + msgForLog + '*.');
-                    // Remove 51st log if there are 51 logs
-                    if(currentLogs.length === 51){
-                        currentLogs.splice(currentLogs.length - 1, 1);
-                    }else{
-                        
-                    }
-                    if(userForLog !== undefined){
-                        context.simpledb.botleveldata.logs = currentLogs;
-                    }else{
-                        
-                    }
                 }
 	        
 	            if(event.message.toLowerCase() === '[test]'){
@@ -270,13 +278,12 @@ function unknownTraineeError(traineeName){
 	                        }
 	                    }
 	                    if(badNewName === false){
-	                     var dateToEdit = new Date();
-	                     var dateToAdd = dateToEdit.toDateString();
-	                     context.simpledb.botleveldata.trainees.push(newTrainee);
-	                     context.simpledb.doPut(newTrainee, '{"name":"Unknown", "IGN":"Unknown", "IP":"Unknown", "adder":"' + event.senderobj.display + '", "tag": "Unknown", "dateAdded": "' + dateToAdd + '", "isOfficial":"No"}');
-	                     context.sendResponse(':heavy_plus_sign: Added *' + newTrainee + '* to the trainee list!\n>_I am a bot. This action was performed automagically!_');
-	                    }
-	                    else{
+	                        var dateToEdit = new Date();
+	                        var dateToAdd = dateToEdit.toDateString();
+	                        context.simpledb.botleveldata.trainees.push(newTrainee);
+	                        context.simpledb.doPut(newTrainee, '{"name":"Unknown", "IGN":"Unknown", "IP":"Unknown", "adder":"' + event.senderobj.display + '", "tag": "Unknown", "dateAdded": "' + dateToAdd + '", "isOfficial":"No"}');
+	                        context.sendResponse(':heavy_plus_sign: Added *' + newTrainee + '* to the trainee list!\n>_I am a bot. This action was performed automagically!_');
+	                    }else{
 	                        context.sendResponse(':warning: Error: Trainee name already in use.\n>_I am a bot. This action was performed automagically!_');
 	                    }
 	               }
@@ -823,7 +830,37 @@ function unknownTraineeError(traineeName){
 	        else if(event.message === '[testFeature]'){
 	            updateLogList();
 	            if(event.senderobj.subdisplay === 'kaleb418'){
-	                context.sendResponse('Nothing to test.');
+	            
+	            }else{
+	                permError();
+	            }
+	        }
+	        // ------------------------
+	        else if(event.message === '[startTestMode]'){
+	            context.simpledb.botleveldata.timesmodused = context.simpledb.botleveldata.timesmodused + 1;
+	                context.simpledb.botleveldata.timesused = context.simpledb.botleveldata.timesused + 1;
+	            if(event.senderobj.subdisplay === 'kaleb418'){
+	                if(!(context.simpledb.botleveldata.isTesting)){
+	                    context.simpledb.botleveldata.isTesting = true;
+	                    context.sendResponse('Started test mode.');
+	                }else{
+	                    context.sendResponse('Test mode already started.');
+	                }
+	            }else{
+	                permError();
+	            }
+	        }
+	        // ------------------------
+	        else if(event.message === '[stopTestMode]'){
+	            context.simpledb.botleveldata.timesmodused = context.simpledb.botleveldata.timesmodused + 1;
+	            context.simpledb.botleveldata.timesused = context.simpledb.botleveldata.timesused + 1;
+	            if(event.senderobj.subdisplay === 'kaleb418'){
+	                if(context.simpledb.botleveldata.isTesting){
+	                    context.simpledb.botleveldata.isTesting = false;
+	                    context.sendResponse('Stopped test mode.');
+	                }else{
+	                    context.sendResponse('Test mode already stopped.');
+	                }
 	            }else{
 	                permError();
 	            }
@@ -1051,8 +1088,6 @@ function unknownTraineeError(traineeName){
 	                    checkedAndBadIP = false;
 	                }
 	            }
-	            
-	            
 	            if(resultOfPermCheck === 'leadMod'){
 	                currentTraineeIP = traineeToEditObj.IP;
 	            }
@@ -1104,7 +1139,6 @@ function unknownTraineeError(traineeName){
 	                    }
 	                }
 	            }
-	            
 	            
 	        }
 	        
