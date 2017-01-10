@@ -490,9 +490,7 @@ function unknownTraineeError(traineeName){
 	                permError();
 	            }
 	        }
-	        
 	        // ------------------------
-	        
 	        else if(event.message === '[clearBadIPs]'){
 	            updateLogList();
 	            context.simpledb.botleveldata.timesmodused = context.simpledb.botleveldata.timesmodused + 1;
@@ -504,9 +502,7 @@ function unknownTraineeError(traineeName){
 	                permError();
 	            }
 	        }
-	        
 	        // ------------------------
-	        
 	        else if(event.message.substring(0, 9) === '[checkIP]'){
 	            updateLogList();
 	            context.simpledb.botleveldata.timesmodused = context.simpledb.botleveldata.timesmodused + 1;
