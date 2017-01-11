@@ -44,15 +44,6 @@ var users = {
     bruhitzzlandon: {
         permissionNode: 'regMod'
     },
-    frost1161: {
-        permissionNode: 'regMod'
-    },
-    galactic_storm: {
-        permissionNode: 'regMod'
-    },
-    ultramarine: {
-        permissionNode: 'regMod'
-    },
     ciamouse: {
         permissionNode: 'leadMod'
     },
@@ -68,6 +59,12 @@ var users = {
     dudeitz_holly: {
         permissionNode: 'regMod'
     },
+    frost1161: {
+        permissionNode: 'regMod'
+    },
+    galactic_storm: {
+        permissionNode: 'regMod'
+    },
     glisss:{
         permissionNode: 'regMod'
     },
@@ -77,10 +74,19 @@ var users = {
     sashasparkle:{
         permissionNode: 'regMod'
     },
+    sparklesb: {
+        permissionNode: 'regMod'
+    },
     tdehaney:{
         permissionNode: 'regMod'
     },
     truepenguin:{
+        permissionNode: 'regMod'
+    },
+    ultramarine: {
+        permissionNode: 'regMod'
+    },
+    yetii: {
         permissionNode: 'regMod'
     },
     ziqtheman: {
