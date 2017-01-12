@@ -927,9 +927,9 @@ function unknownTraineeError(traineeName){
                         //   Check if syntax works for second round.
                         if(event.message[lastKnownComma + 1] === ' ' && event.message[lastKnownComma + 2] === '"'){
                             
-                        }else[
+                        }else{
                             permError();
-                        ]
+                        }
                         
                     }else{
                         context.sendResponse(':warning: Error: Can\'t parse command. Correct syntax:\n`[comment] "<trainee-name>" "<comment>"`\n>_I am a bot. This action was performed automagically!_');
