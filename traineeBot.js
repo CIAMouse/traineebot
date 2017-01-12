@@ -36,6 +36,37 @@ var testForRealIP = '';
 var checkedAndBadIP = false;
 var badIPAlreadyUsed = false;
 var currentLogs;
+
+//   Comment Prototype
+function comment(text, sender, dateSent, isHidden, commentID){
+    //   Properties
+    this.text = text;
+    this.sender = sender;
+    this.dateSent = dateSent;
+    this.isHidden = isHidden;
+    this.commentID = commentID;
+    //   Methods
+    this.getText = function(){
+        return this.text;
+    };
+    this.getSender = function(){
+        return this.sender;  
+    };
+    this.getDateSent = function(){
+        return this.dateSent;  
+    };
+    this.getIsHidden = function(){
+        return this.isHidden;  
+    };
+    this.getCommentID = function(){
+        return this.commentID;  
+    };
+    this.getFullComment = function(){
+        return '```' + this.commentID + ' by ' + this.sender + ': ' + this.text + '```';
+    };
+    
+}
+
 //    <><><> permissionNodes <><><>
 var users = {
     brandonvalencia: {
@@ -186,9 +217,9 @@ function unknownTraineeError(traineeName){
 	                context.simpledb.botleveldata.timestraineeused = context.simpledb.botleveldata.timestraineeused + 1;
 	                context.simpledb.botleveldata.timesused = parseInt(context.simpledb.botleveldata.timesused) + 1;
 	                   switch(resultOfPermCheck){
-	                       case 'regMod': context.sendResponse('_Showing menu..._\n\n*Type the command shown in red for each article. These commands are for the regMod permission group.*\n\nGetting Started...`[start]`\nMenu... `[menu]`\nCommands...`[tools]`\nChannel Guide...`[channels]`\nVideo...`[t-vid]`\nAdministration...`[admins]`\nGet your Permission Node...`[getMyPerm]`\nGet Bot Info...`[getBotInfo]`\nAdd Trainee Profile...`[addTrainee]`\nGet Trainee List...`[getTrainees]`\nEdit Trainee Profile...`[editTrainee]`\nGet Trainee Profile...`[getTraineeInfo]`\n>_I am a bot. This action was performed automagically!_');
+	                       case 'regMod': context.sendResponse('_Showing menu..._\n\n*Type the command shown in red for each article. These commands are for the regMod permission group.*\n\nGetting Started...`[start]`\nMenu... `[menu]`\nCommands...`[tools]`\nChannel Guide...`[channels]`\nVideo...`[t-vid]`\nAdministration...`[admins]`\nGet your Permission Node...`[getMyPerm]`\nGet Bot Info...`[getBotInfo]`\nAdd Trainee Profile...`[addTrainee]`\nGet Trainee List...`[getTrainees]`\nEdit Trainee Profile...`[editTrainee]`\nGet Trainee Profile...`[getTraineeInfo]`\nAdd Comment...`[comment]`\nEdit Comment...`[editComment]`\nDelete Comment...`[delComment]`\n>_I am a bot. This action was performed automagically!_');
 	                           break;
-	                       case 'leadMod': context.sendResponse('_Showing menu..._\n\n*Type the command shown in red for each article. These commands are for the leadMod permission group.*\n\nGetting Started...`[start]`\nMenu... `[menu]`\nCommands...`[tools]`\nChannel Guide...`[channels]`\nVideo...`[t-vid]`\nAdministration...`[admins]`\nGet your Permission Node...`[getMyPerm]`\nGet Bot Info...`[getBotInfo]`\nAdd Trainee Profile...`[addTrainee]`\nGet Trainee List...`[getTrainees]`\nEdit Trainee Profile...`[editTrainee]`\nGet Trainee Profile...`[getTraineeInfo]`\nCheck an IP...`[checkIP]`\nAdd a Bad IP...`[addBadIP]`\nClear Bad IP List...`[clearBadIPs]`\nClear Trainee List...`[clearTrainees]`\nClear Known Users List...`[resetKnownUsers]`\nRemove Known User...`[rmKnownUser]`\nRemove Trainee...`[rmTrainee]`\nSpam-Ping Everyone...`[getKnownUsers]`\nMake a Trainee Official...`[makeOfficial]`\nOverride Add Trainee...`[overAddTrainee]`\nGet Bot Logs...`[getLogs]`\nClear Bot Logs...`[clearLogs]`\n>_I am a bot. This action was performed automagically!_');
+	                       case 'leadMod': context.sendResponse('_Showing menu..._\n\n*Type the command shown in red for each article. These commands are for the leadMod permission group.*\n\nGetting Started...`[start]`\nMenu... `[menu]`\nCommands...`[tools]`\nChannel Guide...`[channels]`\nVideo...`[t-vid]`\nAdministration...`[admins]`\nGet your Permission Node...`[getMyPerm]`\nGet Bot Info...`[getBotInfo]`\nAdd Trainee Profile...`[addTrainee]`\nGet Trainee List...`[getTrainees]`\nEdit Trainee Profile...`[editTrainee]`\nGet Trainee Profile...`[getTraineeInfo]`\nCheck an IP...`[checkIP]`\nAdd a Bad IP...`[addBadIP]`\nClear Bad IP List...`[clearBadIPs]`\nClear Trainee List...`[clearTrainees]`\nClear Known Users List...`[resetKnownUsers]`\nRemove Known User...`[rmKnownUser]`\nRemove Trainee...`[rmTrainee]`\nSpam-Ping Everyone...`[getKnownUsers]`\nMake a Trainee Official...`[makeOfficial]`\nOverride Add Trainee...`[overAddTrainee]`\nGet Bot Logs...`[getLogs]`\nClear Bot Logs...`[clearLogs]`\nAdd Comment...`[comment]`\nEdit Comment...`[editComment]`\nDelete Comment...`[delComment]`\n>_I am a bot. This action was performed automagically!_');
 	                           break;
 	                       default: context.sendResponse('_Showing menu..._\n\n*Type the command shown in red for each article. These commands are for the defaultUser permission group.*\n\nGetting Started...`[start]`\nMenu... `[menu]`\nCommands...`[tools]`\nChannel Guide...`[channels]`\nVideo...`[t-vid]`\nAdministration...`[admins]`\nGet your Permission Node...`[getMyPerm]`\nGet Bot Info...`[getBotInfo]`\n>_I am a bot. This action was performed automagically!_');
 	                   }
@@ -289,7 +320,7 @@ function unknownTraineeError(traineeName){
 	                        var dateToEdit = new Date();
 	                        var dateToAdd = dateToEdit.toDateString();
 	                        context.simpledb.botleveldata.trainees.push(newTrainee);
-	                        context.simpledb.doPut(newTrainee, '{"name":"Unknown", "IGN":"Unknown", "IP":"Unknown", "adder":"' + event.senderobj.display + '", "tag": "Unknown", "dateAdded": "' + dateToAdd + '", "isOfficial":"No"}');
+	                        context.simpledb.doPut(newTrainee, '{"name":"Unknown", "IGN":"Unknown", "IP":"Unknown", "adder":"' + event.senderobj.display + '", "tag": "Unknown", "dateAdded": "' + dateToAdd + '", "isOfficial":"No", "comments":[], "commentNumber":1}');
 	                        context.sendResponse(':heavy_plus_sign: Added *' + newTrainee + '* to the trainee list!\n>_I am a bot. This action was performed automagically!_');
 	                    }else{
 	                        context.sendResponse(':warning: Error: Trainee name already in use.\n>_I am a bot. This action was performed automagically!_');
@@ -871,6 +902,18 @@ function unknownTraineeError(traineeName){
 	                permError();
 	            }
 	        }
+            // ------------------------
+            else if(event.message === '[comment]'){
+                context.sendResponse('Not finished.');
+            }
+            // ------------------------
+            else if(event.message === '[editComment]'){
+                context.sendResponse('Not finished.');
+            }
+            // ------------------------
+            else if(event.message === '[delComment]'){
+                context.sendResponse('Not finished.');
+            }
 	        // ------------------------
 	        else if(event.message === '[getKnownUsers]'){
 	            updateLogList();
