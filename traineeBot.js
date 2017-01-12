@@ -38,7 +38,7 @@ var badIPAlreadyUsed = false;
 var currentLogs;
 
 //   Comment Prototype
-function comment(text, sender, dateSent, isHidden, commentID){
+function Comment(text, sender, dateSent, isHidden, commentID){
     //   Properties
     this.text = text;
     this.sender = sender;
@@ -903,15 +903,53 @@ function unknownTraineeError(traineeName){
 	            }
 	        }
             // ------------------------
-            else if(event.message === '[comment]'){
-                context.sendResponse('Not finished.');
+            else if(event.message.substring(0, 9) === '[comment]'){
+                updateLogList();
+	            context.simpledb.botleveldata.timesmodused = context.simpledb.botleveldata.timesmodused + 1;
+	            context.simpledb.botleveldata.timesused = context.simpledb.botleveldata.timesused + 1;
+                if((resultOfPermCheck === 'regMod')||(resultOfPermCheck === 'leadMod')){
+                    if(event.message[9] === ' ' && event.message[10] === '"'){
+                        
+                        //   Get Trainee Name
+                        makeListVar = '';
+                        for(i = 11; i < event.message.length; i++){
+                            if(event.message[i] !== '"'){
+                                makeListVar = makeListVar + event.message[i];
+                            }else{
+                                lastKnownComma = i;
+                                makeListVar = makeListVar;
+                                break;
+                            }
+                        }
+                        var traineeToCommentOn = makeListVar;
+                        makeListVar = '';
+                        
+                        //   Check if syntax works for second round.
+                        if(event.message[lastKnownComma + 1] === ' ' && event.message[lastKnownComma + 2] === '"'){
+                            
+                        }else[
+                            permError();
+                        ]
+                        
+                    }else{
+                        context.sendResponse(':warning: Error: Can\'t parse command. Correct syntax:\n`[comment] "<trainee-name>" "<comment>"`\n>_I am a bot. This action was performed automagically!_');
+                    }
+                }else{
+                    permError();
+                }
             }
             // ------------------------
             else if(event.message === '[editComment]'){
+                updateLogList();
+	            context.simpledb.botleveldata.timesmodused = context.simpledb.botleveldata.timesmodused + 1;
+	            context.simpledb.botleveldata.timesused = context.simpledb.botleveldata.timesused + 1;
                 context.sendResponse('Not finished.');
             }
             // ------------------------
             else if(event.message === '[delComment]'){
+                updateLogList();
+	            context.simpledb.botleveldata.timesmodused = context.simpledb.botleveldata.timesmodused + 1;
+	            context.simpledb.botleveldata.timesused = context.simpledb.botleveldata.timesused + 1;
                 context.sendResponse('Not finished.');
             }
 	        // ------------------------
