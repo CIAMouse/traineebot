@@ -922,13 +922,49 @@ function unknownTraineeError(traineeName){
                             }
                         }
                         var traineeToCommentOn = makeListVar;
-                        makeListVar = '';
                         
                         //   Check if syntax works for second round.
                         if(event.message[lastKnownComma + 1] === ' ' && event.message[lastKnownComma + 2] === '"'){
                             
+                            makeListVar = '';
+                            for(i = lastKnownComma + 3; i < event.message.length; i++){
+                                if(event.message[i] !== '"'){
+                                    makeListVar = makeListVar + event.message[i];
+                                }else{
+                                    lastKnownComma = i;
+                                    makeListVar = makeListVar;
+                                    break;
+                                }
+                            }
+                            var commentToAdd = makeListVar;
+                            
+                            // Test syntax of command one last time.
+                            if((event.message[event.message.length - 1] === '"') || (event.message.substring((event.message.length - 2),(event.message.length)) === '-h')){
+                                
+                                isTrainee = false;
+                                for(i = 0; i < context.simpledb.botleveldata.trainees.length; i++){
+                                    if(context.simpledb.botleveldata.trainees[i] === traineeToCommentOn){
+                                        isTrainee = true;
+                                        break;
+                                    }else{
+                                        isTrainee = false;
+                                    }
+                                }
+                                
+                                //Check If Trainee Exists
+                                
+                                if(isTrainee === true){
+                                    context.sendResponse('Actually, Kaleb was an idiot and didn\'t make me send a message back. I work fine :D.');
+                                }else{
+                                    unknownTraineeError(traineeToCommentOn)
+                                }
+                                
+                            }else{
+                                context.sendResponse(':warning: Error: Can\'t parse command. Correct syntax:\n`[comment] "<trainee-name>" "<comment>"`\n>_I am a bot. This action was performed automagically!_');
+                            }
+                            
                         }else{
-                            permError();
+                            context.sendResponse(':warning: Error: Can\'t parse command. Correct syntax:\n`[comment] "<trainee-name>" "<comment>"`\n>_I am a bot. This action was performed automagically!_');
                         }
                         
                     }else{
