@@ -99,6 +99,9 @@ var users = {
     glisss:{
         permissionNode: 'regMod'
     },
+    jacob_gates: {
+        permissionNode: 'regMod'
+    },
     kaleb418:{
         permissionNode: 'leadMod'
     },
