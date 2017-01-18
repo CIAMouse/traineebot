@@ -179,10 +179,11 @@ function unknownTraineeError(traineeName){
                         var userForLog = event.senderobj.subdisplay;
                         var dateForLog = new Date();
                         var msgForLog = event.message;
+			var maximumLogCount = 100
                         // Add log to front
                         currentLogs.unshift('@' + userForLog + ' invoked the bot at ' + (dateForLog.getMonth() + 1) + '/' + (dateForLog.getDay() + 1) + '/' + (dateForLog.getFullYear()) + ' using the message *' + msgForLog + '*.');
                         // Remove 51st log if there are 51 logs
-                        if(currentLogs.length === 51){
+                        if(currentLogs.length > maximumLogCount){
                             currentLogs.splice(currentLogs.length - 1, 1);
                         }else{
                             
