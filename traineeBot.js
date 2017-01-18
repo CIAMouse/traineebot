@@ -69,6 +69,9 @@ function Comment(text, sender, dateSent, isHidden, commentID){
 
 //    <><><> permissionNodes <><><>
 var users = {
+    bouncyjeffer: {
+	permissionNode: 'regMod'  
+    },
     brandonvalencia: {
         permissionNode: 'regMod'
     },
