@@ -182,7 +182,7 @@ function unknownTraineeError(traineeName){
 			var maximumLogCount = 100
                         // Add log to front
                         currentLogs.unshift('@' + userForLog + ' invoked the bot at ' + (dateForLog.getMonth() + 1) + '/' + (dateForLog.getDay() + 1) + '/' + (dateForLog.getFullYear()) + ' using the message *' + msgForLog + '*.');
-                        // Remove 51st log if there are 51 logs
+                        // Remove 101st log if there are 101 logs
                         if(currentLogs.length > maximumLogCount){
                             currentLogs.splice(currentLogs.length - 1, 1);
                         }else{
