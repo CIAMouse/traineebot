@@ -1338,7 +1338,11 @@ function unknownTraineeError(traineeName){
 	            var traineeAddedDate = traineeToEditObj.dateAdded;
 	            var isOfficial = traineeToEditObj.isOfficial;
                 
-                context.sendResponse('>*Trainee Name:* ' + makeListVar + '\n\n>*Is Official?* ' + isOfficial + '\n\n' + '>*Real Name:* ' + currentTraineeName + '\n\n' + '>*Trainee IGN:* ' + currentTraineeIGN + '\n\n' + '>*Trainee IP:* ' + currentTraineeIP + '\n\n_Added by ' + traineeAdder + ' on ' + traineeAddedDate + ' (UTC)_' + '\n*---*\n>_I am a bot. This action was performed automagically!_');
+                if(traineeToEditObj !== undefined){
+                    context.sendResponse('>*Trainee Name:* ' + makeListVar + '\n\n>*Is Official?* ' + isOfficial + '\n\n' + '>*Real Name:* ' + currentTraineeName + '\n\n' + '>*Trainee IGN:* ' + currentTraineeIGN + '\n\n' + '>*Trainee IP:* ' + currentTraineeIP + '\n\n_Added by ' + traineeAdder + ' on ' + traineeAddedDate + ' (UTC)_' + '\n*---*\n>_I am a bot. This action was performed automagically!_');
+                }else{
+                    context.sendResponse(':warning: Error: This trainee hasn\'t previously existed.\n>_I am a bot. This action was performed automagically!_');
+                }
             }
 	        else{
 	            
