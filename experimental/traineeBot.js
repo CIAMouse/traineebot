@@ -928,7 +928,7 @@ function unknownTraineeError(traineeName){
                                 break;
                             }
                         }
-                        var traineeToCommentOn = makeListVar;
+                        traineeToCommentOn = makeListVar;
                         
                         //   Check if syntax works for second round.
                         if(event.message[lastKnownComma + 1] === ' ' && event.message[lastKnownComma + 2] === '"'){
@@ -943,7 +943,7 @@ function unknownTraineeError(traineeName){
                                     break;
                                 }
                             }
-                            var commentToAdd = makeListVar;
+                            commentToAdd = makeListVar;
                             
                             // Test syntax of command one last time.
                             if((event.message[event.message.length - 1] === '"') || (event.message.substring((event.message.length - 2),(event.message.length)) === '-h')){
@@ -1356,8 +1356,26 @@ function unknownTraineeError(traineeName){
                 if(currentComments !== undefined){
                     var dateOfComment = new Date();
                     var dateFormattedOfComment = (dateOfComment.getMonth() + 1) + '/' + (dateOfComment.getDay() + 1) + '/' + (dateOfComment.getFullYear());
-                    var newCommentJS = new Comment(commentToAdd, event.senderobj, dateFormattedOfComment, newCommentIsHidden, currentCommentNumber);
-                    context.sendResponse(newCommentJS);
+                    var newCommentJS = new Comment(commentToAdd, event.senderobj.subdisplay, dateFormattedOfComment, newCommentIsHidden, currentCommentNumber);
+                    currentComments[currentCommentNumber] = newCommentJS;
+                    currentCommentNumber = currentCommentNumber + 1;
+                    var newComments = JSON.stringify(currentComments);
+                    
+                    var newTraineeObj = {
+                        name: currentTraineeName,
+                        IGN: currentTraineeIGN,
+                        IP: currentTraineeIP,
+                        adder: traineeAdder,
+                        tag: currentTraineeTag,
+                        isOfficial: isOfficial,
+                        commentNumber: currentCommentNumber,
+                        comments: newComments
+                    };
+                    
+                    var finalNewTraineeObj = JSON.stringify(newTraineeObj);
+                    
+                    context.simpledb.doPut(traineeToEditFinal, finalNewTraineeObj);
+                    context.sendResponse('Done');
                 }else{
                     context.sendResponse(':warning: Error: This trainee profile does not support comments.\n>_I am a bot. This action was performed automagically!_');
                 }
