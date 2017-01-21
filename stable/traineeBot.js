@@ -226,7 +226,7 @@ function unknownTraineeError(traineeName){
 	                   switch(resultOfPermCheck){
 	                       case 'regMod': context.sendResponse('_Showing menu..._\n\n*Type the command shown in red for each article. These commands are for the regMod permission group.*\n\nGetting Started...`[start]`\nMenu... `[menu]`\nCommands...`[tools]`\nChannel Guide...`[channels]`\nVideo...`[t-vid]`\nAdministration...`[admins]`\nGet your Permission Node...`[getMyPerm]`\nGet Bot Info...`[getBotInfo]`\nAdd Trainee Profile...`[addTrainee]`\nGet Trainee List...`[getTrainees]`\nEdit Trainee Profile...`[editTrainee]`\nGet Trainee Profile...`[getTraineeInfo]`\nAdd Comment...`[comment]`\nEdit Comment...`[editComment]`\nDelete Comment...`[delComment]`\n>_I am a bot. This action was performed automagically!_');
 	                           break;
-	                       case 'leadMod': context.sendResponse('_Showing menu..._\n\n*Type the command shown in red for each article. These commands are for the leadMod permission group.*\n\nGetting Started...`[start]`\nMenu... `[menu]`\nCommands...`[tools]`\nChannel Guide...`[channels]`\nVideo...`[t-vid]`\nAdministration...`[admins]`\nGet your Permission Node...`[getMyPerm]`\nGet Bot Info...`[getBotInfo]`\nAdd Trainee Profile...`[addTrainee]`\nGet Trainee List...`[getTrainees]`\nEdit Trainee Profile...`[editTrainee]`\nGet Trainee Profile...`[getTraineeInfo]`\nCheck an IP...`[checkIP]`\nAdd a Bad IP...`[addBadIP]`\nClear Bad IP List...`[clearBadIPs]`\nClear Trainee List...`[clearTrainees]`\nClear Known Users List...`[resetKnownUsers]`\nRemove Known User...`[rmKnownUser]`\nRemove Trainee...`[rmTrainee]`\nSpam-Ping Everyone...`[getKnownUsers]`\nMake a Trainee Official...`[makeOfficial]`\nOverride Add Trainee...`[overAddTrainee]`\nGet Bot Logs...`[getLogs]`\nClear Bot Logs...`[clearLogs]`\nAdd Comment...`[comment]`\nEdit Comment...`[editComment]`\nDelete Comment...`[delComment]`\n>_I am a bot. This action was performed automagically!_');
+	                       case 'leadMod': context.sendResponse('_Showing menu..._\n\n*Type the command shown in red for each article. These commands are for the leadMod permission group.*\n\nGetting Started...`[start]`\nMenu... `[menu]`\nCommands...`[tools]`\nChannel Guide...`[channels]`\nVideo...`[t-vid]`\nAdministration...`[admins]`\nGet your Permission Node...`[getMyPerm]`\nGet Bot Info...`[getBotInfo]`\nAdd Trainee Profile...`[addTrainee]`\nGet Trainee List...`[getTrainees]`\nEdit Trainee Profile...`[editTrainee]`\nGet Trainee Profile...`[getTraineeInfo]`\nCheck an IP...`[checkIP]`\nAdd a Bad IP...`[addBadIP]`\nClear Bad IP List...`[clearBadIPs]`\nClear Trainee List...`[clearTrainees]`\nClear Known Users List...`[resetKnownUsers]`\nRemove Known User...`[rmKnownUser]`\nRemove Trainee...`[rmTrainee]`\nSpam-Ping Everyone...`[getKnownUsers]`\nMake a Trainee Official...`[makeOfficial]`\nOverride Add Trainee...`[overAddTrainee]`\nGet Bot Logs...`[getLogs]`\nClear Bot Logs...`[clearLogs]`\nAdd Comment...`[comment]`\nEdit Comment...`[editComment]`\nDelete Comment...`[delComment]`\nGet Old Trainee Profile...`[getOldTrainee]`\n>_I am a bot. This action was performed automagically!_');
 	                           break;
 	                       default: context.sendResponse('_Showing menu..._\n\n*Type the command shown in red for each article. These commands are for the defaultUser permission group.*\n\nGetting Started...`[start]`\nMenu... `[menu]`\nCommands...`[tools]`\nChannel Guide...`[channels]`\nVideo...`[t-vid]`\nAdministration...`[admins]`\nGet your Permission Node...`[getMyPerm]`\nGet Bot Info...`[getBotInfo]`\n>_I am a bot. This action was performed automagically!_');
 	                   }
@@ -291,7 +291,7 @@ function unknownTraineeError(traineeName){
                 updateLogList();
                 context.simpledb.botleveldata.timesmodused = context.simpledb.botleveldata.timesmodused + 1;
 	            context.simpledb.botleveldata.timesused = context.simpledb.botleveldata.timesused + 1;
-                context.sendResponse('*#announcements* - You cannot post in this channel. This is for staff members only to communicate important information with the trainees and/or moderators.\n*#trainee-crew* - This is the main channel. Moderators and trainees can communicate about Lifeboat-related topics.\n*#trainee-chatter* - This channel is for non-work related topics. It is meant to reduce stress and have fun discussions with your fellow crew members.\n *#trainee-reports* - This channel is under strict watch by a bot. If you send a message in here, you will be warned by the bot. Please only send player reports in this channel. Reports *must* consist of proof (image or video), the name of the accused, along with any additional information, such as what the report is about. It will be ignored if missing any of these components. Please ignore the bot if you send a video in the channel and it warns you.\n>_I am a bot. This action was performed automagically!_');
+                context.sendResponse('*#announcements* - You cannot post in this channel. This is for staff members only to communicate important information with the trainees and/or moderators.\n*#trainee-crew* - This is the main channel. Moderators and trainees can communicate about Lifeboat-related topics.\n*#trainee-chatter* - This channel is for non-work related topics. It is meant to reduce stress and have fun discussions with your fellow crew members.\n>_I am a bot. This action was performed automagically!_');
             }
 	        // ------------------------
 	        else if(event.message === '[getBotInfo]'){
@@ -880,35 +880,30 @@ function unknownTraineeError(traineeName){
 	            }
 	        }
 	        // ------------------------
-	        else if(event.message === '[startTestMode]'){
+	        else if(event.message.substring(0, 15) === '[getOldTrainee]'){
+                updateLogList();
 	            context.simpledb.botleveldata.timesmodused = context.simpledb.botleveldata.timesmodused + 1;
 	            context.simpledb.botleveldata.timesused = context.simpledb.botleveldata.timesused + 1;
-	            if(event.senderobj.subdisplay === 'kaleb418'){
-	                if(!(context.simpledb.botleveldata.isTesting)){
-	                    context.simpledb.botleveldata.isTesting = true;
-	                    context.sendResponse('Started test mode.');
-	                }else{
-	                    context.sendResponse('Test mode already started.');
-	                }
-	            }else{
-	                permError();
-	            }
-	        }
-	        // ------------------------
-	        else if(event.message === '[stopTestMode]'){
-	            context.simpledb.botleveldata.timesmodused = context.simpledb.botleveldata.timesmodused + 1;
-	            context.simpledb.botleveldata.timesused = context.simpledb.botleveldata.timesused + 1;
-	            if(event.senderobj.subdisplay === 'kaleb418'){
-	                if(context.simpledb.botleveldata.isTesting){
-	                    context.simpledb.botleveldata.isTesting = false;
-	                    context.sendResponse('Stopped test mode.');
-	                }else{
-	                    context.sendResponse('Test mode already stopped.');
-	                }
-	            }else{
-	                permError();
-	            }
-	        }
+                if(resultOfPermCheck === 'leadMod'){
+                    if((event.message[15] === ' ') && (event.message[16] === '"') && (event.message[event.message.length - 1] === '"')){
+                        makeListVar = '';
+                        for(i = 17; i < event.message.length; i++){
+                            if(event.message[i] !== '"'){
+                                makeListVar = makeListVar + event.message[i];
+                            }else{
+                                makeListVar = makeListVar;
+                                break;
+                            }
+                        }
+                        thingToDBValueCheck = 'getOldTrainee';
+                        context.simpledb.doGet(makeListVar);
+                    }else{
+                        context.sendResponse(':warning: Error: Can\'t parse command. Correct syntax:\n`[getOldTrainee] "<trainee>"`\n>_I am a bot. This action was performed automagically!_');
+                    }
+                }else{
+                    permError();
+                }
+            }
             // ------------------------
             else if(event.message.substring(0, 9) === '[comment]'){
                 updateLogList();
@@ -1334,6 +1329,17 @@ function unknownTraineeError(traineeName){
 	                context.sendResponse(':warning: The trainee *' + makeListVar + '* is already an official trainee.\n>_I am a bot. This action was performed automagically!_');
 	            }
 	        }
+            else if(thingToDBValueCheck === 'getOldTrainee'){
+                var traineeToEditObj = JSON.parse(event.dbval);
+	            var currentTraineeName = traineeToEditObj.name;
+	            var currentTraineeIGN = traineeToEditObj.IGN;
+	            var traineeAdder = traineeToEditObj.adder;
+	            var currentTraineeIP = traineeToEditObj.IP;
+	            var traineeAddedDate = traineeToEditObj.dateAdded;
+	            var isOfficial = traineeToEditObj.isOfficial;
+                
+                context.sendResponse('>*Trainee Name:* ' + makeListVar + '\n\n>*Is Official?* ' + isOfficial + '\n\n' + '>*Real Name:* ' + currentTraineeName + '\n\n' + '>*Trainee IGN:* ' + currentTraineeIGN + '\n\n' + '>*Trainee IP:* ' + currentTraineeIP + '\n\n_Added by ' + traineeAdder + ' on ' + traineeAddedDate + ' (UTC)_' + '\n*---*\n>_I am a bot. This action was performed automagically!_');
+            }
 	        else{
 	            
 	        }
