@@ -1331,18 +1331,14 @@ function unknownTraineeError(traineeName){
 	        }
             else if(thingToDBValueCheck === 'getOldTrainee'){
                 var traineeToEditObj = JSON.parse(event.dbval);
-	            var currentTraineeName = traineeToEditObj.name;
+                var currentTraineeName = traineeToEditObj.name;
 	            var currentTraineeIGN = traineeToEditObj.IGN;
 	            var traineeAdder = traineeToEditObj.adder;
 	            var currentTraineeIP = traineeToEditObj.IP;
 	            var traineeAddedDate = traineeToEditObj.dateAdded;
 	            var isOfficial = traineeToEditObj.isOfficial;
-                
-                if(traineeToEditObj !== undefined){
-                    context.sendResponse('>*Trainee Name:* ' + makeListVar + '\n\n>*Is Official?* ' + isOfficial + '\n\n' + '>*Real Name:* ' + currentTraineeName + '\n\n' + '>*Trainee IGN:* ' + currentTraineeIGN + '\n\n' + '>*Trainee IP:* ' + currentTraineeIP + '\n\n_Added by ' + traineeAdder + ' on ' + traineeAddedDate + ' (UTC)_' + '\n*---*\n>_I am a bot. This action was performed automagically!_');
-                }else{
-                    context.sendResponse(':warning: Error: This trainee hasn\'t previously existed.\n>_I am a bot. This action was performed automagically!_');
-                }
+
+                context.sendResponse('>*Trainee Name:* ' + makeListVar + '\n\n>*Is Official?* ' + isOfficial + '\n\n' + '>*Real Name:* ' + currentTraineeName + '\n\n' + '>*Trainee IGN:* ' + currentTraineeIGN + '\n\n' + '>*Trainee IP:* ' + currentTraineeIP + '\n\n_Added by ' + traineeAdder + ' on ' + traineeAddedDate + ' (UTC)_' + '\n*---*\n>_I am a bot. This action was performed automagically!_');
             }
 	        else{
 	            
