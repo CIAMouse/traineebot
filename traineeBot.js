@@ -73,6 +73,7 @@ function Trainee(name, IGN, IP, adder, tag, dateAdded, isOfficial, comments, com
     this.IGN = IGN,
     this.IP = IP,
     this.adder = adder,
+    this.tag = tag,
     this.dateAdded = dateAdded,
     this.isOfficial = isOfficial,
     this.comments = comments,
