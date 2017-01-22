@@ -36,6 +36,7 @@ var testForRealIP = '';
 var checkedAndBadIP = false;
 var badIPAlreadyUsed = false;
 var currentLogs;
+var commentToAdd;
 
 //   Comment Prototype
 function Comment(text, sender, dateSent, isHidden, commentID){
@@ -65,6 +66,17 @@ function Comment(text, sender, dateSent, isHidden, commentID){
         return '```' + this.commentID + ' by ' + this.sender + ': ' + this.text + '```';
     };
     
+}
+
+function Trainee(name, IGN, IP, adder, tag, dateAdded, isOfficial, comments, commentNumber){
+    this.name = name,
+    this.IGN = IGN,
+    this.IP = IP,
+    this.adder = adder,
+    this.dateAdded = dateAdded,
+    this.isOfficial = isOfficial,
+    this.comments = comments,
+    this.commentNumber = commentNumber
 }
 
 //    <><><> permissionNodes <><><>
@@ -327,7 +339,13 @@ function unknownTraineeError(traineeName){
 	                        var dateToEdit = new Date();
 	                        var dateToAdd = dateToEdit.toDateString();
 	                        context.simpledb.botleveldata.trainees.push(newTrainee);
-	                        context.simpledb.doPut(newTrainee, '{"name":"Unknown", "IGN":"Unknown", "IP":"Unknown", "adder":"' + event.senderobj.display + '", "tag": "Unknown", "dateAdded": "' + dateToAdd + '", "isOfficial":"No", "comments":[], "commentNumber":1}');
+                            var newTraineeProfileToStringify = new Trainee("Unknown", "Unknown", "Unknown", event.senderobj.display, "Unknown", dateToAdd, "No", {}, 1);
+                            var newTraineeProfileToAdd = JSON.stringify(newTraineeProfileToStringify);
+	                        context.simpledb.doPut(newTrainee, newTraineeProfileToAdd);
+                            
+                            // BACKUP TEXT FOR MAKING TRAINEE:
+                            /*   '{"name":"Unknown", "IGN":"Unknown", "IP":"Unknown", "adder":"' + event.senderobj.display + '", "tag": "Unknown", "dateAdded": "' + dateToAdd + '", "isOfficial":"No", "comments":[], "commentNumber":1}'   */
+                            
 	                        context.sendResponse(':heavy_plus_sign: Added *' + newTrainee + '* to the trainee list!\n>_I am a bot. This action was performed automagically!_');
 	                    }else{
 	                        context.sendResponse(':warning: Error: Trainee name already in use.\n>_I am a bot. This action was performed automagically!_');
@@ -923,7 +941,7 @@ function unknownTraineeError(traineeName){
                                 break;
                             }
                         }
-                        var traineeToCommentOn = makeListVar;
+                        traineeToCommentOn = makeListVar;
                         
                         //   Check if syntax works for second round.
                         if(event.message[lastKnownComma + 1] === ' ' && event.message[lastKnownComma + 2] === '"'){
@@ -938,7 +956,7 @@ function unknownTraineeError(traineeName){
                                     break;
                                 }
                             }
-                            var commentToAdd = makeListVar;
+                            commentToAdd = makeListVar;
                             
                             // Test syntax of command one last time.
                             if((event.message[event.message.length - 1] === '"') || (event.message.substring((event.message.length - 2),(event.message.length)) === '-h')){
@@ -956,7 +974,14 @@ function unknownTraineeError(traineeName){
                                 //Check If Trainee Exists
                                 
                                 if(isTrainee === true){
-                                    context.sendResponse('Actually, Kaleb was an idiot and didn\'t make me send a message back. I work fine :D.');
+                                    if(event.message.substring((event.message.length - 2),(event.message.length)) === '-h'){
+                                        newCommentIsHidden = true;
+                                    }else{
+                                        newCommentIsHidden = false;
+                                    }
+                                    
+                                    thingToDBValueCheck = 'comment';
+                                    context.simpledb.doGet(traineeToCommentOn);
                                 }else{
                                     unknownTraineeError(traineeToCommentOn)
                                 }
@@ -1339,6 +1364,30 @@ function unknownTraineeError(traineeName){
 	            var isOfficial = traineeToEditObj.isOfficial;
 
                 context.sendResponse('>*Trainee Name:* ' + makeListVar + '\n\n>*Is Official?* ' + isOfficial + '\n\n' + '>*Real Name:* ' + currentTraineeName + '\n\n' + '>*Trainee IGN:* ' + currentTraineeIGN + '\n\n' + '>*Trainee IP:* ' + currentTraineeIP + '\n\n_Added by ' + traineeAdder + ' on ' + traineeAddedDate + ' (UTC)_' + '\n*---*\n>_I am a bot. This action was performed automagically!_');
+            }
+            else if(thingToDBValueCheck === 'comment'){
+                var traineeToEditObj = JSON.parse(event.dbval);
+                var currentTraineeName = traineeToEditObj.name;
+	            var currentTraineeIGN = traineeToEditObj.IGN;
+	            var traineeAdder = traineeToEditObj.adder;
+	            var currentTraineeIP = traineeToEditObj.IP;
+	            var currentTraineeTag = traineeToEditObj.tag;
+	            var traineeAddedDate = traineeToEditObj.dateAdded;
+	            var isOfficial = traineeToEditObj.isOfficial;
+                var currentComments = traineeToEditObj.comments;
+                var currentCommentNumber = traineeToEditObj.commentNumber;
+                
+                var dateToUseForComment = new Date();
+                var dateCommentWasSent = (dateToUseForComment.getMonth() + 1) + '/' + (dateToUseForComment.getDate()) + '/' + (dateToUseForComment.getFullYear());
+                
+                var commentToSave = new Comment(commentToAdd, event.senderobj.display, dateCommentWasSent, newCommentIsHidden, currentCommentNumber);
+                currentComments['c-' + currentCommentNumber.toString()] = commentToSave;
+                
+                var newComments = currentComments;
+                var newCommentNumber = currentCommentNumber + 1;
+                var traineeWithNewComment = new Trainee(currentTraineeName, currentTraineeIGN, currentTraineeIP, traineeAdder, currentTraineeTag, traineeAddedDate, isOfficial, newComments, newCommentNumber);
+                context.simpledb.doPut(traineeToCommentOn, traineeWithNewComment);
+                context.sendResponse(":heavy_plus_sign: Successfully commented on *" + traineeToCommentOn + '*.\n>_I am a bot. This action was performed automagically!_');
             }
 	        else{
 	            
