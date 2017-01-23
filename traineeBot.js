@@ -1371,7 +1371,11 @@ function unknownTraineeError(traineeName){
 	            for(cid in currentComments){
 	                currentCommentObject = currentComments[cid];
 	                if(resultOfPermCheck === 'leadMod'){
-	                    commentStringToAddto = commentStringToAddto + '*C-' + currentCommentObject.commentID + ':* ' + currentCommentObject.sender + ' at ' + currentCommentObject.dateSent + ': ' + currentCommentObject.text + '\n\n>';
+                        if(currentCommentObject.isHidden === true){
+	                        commentStringToAddto = commentStringToAddto + '`H`  *C-' + currentCommentObject.commentID + ':* ' + currentCommentObject.sender + ' at ' + currentCommentObject.dateSent + ': ' + currentCommentObject.text + '\n\n>';
+                        }else{
+                            commentStringToAddto = commentStringToAddto + '*C-' + currentCommentObject.commentID + ':* ' + currentCommentObject.sender + ' at ' + currentCommentObject.dateSent + ': ' + currentCommentObject.text + '\n\n>';
+                        }
 	                }else{
 	                    if(currentCommentObject.isHidden === false){
 	                        commentStringToAddto = commentStringToAddto + '*C-' + currentCommentObject.commentID + ':* ' + currentCommentObject.sender + ' at ' + currentCommentObject.dateSent + ': ' + currentCommentObject.text + '\n\n>';
