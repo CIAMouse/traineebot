@@ -65,7 +65,6 @@ function Comment(text, sender, dateSent, isHidden, commentID){
     this.getFullComment = function(){
         return '```' + this.commentID + ' by ' + this.sender + ': ' + this.text + '```';
     };
-    
 }
 
 function Trainee(name, IGN, IP, adder, tag, dateAdded, isOfficial, comments, commentNumber){
@@ -222,7 +221,7 @@ function unknownTraineeError(traineeName){
 	                context.simpledb.botleveldata.timesmodused = 0;*/
 	                context.simpledb.botleveldata.timestraineeused = context.simpledb.botleveldata.timestraineeused + 1;
 	                context.simpledb.botleveldata.timesused = parseInt(context.simpledb.botleveldata.timesused) + 1;
-	                context.sendResponse('Test successful! Message handler online!\n>_I am a bot. This action was performed automagically!_');
+	                context.sendResponse('Test successful: No fatal errors.\n>_I am a bot. This action was performed automagically!_');
 	            }
 	            // ------------------------
 	            else if((event.message.toLowerCase() === '[help]')||(event.message.toLowerCase() === '[info]')){
@@ -987,7 +986,7 @@ function unknownTraineeError(traineeName){
                                         context.sendResponse(':warning: Error: You cannot add a hidden comment with permission node *' + resultOfPermCheck + '*.\n>_I am a bot. This action was performed automagically!_');
                                     }
                                 }else{
-                                    unknownTraineeError(traineeToCommentOn)
+                                    unknownTraineeError(traineeToCommentOn);
                                 }
                                 
                             }else{
@@ -1006,11 +1005,83 @@ function unknownTraineeError(traineeName){
                 }
             }
             // ------------------------
-            else if(event.message === '[editComment]'){
+            else if(event.message.substring(0, 13) === '[editComment]'){
                 updateLogList();
 	            context.simpledb.botleveldata.timesmodused = context.simpledb.botleveldata.timesmodused + 1;
 	            context.simpledb.botleveldata.timesused = context.simpledb.botleveldata.timesused + 1;
-                context.sendResponse('Not finished.');
+                if((resultOfPermCheck === 'leadMod') || (resultOfPermCheck === 'regMod')){
+                    if(event.message[13] === ' ' && event.message[14] === '"'){
+                        makeListVar = '';
+                        for(i = 15; i < event.message.length; i++){
+                            if(event.message[i] !== '"'){
+                                makeListVar = makeListVar + event.message[i];
+                            }else{
+                                lastKnownComma = i;
+                                makeListVar = makeListVar;
+                                break;
+                            }
+                        }
+                        traineeToEditCommentOn = makeListVar;
+                        
+                        if(event.message[lastKnownComma + 1] === ' ' && event.message[lastKnownComma + 2] === '"'){
+                            makeListVar = '';
+                            for(i = lastKnownComma + 3; i < event.message.length; i++){
+                                if(event.message[i] !== '"'){
+                                    makeListVar = makeListVar + event.message[i];
+                                }else{
+                                    lastKnownComma = i;
+                                    makeListVar = makeListVar;
+                                    break;
+                                }
+                            }
+                            commentIDToEdit = makeListVar;
+                            
+                            if(event.message[lastKnownComma + 1] === ' ' && event.message[lastKnownComma + 2] === '"' && event.message[event.message.length - 1] === '"'){
+                                makeListVar = '';
+                                for(i = lastKnownComma + 3; i < event.message.length; i++){
+                                    if(event.message[i] !== '"'){
+                                        makeListVar = makeListVar + event.message[i];
+                                    }else{
+                                        lastKnownComma = i;
+                                        makeListVar = makeListVar;
+                                        break;
+                                    }
+                                }
+                                commentChange = makeListVar;
+                                
+                                //   Check for existing trainee, syntax is confirmed valid at this point.
+                                isKnownTrainee = false;
+                                for(abcde in context.simpledb.botleveldata.trainees){
+                                    if(context.simpledb.botleveldata.trainees[abcde] === traineeToEditCommentOn){
+                                        isKnownTrainee = true;
+                                        break;
+                                    }else{
+                                        isKnownTrainee = false;
+                                    }
+                                }
+                                
+                                if(isKnownTrainee){
+                                    //   All is well (besides whether or not comment exists, and perms). Send to database.
+                                    thingToDBValueCheck = 'editComment';
+                                    context.simpledb.doGet(traineeToEditCommentOn);
+                                }else{
+                                    unknownTraineeError(traineeToEditCommentOn);
+                                }
+                                
+                            }else{
+                                context.sendResponse(':warning: Error: Can\'t parse command. Correct syntax:\n`[editComment] "<trainee-name>" "<comment-number>" "<text>"`\n>_I am a bot. This action was performed automagically!_');
+                            }
+                            
+                        }else{
+                            context.sendResponse(':warning: Error: Can\'t parse command. Correct syntax:\n`[editComment] "<trainee-name>" "<comment-number>" "<text>"`\n>_I am a bot. This action was performed automagically!_');
+                        }
+                        
+                    }else{
+                        context.sendResponse(':warning: Error: Can\'t parse command. Correct syntax:\n`[editComment] "<trainee-name>" "<comment-number>" "<text>"`\n>_I am a bot. This action was performed automagically!_');
+                    }
+                }else{
+                    permError();
+                }
             }
             // ------------------------
             else if(event.message.substring(0, 12) === '[delComment]'){
@@ -1498,6 +1569,33 @@ function unknownTraineeError(traineeName){
                         context.sendResponse('Successfully deleted comment *CID-' + commentIDOfDeletion + '*.\n>_I am a bot. This action was performed automagically!_ ');
                     }else{
                         context.sendResponse(':warning: Error: The comment is private or you are not the original sender.\n>_I am a bot. This action was performed automagically!_');
+                    }
+                }else{
+                    context.sendResponse(':warning: Error: Comment doesn\'t exist.\n>_I am a bot. This action was performed automagically!_');
+                }
+            }
+            else if(thingToDBValueCheck === 'editComment'){
+                var traineeToEditObj = JSON.parse(event.dbval);
+                var currentTraineeName = traineeToEditObj.name;
+	            var currentTraineeIGN = traineeToEditObj.IGN;
+	            var traineeAdder = traineeToEditObj.adder;
+	            var currentTraineeIP = traineeToEditObj.IP;
+	            var currentTraineeTag = traineeToEditObj.tag;
+	            var traineeAddedDate = traineeToEditObj.dateAdded;
+	            var isOfficial = traineeToEditObj.isOfficial;
+                var currentComments = traineeToEditObj.comments;
+                var currentCommentNumber = traineeToEditObj.commentNumber;
+                
+                var prop = 'c-' + commentIDToEdit.toString();
+                commentObjToEdit = currentComments[prop];
+                if(currentComments[prop] !== undefined){
+                    if(commentObjToEdit.sender === event.senderobj.display){
+                        commentObjToEdit.text = commentChange;
+                        var newTraineeObj = new Trainee(currentTraineeName, currentTraineeIGN, currentTraineeIP, traineeAdder, currentTraineeTag, traineeAddedDate, isOfficial, currentComments, currentCommentNumber);
+                        context.simpledb.doPut(traineeToEditCommentOn, newTraineeObj);
+                        context.sendResponse('Successfully edited comment *C-' + commentIDToEdit.toString() + '*.\n>_I am a bot. This action was performed automagically!_');
+                    }else{
+                        context.sendResponse(':warning: Error: You are not the original sender of the comment.\n>_I am a bot. This action was performed automagically!_');
                     }
                 }else{
                     context.sendResponse(':warning: Error: Comment doesn\'t exist.\n>_I am a bot. This action was performed automagically!_');
