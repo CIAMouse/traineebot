@@ -980,9 +980,12 @@ function unknownTraineeError(traineeName){
                                     }else{
                                         newCommentIsHidden = false;
                                     }
-                                    
-                                    thingToDBValueCheck = 'comment';
-                                    context.simpledb.doGet(traineeToCommentOn);
+                                    if(((newCommentIsHidden === true) && (resultOfPermCheck === 'leadMod')) || (newCommentIsHidden === false)){
+                                        thingToDBValueCheck = 'comment';
+                                        context.simpledb.doGet(traineeToCommentOn);
+                                    }else{
+                                        context.sendResponse(':warning: Error: You cannot add a hidden comment with permission node *' + resultOfPermCheck + '*.\n>_I am a bot. This action was performed automagically!_');
+                                    }
                                 }else{
                                     unknownTraineeError(traineeToCommentOn)
                                 }
@@ -1010,11 +1013,67 @@ function unknownTraineeError(traineeName){
                 context.sendResponse('Not finished.');
             }
             // ------------------------
-            else if(event.message === '[delComment]'){
+            else if(event.message.substring(0, 12) === '[delComment]'){
                 updateLogList();
 	            context.simpledb.botleveldata.timesmodused = context.simpledb.botleveldata.timesmodused + 1;
 	            context.simpledb.botleveldata.timesused = context.simpledb.botleveldata.timesused + 1;
-                context.sendResponse('Not finished.');
+                if((resultOfPermCheck === 'leadMod') || (resultOfPermCheck === 'regMod')){
+                    if(event.message[12] === ' ' && event.message[13] === '"' && event.message[event.message.length - 1] === '"'){
+                        makeListVar = '';
+                        for(i = 14; i < event.message.length; i++){
+                            if(event.message[i] !== '"'){
+                                makeListVar = makeListVar + event.message[i];
+                            }else{
+                                makeListVar = makeListVar;
+                                lastKnownComma = i;
+                                break;
+                            }
+                        }
+                        traineeToDeleteCommentOn = makeListVar;
+                        
+                        if(event.message[lastKnownComma] === '"' && event.message[lastKnownComma + 1] === ' ' && event.message[lastKnownComma + 2] === '"'){
+                            makeListVar = '';
+                            for(i = lastKnownComma + 3; i < event.message.length; i++){
+                                if(event.message[i] !== '"'){
+                                    makeListVar = makeListVar + event.message[i];
+                                }else{
+                                    makeListVar = makeListVar;
+                                    break;
+                                }
+                            }
+                            commentIDOfDeletion = makeListVar;
+                            
+                            //   Make sure the ID provided is a number.
+                            if(!(isNaN(parseInt(commentIDOfDeletion)))){
+                                //   Check if trainee exists.
+                                isKnownTrainee = false;
+                                for(i in context.simpledb.botleveldata.trainees){
+                                    if(traineeToDeleteCommentOn !== context.simpledb.botleveldata.trainees[i]){
+                                        isKnownTrainee = false;
+                                    }else{
+                                        isKnownTrainee = true;
+                                    }
+                                }
+                                
+                                if(isKnownTrainee){
+                                    thingToDBValueCheck = 'delComment';
+                                    context.simpledb.doGet(traineeToDeleteCommentOn);
+                                }else{
+                                    unknownTraineeError(traineeToDeleteCommentOn);
+                                }
+                                
+                            }else{
+                                context.sendResponse(':warning: Error: Invalid comment ID. Comment IDs should be provided in numerical form, such as "3".\n>_I am a bot. This action was performed automagically!_');
+                            }
+                        }else{
+                            context.sendResponse(':warning: Error: Can\'t parse command. Correct syntax:\n`[delComment] "<trainee-name>" "<comment-number>"`\n>_I am a bot. This action was performed automagically!_');
+                        }
+                    }else{
+                        context.sendResponse(':warning: Error: Can\'t parse command. Correct syntax:\n`[delComment] "<trainee-name>" "<comment-number>"`\n>_I am a bot. This action was performed automagically!_');
+                    }
+                }else{
+                    permError();
+                }
             }
 	        // ------------------------
 	        else if(event.message === '[getKnownUsers]'){
@@ -1241,10 +1300,10 @@ function unknownTraineeError(traineeName){
 	            for(cid in currentComments){
 	                currentCommentObject = currentComments[cid];
 	                if(resultOfPermCheck === 'leadMod'){
-	                    commentStringToAddto = commentStringToAddto + '*' + currentCommentObject.sender + '* at ' + currentCommentObject.dateSent + ': ' + currentCommentObject.text + '\n\n>';
+	                    commentStringToAddto = commentStringToAddto + '*C-' + currentCommentObject.commentID + ':* ' + currentCommentObject.sender + ' at ' + currentCommentObject.dateSent + ': ' + currentCommentObject.text + '\n\n>';
 	                }else{
 	                    if(currentCommentObject.isHidden === false){
-	                        commentStringToAddto = commentStringToAddto + '*' + currentCommentObject.sender + '* at ' + currentCommentObject.dateSent + ': ' + currentCommentObject.text + '\n\n>';
+	                        commentStringToAddto = commentStringToAddto + '*C-' + currentCommentObject.commentID + ':* ' + currentCommentObject.sender + ' at ' + currentCommentObject.dateSent + ': ' + currentCommentObject.text + '\n\n>';
 	                    }else{
 	                        
 	                    }
@@ -1416,6 +1475,33 @@ function unknownTraineeError(traineeName){
                 var traineeWithNewComment = new Trainee(currentTraineeName, currentTraineeIGN, currentTraineeIP, traineeAdder, currentTraineeTag, traineeAddedDate, isOfficial, newComments, newCommentNumber);
                 context.simpledb.doPut(traineeToCommentOn, traineeWithNewComment);
                 context.sendResponse(":heavy_plus_sign: Successfully commented on *" + traineeToCommentOn + '*.\n>_I am a bot. This action was performed automagically!_');
+            }
+            else if(thingToDBValueCheck === 'delComment'){
+                var traineeToEditObj = JSON.parse(event.dbval);
+                var currentTraineeName = traineeToEditObj.name;
+	            var currentTraineeIGN = traineeToEditObj.IGN;
+	            var traineeAdder = traineeToEditObj.adder;
+	            var currentTraineeIP = traineeToEditObj.IP;
+	            var currentTraineeTag = traineeToEditObj.tag;
+	            var traineeAddedDate = traineeToEditObj.dateAdded;
+	            var isOfficial = traineeToEditObj.isOfficial;
+                var currentComments = traineeToEditObj.comments;
+                var currentCommentNumber = traineeToEditObj.commentNumber;
+                
+                var prop = 'c-' + commentIDOfDeletion.toString();
+                commentObjToDelete = currentComments[prop];
+                if(currentComments[prop] !== undefined){
+                    if(((commentObjToDelete.sender === event.senderobj.display) && (commentObjToDelete.isHidden === false)) || (resultOfPermCheck === 'leadMod')){
+                        delete currentComments[prop];
+                        var newTraineeObj = new Trainee(currentTraineeName, currentTraineeIGN, currentTraineeIP, traineeAdder, currentTraineeTag, traineeAddedDate, isOfficial, currentComments, currentCommentNumber);
+	                   context.simpledb.doPut(traineeToDeleteCommentOn, newTraineeObj);
+                        context.sendResponse('Successfully deleted comment *CID-' + commentIDOfDeletion + '*.\n>_I am a bot. This action was performed automagically!_ ');
+                    }else{
+                        context.sendResponse(':warning: Error: The comment is private or you are not the original sender.\n>_I am a bot. This action was performed automagically!_');
+                    }
+                }else{
+                    context.sendResponse(':warning: Error: Comment doesn\'t exist.\n>_I am a bot. This action was performed automagically!_');
+                }
             }
 	        else{
 	            
