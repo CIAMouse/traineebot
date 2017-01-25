@@ -93,6 +93,9 @@ var users = {
     ciamouse: {
         permissionNode: 'leadMod'
     },
+    darthknight360: {
+	permissionNode: 'regMod'
+    },
     delta4x:{
         permissionNode: 'regMod'
     },
