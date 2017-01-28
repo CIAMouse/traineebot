@@ -83,7 +83,7 @@ function Trainee(name, IGN, IP, adder, tag, dateAdded, lastUpdated, isOfficial, 
 //    <><><> permissionNodes <><><>
 var users = {
     bouncyjeffer: {
-	permissionNode: 'regMod'  
+	    permissionNode: 'regMod'  
     },
     brandonvalencia: {
         permissionNode: 'regMod'
@@ -94,8 +94,11 @@ var users = {
     ciamouse: {
         permissionNode: 'leadMod'
     },
+    damario42: {
+        permissionNode: 'regMod'
+    },
     darthknight360: {
-	permissionNode: 'regMod'
+	    permissionNode: 'regMod'
     },
     delta4x:{
         permissionNode: 'regMod'
@@ -908,7 +911,7 @@ function unknownTraineeError(traineeName){
                 context.simpledb.botleveldata.timesmodused = context.simpledb.botleveldata.timesmodused + 1;
 	            context.simpledb.botleveldata.timesused = context.simpledb.botleveldata.timesused + 1;
 	            if(event.senderobj.subdisplay === 'kaleb418'){
-	            
+                    context.sendResponse('Nothing to test.');
 	            }else{
 	                permError();
 	            }
