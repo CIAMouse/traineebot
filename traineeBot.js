@@ -332,7 +332,7 @@ function unknownTraineeError(traineeName){
 	            updateLogList();
 	            context.simpledb.botleveldata.timesmodused = context.simpledb.botleveldata.timesmodused + 1;
 	            context.simpledb.botleveldata.timesused = context.simpledb.botleveldata.timesused + 1;
-	           if((resultOfPermCheck === 'leadMod') || (resultOfPermCheck === 'regMod')){
+	           if(resultOfPermCheck === 'leadMod'){
 	               if((event.message[11] === ']') && (event.message[12] === ' ') && (event.message[13] === '"') && (event.message[event.message.length - 1] === '"')){
 	                 for(i = 14; i < (event.message.length - 1); i++){
 	                     if(event.message[i] !== '"'){
