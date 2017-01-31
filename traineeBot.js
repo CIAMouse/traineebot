@@ -1,5 +1,5 @@
-const version = '1.0.1';
-const versionMessage = 'Fixed issue with [vHistory] not counting towards times used';
+const version = '1.1';
+const versionMessage = 'Disabled [overAddTrainee]';
 
 //   © Kaleb Wasmuth, 2016.
 //   All Rights Reserved.
@@ -423,7 +423,7 @@ function unknownTraineeError(traineeName){
 	            }
 	        }
 	        // ------------------------
-	        else if(event.message.substring(0, 16) === '[overAddTrainee]'){
+	        /*else if(event.message.substring(0, 16) === '[overAddTrainee]'){
 	            updateLogList();
 	            context.simpledb.botleveldata.timesmodused = context.simpledb.botleveldata.timesmodused + 1;
 	            context.simpledb.botleveldata.timesused = context.simpledb.botleveldata.timesused + 1;
@@ -462,8 +462,7 @@ function unknownTraineeError(traineeName){
 	            }else{
 	                permError();
 	            }
-	        }
-	        // ------------------------
+	        }*/
 	        else if(event.message.substring(0, 16) === '[getTraineeInfo]'){
 	            updateLogList();
 	            context.simpledb.botleveldata.timesmodused = context.simpledb.botleveldata.timesmodused + 1;
@@ -1159,7 +1158,7 @@ function unknownTraineeError(traineeName){
 	        context.simpledb.botleveldata.timesmodused = context.simpledb.botleveldata.timesmodused + 1;
 	        context.simpledb.botleveldata.timesused = context.simpledb.botleveldata.timesused + 1;
                 if((resultOfPermCheck === 'regMod') || (resultOfPermCheck === 'leadMod')){
-                    context.sendResponse('*1.0:* Removed a few unneeded bits; Initialized version system\n*1.0.1:* Fixed issue with [vHistory] not counting towards times used\n\n*Current Version:* ' + version + ' (' + versionMessage + ')\n\n>_I am a bot. This action was performed automagically!_');
+                    context.sendResponse('*1.0:* Removed a few unneeded bits; Initialized version system\n*1.0.1:* Fixed issue with [vHistory] not counting towards times used\n*1.1:* Disabled [overAddTrainee]\n\n*Current Version:* ' + version + ' (' + versionMessage + ')\n\n>_I am a bot. This action was performed automagically!_');
                 }else{
                     permError();
                 }
