@@ -1,10 +1,12 @@
-//   Copyright Kaleb Wasmuth, 2016.
+const version = '1.0';
+const versionMessage = 'Removed a few unneeded bits; Initialized version system';
+
+//   © Kaleb Wasmuth, 2016.
 //   All Rights Reserved.
 //   This script was originally designed for use in lifeboatcrew.slack.com, for Lifeboat Network™
+
 var fixKnownUsers = [];
 var makeNewKnownUsers = [];
-var x;
-var i;
 var testListVar = '';
 var newTrainee = '';
 var makeListVar = '>';
@@ -46,28 +48,9 @@ function Comment(text, sender, dateSent, isHidden, commentID){
     this.dateSent = dateSent;
     this.isHidden = isHidden;
     this.commentID = commentID;
-    //   Methods
-    this.getText = function(){
-        return this.text;
-    };
-    this.getSender = function(){
-        return this.sender;  
-    };
-    this.getDateSent = function(){
-        return this.dateSent;  
-    };
-    this.getIsHidden = function(){
-        return this.isHidden;  
-    };
-    this.getCommentID = function(){
-        return this.commentID;  
-    };
-    this.getFullComment = function(){
-        return '```' + this.commentID + ' by ' + this.sender + ': ' + this.text + '```';
-    };
 }
 
-function Trainee(name, IGN, IP, adder, tag, dateAdded, lastUpdated, isOfficial, comments, commentNumber){
+function Trainee(name, IGN, IP, adder, tag, dateAdded, lastUpdated, isOfficial, comments, commentNumber, persVersion){
     this.name = name,
     this.IGN = IGN,
     this.IP = IP,
@@ -78,6 +61,7 @@ function Trainee(name, IGN, IP, adder, tag, dateAdded, lastUpdated, isOfficial, 
     this.isOfficial = isOfficial,
     this.comments = comments,
     this.commentNumber = commentNumber
+    this.persVersion = persVersion;
 }
 
 //    <><><> permissionNodes <><><>
@@ -252,9 +236,9 @@ function unknownTraineeError(traineeName){
 	                context.simpledb.botleveldata.timestraineeused = context.simpledb.botleveldata.timestraineeused + 1;
 	                context.simpledb.botleveldata.timesused = parseInt(context.simpledb.botleveldata.timesused) + 1;
 	                   switch(resultOfPermCheck){
-	                       case 'regMod': context.sendResponse('_Showing menu..._\n\n*Type the command shown in red for each article. These commands are for the regMod permission group.*\n\nGetting Started...`[start]`\nMenu... `[menu]`\nCommands...`[tools]`\nChannel Guide...`[channels]`\nVideo...`[t-vid]`\nAdministration...`[admins]`\nGet your Permission Node...`[getMyPerm]`\nGet Bot Info...`[getBotInfo]`\nAdd Trainee Profile...`[addTrainee]`\nGet Trainee List...`[getTrainees]`\nEdit Trainee Profile...`[editTrainee]`\nGet Trainee Profile...`[getTraineeInfo]`\nAdd Comment...`[comment]`\nEdit Comment...`[editComment]`\nDelete Comment...`[delComment]`\n>_I am a bot. This action was performed automagically!_');
+	                       case 'regMod': context.sendResponse('_Showing menu..._\n\n*Type the command shown in red for each article. These commands are for the regMod permission group.*\n\nGetting Started...`[start]`\nMenu... `[menu]`\nCommands...`[tools]`\nChannel Guide...`[channels]`\nVideo...`[t-vid]`\nAdministration...`[admins]`\nGet your Permission Node...`[getMyPerm]`\nGet Bot Info...`[getBotInfo]`\nAdd Trainee Profile...`[addTrainee]`\nGet Trainee List...`[getTrainees]`\nEdit Trainee Profile...`[editTrainee]`\nGet Trainee Profile...`[getTraineeInfo]`\nAdd Comment...`[comment]`\nEdit Comment...`[editComment]`\nDelete Comment...`[delComment]`\nGet Version History...`[vHistory]`\n>_I am a bot. This action was performed automagically!_');
 	                           break;
-	                       case 'leadMod': context.sendResponse('_Showing menu..._\n\n*Type the command shown in red for each article. These commands are for the leadMod permission group.*\n\nGetting Started...`[start]`\nMenu... `[menu]`\nCommands...`[tools]`\nChannel Guide...`[channels]`\nVideo...`[t-vid]`\nAdministration...`[admins]`\nGet your Permission Node...`[getMyPerm]`\nGet Bot Info...`[getBotInfo]`\nAdd Trainee Profile...`[addTrainee]`\nGet Trainee List...`[getTrainees]`\nEdit Trainee Profile...`[editTrainee]`\nGet Trainee Profile...`[getTraineeInfo]`\nCheck an IP...`[checkIP]`\nAdd a Bad IP...`[addBadIP]`\nClear Bad IP List...`[clearBadIPs]`\nClear Trainee List...`[clearTrainees]`\nClear Known Users List...`[resetKnownUsers]`\nRemove Known User...`[rmKnownUser]`\nRemove Trainee...`[rmTrainee]`\nSpam-Ping Everyone...`[getKnownUsers]`\nMake a Trainee Official...`[makeOfficial]`\nOverride Add Trainee...`[overAddTrainee]`\nGet Bot Logs...`[getLogs]`\nClear Bot Logs...`[clearLogs]`\nAdd Comment...`[comment]`\nEdit Comment...`[editComment]`\nDelete Comment...`[delComment]`\nGet Old Trainee Profile...`[getOldTrainee]`\n>_I am a bot. This action was performed automagically!_');
+	                       case 'leadMod': context.sendResponse('_Showing menu..._\n\n*Type the command shown in red for each article. These commands are for the leadMod permission group.*\n\nGetting Started...`[start]`\nMenu... `[menu]`\nCommands...`[tools]`\nChannel Guide...`[channels]`\nVideo...`[t-vid]`\nAdministration...`[admins]`\nGet your Permission Node...`[getMyPerm]`\nGet Bot Info...`[getBotInfo]`\nAdd Trainee Profile...`[addTrainee]`\nGet Trainee List...`[getTrainees]`\nEdit Trainee Profile...`[editTrainee]`\nGet Trainee Profile...`[getTraineeInfo]`\nCheck an IP...`[checkIP]`\nAdd a Bad IP...`[addBadIP]`\nClear Bad IP List...`[clearBadIPs]`\nClear Trainee List...`[clearTrainees]`\nClear Known Users List...`[resetKnownUsers]`\nRemove Known User...`[rmKnownUser]`\nRemove Trainee...`[rmTrainee]`\nSpam-Ping Everyone...`[getKnownUsers]`\nMake a Trainee Official...`[makeOfficial]`\nOverride Add Trainee...`[overAddTrainee]`\nGet Bot Logs...`[getLogs]`\nClear Bot Logs...`[clearLogs]`\nAdd Comment...`[comment]`\nEdit Comment...`[editComment]`\nDelete Comment...`[delComment]`\nGet Old Trainee Profile...`[getOldTrainee]`\nGet Version History...`[vHistory]`\n>_I am a bot. This action was performed automagically!_');
 	                           break;
 	                       default: context.sendResponse('_Showing menu..._\n\n*Type the command shown in red for each article. These commands are for the defaultUser permission group.*\n\nGetting Started...`[start]`\nMenu... `[menu]`\nCommands...`[tools]`\nChannel Guide...`[channels]`\nVideo...`[t-vid]`\nAdministration...`[admins]`\nGet your Permission Node...`[getMyPerm]`\nGet Bot Info...`[getBotInfo]`\n>_I am a bot. This action was performed automagically!_');
 	                   }
@@ -291,7 +275,7 @@ function unknownTraineeError(traineeName){
 	                }else{
 	                    
 	                }
-	                context.sendResponse('Your permission node: *' + resultOfPermCheck + '*');
+	                context.sendResponse('Your permission node: *' + resultOfPermCheck + '*.\n>_I am a bot. This action was performed automagically!_');
 	        }
 	        // ------------------------
 	        else if(event.message.toLowerCase() === '[start-3]'){
@@ -324,9 +308,15 @@ function unknownTraineeError(traineeName){
 	        // ------------------------
 	        else if(event.message === '[getBotInfo]'){
 	            updateLogList();
-	            context.sendResponse('>*Times Used:* ' + context.simpledb.botleveldata.timesused + '\n\n>*Times Trainee Commands Used:* ' + context.simpledb.botleveldata.timestraineeused + '\n\n>*Times Moderator Commands Used:* ' + context.simpledb.botleveldata.timesmodused + '\n\nThis bot was created and published by KaIeb Wasmuth. Please contact him for feature requests.\n*---*\n>_I am a bot. This action was performed automagically!_');
+	            context.sendResponse('>*Times Used:* ' + context.simpledb.botleveldata.timesused + '\n\n>*Times Trainee Commands Used:* ' + context.simpledb.botleveldata.timestraineeused + '\n\n>*Times Moderator Commands Used:* ' + context.simpledb.botleveldata.timesmodused + '\n\n>*Current Version:* ' + version + '\n\nThis bot was created and published by KaIeb Wasmuth. Please contact him for feature requests.\n*---*\n>_I am a bot. This action was performed automagically!_');
 	        }
-	        // MOD COMMANDS <><><><><><><><><><><><><><><><><><><><><><><>
+	        
+                
+                
+            // MOD COMMANDS
+                
+                
+                
 	        // ------------------------
 	        else if((event.message.substring(0, 12) === '[addTrainee]')){
 	            updateLogList();
@@ -355,7 +345,7 @@ function unknownTraineeError(traineeName){
 	                        var dateToEdit = new Date();
 	                        var dateToAdd = dateToEdit.toDateString();
 	                        context.simpledb.botleveldata.trainees.push(newTrainee);
-                            var newTraineeProfileToStringify = new Trainee("Unknown", "Unknown", "Unknown", event.senderobj.display, "Unknown", dateToAdd, getUpdatedDate(dateToEdit), "No", {}, 1);
+                            var newTraineeProfileToStringify = new Trainee("Unknown", "Unknown", "Unknown", event.senderobj.display, "Unknown", dateToAdd, getUpdatedDate(dateToEdit), "No", {}, 1, version);
                             var newTraineeProfileToAdd = JSON.stringify(newTraineeProfileToStringify);
 	                        context.simpledb.doPut(newTrainee, newTraineeProfileToAdd);
                             
@@ -655,8 +645,6 @@ function unknownTraineeError(traineeName){
 	            }
 	        }
 	        
-	        
-	        //   <<<<<<>>>>>>  EDIT TRAINEE BLOCK <<<<<<>>>>>>
 	        // ------------------------
 	        else if(event.message.substring(0,13) === '[editTrainee]'){
 	            updateLogList();
@@ -1165,6 +1153,14 @@ function unknownTraineeError(traineeName){
                     permError();
                 }
             }
+            // ------------------------
+            else if(event.message === '[vHistory]'){
+                if((resultOfPermCheck === 'regMod') || (resultOfPermCheck === 'leadMod')){
+                    context.sendResponse('*1.0:* Removed a few unneeded bits; Initialized version system\n\n*Current Version:* ' + version + ' (' + versionMessage + ')\n>_I am a bot. This action was performed automagically!_');
+                }else{
+                    permError();
+                }
+            }
 	        // ------------------------
 	        else if(event.message === '[getKnownUsers]'){
 	            updateLogList();
@@ -1294,14 +1290,14 @@ function unknownTraineeError(traineeName){
 	    }
 	
 	    function HttpResponseHandler(context, event) {
-	        // if(event.geturl === "http://ip-api.com/json")
-	        context.sendResponse(event.getresp);
+	        
 	    }
 	
 	    function DbGetHandler(context, event) {
 	        var traineeToEditObj = JSON.parse(event.dbval);
 	        var traineeAdder = traineeToEditObj.adder;
             var thisDate = new Date();
+            var currentVersion = traineeToEditObj.persVersion;
 	        
 	        if(thingToDBValueCheck === 'editTrainee'){
 	   
@@ -1328,14 +1324,16 @@ function unknownTraineeError(traineeName){
 	            
 	            if(thingToEditFinal === 'name'){
 	                var oldName = currentTraineeName;
-	                var newTraineeObj = new Trainee(editToAddFinal, currentTraineeIGN, currentTraineeIP, traineeAdder, currentTraineeTag, traineeAddedDate, getUpdatedDate(thisDate), isOfficial, currentComments, currentCommentNumber);
+                    //   Make Trainee
+	                var newTraineeObj = new Trainee(editToAddFinal, currentTraineeIGN, currentTraineeIP, traineeAdder, currentTraineeTag, traineeAddedDate, getUpdatedDate(thisDate), isOfficial, currentComments, currentCommentNumber, currentVersion);
 	                context.simpledb.doPut(traineeToEditFinal, newTraineeObj);
 	                context.sendResponse(':pencil2: Successfully changed ' + traineeToEditFinal + '\'s name from *' + oldName + '* to *' + editToAddFinal +'*.\n>_I am a bot. This action was performed automagically!_');
 	            }
 	        
 	            else if(thingToEditFinal === 'IGN'){
 	                var oldIGN = currentTraineeIGN;
-	                var newTraineeObj = new Trainee(currentTraineeName, editToAddFinal, currentTraineeIP, traineeAdder, currentTraineeTag, traineeAddedDate, getUpdatedDate(thisDate), isOfficial, currentComments, currentCommentNumber);
+                    //   Make Trainee
+	                var newTraineeObj = new Trainee(currentTraineeName, editToAddFinal, currentTraineeIP, traineeAdder, currentTraineeTag, traineeAddedDate, getUpdatedDate(thisDate), isOfficial, currentComments, currentCommentNumber, currentVersion);
 	                context.simpledb.doPut(traineeToEditFinal, newTraineeObj);
 	                context.sendResponse(':pencil2: Successfully changed ' + traineeToEditFinal + '\'s IGN from *' + oldIGN + '* to *' + editToAddFinal +'*.\n>_I am a bot. This action was performed automagically!_');
 	            }
@@ -1343,7 +1341,8 @@ function unknownTraineeError(traineeName){
 	            else if(thingToEditFinal === 'IP'){
 	                if(resultOfPermCheck === 'leadMod'){
 	                var oldIP = currentTraineeIP;
-	                var newTraineeObj = new Trainee(currentTraineeName, currentTraineeIGN, editToAddFinal, traineeAdder, currentTraineeTag, traineeAddedDate, getUpdatedDate(thisDate), isOfficial, currentComments, currentCommentNumber);
+                    //   Make Trainee
+	                var newTraineeObj = new Trainee(currentTraineeName, currentTraineeIGN, editToAddFinal, traineeAdder, currentTraineeTag, traineeAddedDate, getUpdatedDate(thisDate), isOfficial, currentComments, currentCommentNumber, currentVersion);
 	                context.simpledb.doPut(traineeToEditFinal, newTraineeObj);
 	                context.sendResponse(':pencil2: Successfully changed ' + traineeToEditFinal + '\'s IP from *' + oldIP + '* to *' + editToAddFinal +'*.\n>_I am a bot. This action was performed automagically!_');
 	                //context.sendResponse(makeListVar);
@@ -1443,14 +1442,20 @@ function unknownTraineeError(traineeName){
 	            }else{
 	                
 	            }
+                
+                if(currentVersion === undefined){
+                    currentVersion = '<= 1.0';
+                }else{
+                    
+                }
 	            
 	            if(checkedAndBadIP === false){
-	                context.sendResponse('*Information:*\n\n>*Trainee Name:* ' + traineeToGetInfoOf + '\n\n>*Is Official?* ' + isOfficial + '\n\n' + '>*Real Name:* ' + currentTraineeName + '\n\n' + '>*Trainee IGN:* ' + currentTraineeIGN + '\n\n' + '>*Trainee IP:* ' + currentTraineeIP + '\n\n_Added by ' + traineeAdder + ' on ' + traineeAddedDate + ' (UTC)_' + '\n_Last Updated on ' + lastUpdated + ' (UTC)_\n*---*\n*Comments:*\n\n' + commentStringToAddto + '\n*---*\n>_I am a bot. This action was performed automagically!_');
+	                context.sendResponse('*Information:*\n\n>*Trainee Name:* ' + traineeToGetInfoOf + '\n\n>*Is Official?* ' + isOfficial + '\n\n>*Version Added:* ' + currentVersion + '\n\n' + '>*Real Name:* ' + currentTraineeName + '\n\n' + '>*Trainee IGN:* ' + currentTraineeIGN + '\n\n' + '>*Trainee IP:* ' + currentTraineeIP + '\n\n_Added by ' + traineeAdder + ' on ' + traineeAddedDate + ' (UTC)_' + '\n_Last Updated on ' + lastUpdated + ' (UTC)_\n*---*\n*Comments:*\n\n' + commentStringToAddto + '\n*---*\n>_I am a bot. This action was performed automagically!_');
 	            }else{
 	                if(resultOfPermCheck === 'leadMod'){
-	                    context.sendResponse('*Information:*\n\n>*Trainee Name:* ' + traineeToGetInfoOf + '\n\n>*Is Official?* ' + isOfficial + '\n\n' + '>*Real Name:* ' + currentTraineeName + '\n\n' + '>*Trainee IGN:* ' + currentTraineeIGN + '\n\n' + '>*Trainee IP:* ' + currentTraineeIP + '\n\n_Added by ' + traineeAdder + ' on ' + traineeAddedDate + ' (UTC)_' + '\n_Last Updated on ' + lastUpdated + ' (UTC)_\n\n*Warning: The IP of this trainee (' + currentTraineeIP + ') matches a known blacklisted IP. This is a critical warning, please alert a staff member immediately.*\n' + '*---*\n*Comments:*\n\n' + commentStringToAddto + '\n*---*\n>_I am a bot. This action was performed automagically!_');
+	                    context.sendResponse('*Information:*\n\n>*Trainee Name:* ' + traineeToGetInfoOf + '\n\n>*Is Official?* ' + isOfficial + '\n\n>*Version Added:* ' + currentVersion + '\n\n' + '>*Real Name:* ' + currentTraineeName + '\n\n' + '>*Trainee IGN:* ' + currentTraineeIGN + '\n\n' + '>*Trainee IP:* ' + currentTraineeIP + '\n\n_Added by ' + traineeAdder + ' on ' + traineeAddedDate + ' (UTC)_' + '\n_Last Updated on ' + lastUpdated + ' (UTC)_\n\n*Warning: The IP of this trainee (' + currentTraineeIP + ') matches a known blacklisted IP. This is a critical warning, please alert a staff member immediately.*\n' + '*---*\n*Comments:*\n\n' + commentStringToAddto + '\n*---*\n>_I am a bot. This action was performed automagically!_');
 	                }else{
-	                    context.sendResponse('*Information:*\n\n>*Trainee Name:* ' + traineeToGetInfoOf + '\n\n>*Is Official?* ' + isOfficial + '\n\n' + '>*Real Name:* ' + currentTraineeName + '\n\n' + '>*Trainee IGN:* ' + currentTraineeIGN + '\n\n' + '>*Trainee IP:* ' + currentTraineeIP + '\n\n_Added by ' + traineeAdder + ' on ' + traineeAddedDate + ' (UTC)_' + '\n_Last Updated on ' + lastUpdated + ' (UTC)_\n\n*Warning: The IP of this trainee matches a known blacklisted IP. This is a critical warning, please alert a staff member immediately.*\n\n' + '*---*\n*Comments:*\n' + commentStringToAddto + '\n*---*\n>_I am a bot. This action was performed automagically!_');
+	                    context.sendResponse('*Information:*\n\n>*Trainee Name:* ' + traineeToGetInfoOf + '\n\n>*Is Official?* ' + isOfficial + '\n\n>*Version Added:* ' + currentVersion + '\n\n' + '>*Real Name:* ' + currentTraineeName + '\n\n' + '>*Trainee IGN:* ' + currentTraineeIGN + '\n\n' + '>*Trainee IP:* ' + currentTraineeIP + '\n\n_Added by ' + traineeAdder + ' on ' + traineeAddedDate + ' (UTC)_' + '\n_Last Updated on ' + lastUpdated + ' (UTC)_\n\n*Warning: The IP of this trainee matches a known blacklisted IP. This is a critical warning, please alert a staff member immediately.*\n\n' + '*---*\n*Comments:*\n' + commentStringToAddto + '\n*---*\n>_I am a bot. This action was performed automagically!_');
 	                }
 	            }
 	            
@@ -1523,7 +1528,8 @@ function unknownTraineeError(traineeName){
 	            }
 	            
 	            if(isOfficial === 'No'){
-                    var newTraineeObj = new Trainee(currentTraineeName, currentTraineeIGN, currentTraineeIP, traineeAdder, currentTraineeTag, traineeAddedDate, getUpdatedDate(thisDate), 'Yes', currentComments, currentCommentNumber);
+                    //   Make Trainee
+                    var newTraineeObj = new Trainee(currentTraineeName, currentTraineeIGN, currentTraineeIP, traineeAdder, currentTraineeTag, traineeAddedDate, getUpdatedDate(thisDate), 'Yes', currentComments, currentCommentNumber, currentVersion);
 	                context.simpledb.doPut(makeListVar, newTraineeObj);
 	                context.sendResponse(':pencil2: Successfully made *' + makeListVar + '* an official trainee.\n>_I am a bot. This action was performed automagically!_');
 	            }
@@ -1569,7 +1575,8 @@ function unknownTraineeError(traineeName){
                 
                 var newComments = currentComments;
                 var newCommentNumber = currentCommentNumber + 1;
-                var traineeWithNewComment = new Trainee(currentTraineeName, currentTraineeIGN, currentTraineeIP, traineeAdder, currentTraineeTag, traineeAddedDate, getUpdatedDate(thisDate), isOfficial, newComments, newCommentNumber);
+                //   Make Trainee
+                var traineeWithNewComment = new Trainee(currentTraineeName, currentTraineeIGN, currentTraineeIP, traineeAdder, currentTraineeTag, traineeAddedDate, getUpdatedDate(thisDate), isOfficial, newComments, newCommentNumber, currentVersion);
                 context.simpledb.doPut(traineeToCommentOn, traineeWithNewComment);
                 context.sendResponse(":heavy_plus_sign: Successfully commented on *" + traineeToCommentOn + '*.\n>_I am a bot. This action was performed automagically!_');
             }
@@ -1590,7 +1597,8 @@ function unknownTraineeError(traineeName){
                 if(currentComments[prop] !== undefined){
                     if(((commentObjToDelete.sender === event.senderobj.display) && (commentObjToDelete.isHidden === false)) || (resultOfPermCheck === 'leadMod')){
                         delete currentComments[prop];
-                        var newTraineeObj = new Trainee(currentTraineeName, currentTraineeIGN, currentTraineeIP, traineeAdder, currentTraineeTag, traineeAddedDate, getUpdatedDate(thisDate), isOfficial, currentComments, currentCommentNumber);
+                        //   Make Trainee
+                        var newTraineeObj = new Trainee(currentTraineeName, currentTraineeIGN, currentTraineeIP, traineeAdder, currentTraineeTag, traineeAddedDate, getUpdatedDate(thisDate), isOfficial, currentComments, currentCommentNumber, currentVersion);
 	                   context.simpledb.doPut(traineeToDeleteCommentOn, newTraineeObj);
                         context.sendResponse('Successfully deleted comment *CID-' + commentIDOfDeletion + '*.\n>_I am a bot. This action was performed automagically!_ ');
                     }else{
@@ -1617,7 +1625,8 @@ function unknownTraineeError(traineeName){
                 if(currentComments[prop] !== undefined){
                     if(commentObjToEdit.sender === event.senderobj.display){
                         commentObjToEdit.text = commentChange;
-                        var newTraineeObj = new Trainee(currentTraineeName, currentTraineeIGN, currentTraineeIP, traineeAdder, currentTraineeTag, traineeAddedDate, getUpdatedDate(thisDate), isOfficial, currentComments, currentCommentNumber);
+                        //   Make Trainee
+                        var newTraineeObj = new Trainee(currentTraineeName, currentTraineeIGN, currentTraineeIP, traineeAdder, currentTraineeTag, traineeAddedDate, getUpdatedDate(thisDate), isOfficial, currentComments, currentCommentNumber, currentVersion);
                         context.simpledb.doPut(traineeToEditCommentOn, newTraineeObj);
                         context.sendResponse('Successfully edited comment *C-' + commentIDToEdit.toString() + '*.\n>_I am a bot. This action was performed automagically!_');
                     }else{
