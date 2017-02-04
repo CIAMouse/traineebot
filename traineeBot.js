@@ -1,5 +1,5 @@
-const version = '1.1.1';
-const versionMessage = 'Added perms for thematrix25aldo';
+const version = '1.1.2';
+const versionMessage = 'Fixed typo';
 
 //   © Kaleb Wasmuth, 2016.
 //   All Rights Reserved.
@@ -197,7 +197,7 @@ function unknownTraineeError(traineeName){
                         var userForLog = event.senderobj.subdisplay;
                         var dateForLog = new Date();
                         var msgForLog = event.message;
-			var maximumLogCount = 100
+			            var maximumLogCount = 100
                         // Add log to front
                         currentLogs.unshift('@' + userForLog + ' invoked the bot at ' + (dateForLog.getMonth() + 1) + '/' + (dateForLog.getDay() + 1) + '/' + (dateForLog.getFullYear()) + ' using the message *' + msgForLog + '*.');
                         // Remove 101st log if there are 101 logs
@@ -1161,7 +1161,7 @@ function unknownTraineeError(traineeName){
 	        context.simpledb.botleveldata.timesmodused = context.simpledb.botleveldata.timesmodused + 1;
 	        context.simpledb.botleveldata.timesused = context.simpledb.botleveldata.timesused + 1;
                 if((resultOfPermCheck === 'regMod') || (resultOfPermCheck === 'leadMod')){
-                    context.sendResponse('*1.0:* Removed a few unneeded bits; Initialized version system\n*1.0.1:* Fixed issue with [vHistory] not counting towards times used\n*1.1:* Disabled [overAddTrainee]\n*1.1.1:* Added perms for thematrix25aldo\n\n*Current Version:* ' + version + ' (' + versionMessage + ')\n\n>_I am a bot. This action was performed automagically!_');
+                    context.sendResponse('*1.0:* Removed a few unneeded bits; Initialized version system\n*1.0.1:* Fixed issue with [vHistory] not counting towards times used\n*1.1:* Disabled [overAddTrainee]\n*1.1.1:* Added perms for thematrix25aldo\n*1.1.2:* Fixed typo\n\n*Current Version:* ' + version + ' (' + versionMessage + ')\n\n>_I am a bot. This action was performed automagically!_');
                 }else{
                     permError();
                 }
@@ -1224,7 +1224,7 @@ function unknownTraineeError(traineeName){
 	                    }
 	                }
 	                makeListVar = makeListVar.substring(0, makeListVar.length - 2);
-	                context.sendResponse('_Listing last 50 logs..._\n\n' + makeListVar + '*---*\n>_I am a bot. This action was performed automagically!_');
+	                context.sendResponse('_Listing last 100 logs..._\n\n' + makeListVar + '*---*\n>_I am a bot. This action was performed automagically!_');
 	            }else{
 	                permError();
 	            }
