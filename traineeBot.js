@@ -1,5 +1,5 @@
-const version = '1.1.2';
-const versionMessage = 'Fixed typo';
+const version = '1.1.3';
+const versionMessage = 'Edited [admins] article';
 
 //   © Kaleb Wasmuth, 2016.
 //   All Rights Reserved.
@@ -197,7 +197,7 @@ function unknownTraineeError(traineeName){
                         var userForLog = event.senderobj.subdisplay;
                         var dateForLog = new Date();
                         var msgForLog = event.message;
-			            var maximumLogCount = 100
+			            var maximumLogCount = 100;
                         // Add log to front
                         currentLogs.unshift('@' + userForLog + ' invoked the bot at ' + (dateForLog.getMonth() + 1) + '/' + (dateForLog.getDay() + 1) + '/' + (dateForLog.getFullYear()) + ' using the message *' + msgForLog + '*.');
                         // Remove 101st log if there are 101 logs
@@ -265,7 +265,7 @@ function unknownTraineeError(traineeName){
 	            updateLogList();
 	            context.simpledb.botleveldata.timestraineeused = context.simpledb.botleveldata.timestraineeused + 1;
 	            context.simpledb.botleveldata.timesused = parseInt(context.simpledb.botleveldata.timesused) + 1;
-	            context.sendResponse('_Showing admins..._\n\nLuke Hoffman (@luke_hoffman)\nJiselle Angeles (@ramennoodles)\nKaleb Wasmuth (@kaleb418)\nDave Diaz (@ciamouse)\nSpencer Steiner (@spencersteiner)\nJacob Gates (@jacob_gates)\nLuca Kermas (@craftyourbukkit)\n Vraj Patel (@frost1161)\n\n *If you have any questions, feel free to DM any of these people, or any other official moderator.*\n>_I am a bot. This action was performed automagically!_');
+	            context.sendResponse('_Showing admins..._\n\nLuke Hoffman (@luke_hoffman)\nJiselle Angeles (@ramennoodles)\nKaleb Wasmuth (@kaleb418)\nDave Diaz (@ciamouse)\nSpencer Steiner (@spencersteiner)\nJacob Gates (@jacob_gates)\nLuca Kermas (@craftyourbukkit)\nAnthony Tagliaferri (@anthony)\nVraj Patel (@frost1161)\n\n*If you have any questions, feel free to DM any of these people, or any other official moderator.*\n>_I am a bot. This action was performed automagically!_');
 	        }
 	        // ------------------------
 	        else if(event.message === '[getMyPerm]'){
@@ -679,7 +679,7 @@ function unknownTraineeError(traineeName){
 	                    }
 	                }
 	                
-	                if(isKnownTrainee === true){
+	                if(isKnownTrainee){
 	                    // Trainee is known, begin parsing of what to change, what to change it to
 	                    if((event.message[lastKnownQuote + 1] === ' ') && (event.message[lastKnownQuote + 2] === '"') && (event.message[event.message.length - 1] === '"')){
 	                        makingListAddon = '';
@@ -1161,7 +1161,7 @@ function unknownTraineeError(traineeName){
 	        context.simpledb.botleveldata.timesmodused = context.simpledb.botleveldata.timesmodused + 1;
 	        context.simpledb.botleveldata.timesused = context.simpledb.botleveldata.timesused + 1;
                 if((resultOfPermCheck === 'regMod') || (resultOfPermCheck === 'leadMod')){
-                    context.sendResponse('*1.0:* Removed a few unneeded bits; Initialized version system\n*1.0.1:* Fixed issue with [vHistory] not counting towards times used\n*1.1:* Disabled [overAddTrainee]\n*1.1.1:* Added perms for thematrix25aldo\n*1.1.2:* Fixed typo\n\n*Current Version:* ' + version + ' (' + versionMessage + ')\n\n>_I am a bot. This action was performed automagically!_');
+                    context.sendResponse('*1.0:* Removed a few unneeded bits; Initialized version system\n*1.0.1:* Fixed issue with [vHistory] not counting towards times used\n*1.1:* Disabled [overAddTrainee]\n*1.1.1:* Added perms for thematrix25aldo\n*1.1.2:* Fixed typo\n*1.1.3:* Edited [admins] article\n\n*Current Version:* ' + version + ' (' + versionMessage + ')\n\n>_I am a bot. This action was performed automagically!_');
                 }else{
                     permError();
                 }
