@@ -96,6 +96,9 @@ var users = {
     dudeitz_holly: {
         permissionNode: 'regMod'
     },
+    featherfalling__: {
+	permissionNode: 'regMod'
+    },
     frost1161: {
         permissionNode: 'regMod'
     },
