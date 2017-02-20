@@ -87,6 +87,9 @@ var users = {
     delta4x:{
         permissionNode: 'regMod'
     },
+    dgamer: {
+        permissionNode: 'regMod'
+    },
     diamondav: {
         permissionNode: 'regMod'
     },
@@ -97,7 +100,7 @@ var users = {
         permissionNode: 'regMod'
     },
     featherfalling__: {
-	permissionNode: 'regMod'
+        permissionNode: 'regMod'
     },
     frost1161: {
         permissionNode: 'regMod'
@@ -123,9 +126,9 @@ var users = {
     tdehaney:{
         permissionNode: 'regMod'
     },
-    thematrix25aldo: {
+    /*thematrix25aldo: {
         permissionNode: 'regMod'
-    },
+    },*/
     truepenguin:{
         permissionNode: 'regMod'
     },
