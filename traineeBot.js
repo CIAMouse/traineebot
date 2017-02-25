@@ -1,5 +1,5 @@
-const version = '1.1.3';
-const versionMessage = 'Edited [admins] article';
+const version = '1.1.4';
+const versionMessage = 'Edited [start] article';
 
 //   © Kaleb Wasmuth, 2016.
 //   All Rights Reserved.
@@ -126,9 +126,9 @@ var users = {
     tdehaney:{
         permissionNode: 'regMod'
     },
-    /*thematrix25aldo: {
+    thematrix25aldo: {
         permissionNode: 'regMod'
-    },*/
+    },
     truepenguin:{
         permissionNode: 'regMod'
     },
@@ -305,7 +305,7 @@ function unknownTraineeError(traineeName){
 	            updateLogList();
 	            context.simpledb.botleveldata.timestraineeused = context.simpledb.botleveldata.timestraineeused + 1;
 	            context.simpledb.botleveldata.timesused = parseInt(context.simpledb.botleveldata.timesused) + 1;
-	            context.sendResponse('_Showing page 1 of 3 in \'start\'..._\n\nHey there! I would like to welcome you to a program that you will be involved in for the next 1-3 weeks of your Lifeboat experience. Here at Lifeboat, we strive to provide the best server experience possible. We have a player base of around 8 million people, ranging from very young children to adults and parents. We have over 100 different servers, and over 7 gamemodes to choose from. We are the largest *Minecraft: Pocket Edition* server community, and have been the largest Minecraft network community above all Minecraft servers, PE and PC. Of course, with this huge player fanbase, there comes a huge responsibility. Part of that responsibility is making sure our players are enjoying their time on our servers, and aren\'t experiencing problems. Thus we introduced moderators to our servers.\n\nSomething we must be exceptionally clear on: Moderators do *NOT* exist to boss players around. They do not exist to tell players what to do. They do not exist to make a Lifeboat player\'s experience miserable. They are our line of defense against players who refuse to follow rules. Another thing we try to tell our moderators often is that we must *always* warn with correction before punishment. What good is punishing a player if they don\'t learn anything? We strive to verbally warn and correct a player when they are breaking our rules, so that they learn from their mistakes. Moderator tools are only necessary when a player defies a moderator\'s request to play by the rules of our servers. Then, and only then, are we to use the necessary force, and only in incremental amounts, usually starting with a mute, then working the way up to a 10 minute ban, and so on, if the player refuses to obey after the mute. However, a moderator should never be afraid to use his or her tools at their disposal. If a player continously disobeys correction, we must act according to the severity of the punishment. There are two exceptions to this rule: Hacking and inappropriate names. If you encounter a hacker or a user with a swear word in his name, please ban him for a full day (/lbban <player> 1440), and report him in #report-desk.\n\nThis was a brief introduction to how our moderators operate, please direct message any moderator or staff member for any questions or concerns you may have. Also, if you have not already done so, please set up your profile now, before continuing.\n\n*To continue with the introduction, direct message me* `[start-2]` *.*\n>_I am a bot. This action was performed automagically!_');
+	            context.sendResponse('_Showing page 1 of 3 in \'start\'..._\n\nHey there! I would like to welcome you to a program that you will be involved in for the next 1-3 weeks of your Lifeboat experience. Here at Lifeboat, we strive to provide the best server experience possible. We have a player base of 29 million accounts, ranging from very young children to adults and parents. We have over 100 different servers, and over 10 gamemodes to choose from. We are the largest *Minecraft: Pocket Edition* server community, and have been the largest Minecraft network community above all Minecraft servers, PE and PC. Of course, with this huge player fanbase, there comes a huge responsibility. Part of that responsibility is making sure our players are enjoying their time on our servers, and aren\'t experiencing problems. Thus we introduced moderators to our servers.\n\nSomething we must be exceptionally clear on: Moderators do *NOT* exist to boss players around. They do not exist to tell players what to do. They do not exist to make a Lifeboat player\'s experience miserable. They are our line of defense against players who refuse to follow rules. Another thing we try to tell our moderators often is that we must *always* warn with correction before punishment. What good is punishing a player if they don\'t learn anything? We strive to verbally warn and correct a player when they are breaking our rules, so that they learn from their mistakes. Moderator tools are only necessary when a player defies a moderator\'s request to play by the rules of our servers. Then, and only then, are we to use the necessary force, and only in incremental amounts, usually starting with a mute, then working the way up to a 10 minute ban, and so on, if the player refuses to obey after the mute. However, a moderator should never be afraid to use his or her tools at their disposal. If a player continously disobeys correction, we must act according to the severity of the punishment. There are two exceptions to this rule: Hacking and inappropriate names. If you encounter a hacker or a user with a swear word in his name, please ban him for a full day (/lbban <player> 1440), and report him on Redmine.\n\nThis was a brief introduction to how our moderators operate, please direct message any moderator or staff member for any questions or concerns you may have. Also, if you have not already done so, please set up your profile now, before continuing.\n\n*To continue with the introduction, direct message me* `[start-2]` *.*\n>_I am a bot. This action was performed automagically!_');
             }
             // ------------------------
             else if(event.message.toLowerCase() === '[channels]'){
@@ -1167,7 +1167,7 @@ function unknownTraineeError(traineeName){
 	        context.simpledb.botleveldata.timesmodused = context.simpledb.botleveldata.timesmodused + 1;
 	        context.simpledb.botleveldata.timesused = context.simpledb.botleveldata.timesused + 1;
                 if((resultOfPermCheck === 'regMod') || (resultOfPermCheck === 'leadMod')){
-                    context.sendResponse('*1.0:* Removed a few unneeded bits; Initialized version system\n*1.0.1:* Fixed issue with [vHistory] not counting towards times used\n*1.1:* Disabled [overAddTrainee]\n*1.1.1:* Added perms for thematrix25aldo\n*1.1.2:* Fixed typo\n*1.1.3:* Edited [admins] article\n\n*Current Version:* ' + version + ' (' + versionMessage + ')\n\n>_I am a bot. This action was performed automagically!_');
+                    context.sendResponse('*1.0:* Removed a few unneeded bits; Initialized version system\n*1.0.1:* Fixed issue with [vHistory] not counting towards times used\n*1.1:* Disabled [overAddTrainee]\n*1.1.1:* Added perms for thematrix25aldo\n*1.1.2:* Fixed typo\n*1.1.3:* Edited [admins] article\n*1.1.4:* Edited [start] article\n\n*Current Version:* ' + version + ' (' + versionMessage + ')\n\n>_I am a bot. This action was performed automagically!_');
                 }else{
                     permError();
                 }
